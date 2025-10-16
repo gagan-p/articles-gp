@@ -1,0 +1,7 @@
+---
+title: "Articles"
+---
+
+## Published
+
+- [India's Tariff Liberalization (1991-2025)](articles/tariff-liberalization.html)

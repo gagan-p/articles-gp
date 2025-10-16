@@ -1,0 +1,25 @@
+# Quarto
+/.quarto/
+_site/
+publish-final/
+
+# Editor backup files
+*~
+*.swp
+.*.swp
+*.bak
+\#*\#
+.\#*
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

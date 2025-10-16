@@ -1,0 +1,41 @@
+name: Render and Deploy Quarto Site
+
+on:
+  push:
+    branches: main
+    paths:
+      - 'articles/**'
+      - 'index.qmd'
+      - '_quarto.yml'
+
+jobs:
+  render-deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: |
+          pip install jupyter pandas plotly numpy
+      
+      - name: Render Quarto Project
+        run: quarto render
+        
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./publish-final
