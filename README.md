@@ -17,9 +17,14 @@ This repository hosts a Quarto website for publishing policy and data analysis a
 ## First-time setup on GitHub
 
 1. Create a new GitHub repository (or use an existing one) and push this project to the `main` branch.
-2. Open the repository settings in GitHub and navigate to **Pages**.
-3. Set **Source** to "Deploy from a branch" and select the `gh-pages` branch that Quarto will create for you. Leave the folder set to `/ (root)`.
-4. Save the settings. GitHub will now serve content from the `gh-pages` branch at `https://<username>.github.io/<repository>/`.
+2. Run an initial publish so that Quarto can create the `gh-pages` branch:
+   ```bash
+   quarto publish gh-pages
+   ```
+   - Authenticate with GitHub when prompted. Quarto will render the site output and push it to the new branch.
+3. In your repository settings on GitHub, open the **Pages** section.
+4. Set **Source** to "Deploy from a branch", choose the `gh-pages` branch, and leave the folder set to `/ (root)`.
+5. Save the settings. GitHub will now serve content from the `gh-pages` branch at `https://<username>.github.io/<repository>/`.
 
 ## Publishing workflow
 
