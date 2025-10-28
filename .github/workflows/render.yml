@@ -33,6 +33,8 @@ jobs:
       
       - name: Render Quarto Project
         run: quarto render
+        env:
+          TZ: UTC
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

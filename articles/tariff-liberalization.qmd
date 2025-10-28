@@ -1,13 +1,14 @@
 ---
 title: "From Protectionism to Global Competitiveness"
 subtitle: "A Data-Driven Analysis of Tariff Liberalization in India (1991-2025)"
-author: "Economic Policy Analysis"
-date: today
-date-format: "MMMM D, YYYY"
+author: "Gagan - P"
+date: "16 Oct 2025"
+date-modified: today
+date-modified-format: "DD MMM YYYY HH:mm z"
 format:
   html:
     toc: true
-    toc-depth: 3
+    toc-depth: 2
     toc-location: left
     number-sections: true
     code-fold: true
@@ -53,6 +54,18 @@ India's choice is clear: maintain protectionism and risk stagnation, or embrace 
 ## Direct Tariff Cases: US Agricultural and Motorcycle Imports
 
 Before examining India's liberalization history, two contemporary cases demonstrate how eliminating specific tariffs—addressing U.S. trade concerns—could paradoxically strengthen Indian industries. These cases directly address the 2025 U.S.-India tariff dispute.
+
+We do this by inventing data. Its a theory
+
+Our largest agri imports from the US is almonds, we force the rates to be double through Tariffs. Its clear that we are protecting an inefficient production system, with no strategic benefit. The question that troubles me if we continue to tax almonds how much do we protect .
+
+A similiar idea is about Harley Davidson, if we look at the bike, is a great piece of technology or is it a piece of art? What appeals more. Even if we get this bike at cost to India , what would be the sales volume.
+
+I just invented some data to paint a hypothetical picture . My theory being the ptoetctions we seem to be arguing to do has no strategic benefit, we might actually offer 0% tariff on a bunch of things.
+
+We have been thinking of protecting our industries , I see most big food related corporates that come to India end up being Indianized. The palm oil case is the only one that has actually killed our industry , but I do not know what happened to Dhara of NDDB.
+
+
 
 ### Case 1: California Almonds - From Tariff Protection to Processing Powerhouse
 
