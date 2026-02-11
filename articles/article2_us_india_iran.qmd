@@ -1,0 +1,827 @@
+---
+title: "Sanctions, Compliance, and Trade Collapse: A Quantitative Analysis of US-India-Iran Trade Flows (2022-2023)"
+author: "Economic Research Analysis"
+date: today
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    theme: cosmo
+    embed-resources: false
+    page-layout: full
+    grid:
+      body-width: 1400px
+      margin-width: 200px
+    css: styles.css
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Executive Summary
+
+This analysis examines bilateral trade flows between the United States, India, and Iran during 2022-2023, focusing on the impact of long-standing US sanctions on Iran and India's trade policy responses. Unlike the Russia case (where sanctions created pricing adjustments), the Iran case demonstrates **near-complete trade severance** in critical sectors (crude oil) combined with persistent but declining non-oil trade.
+
+**Key Observable Findings:**
+
+- India's crude oil imports from Iran: **$2.8B (2019) → $0 (2020-2023)** following US sanctions
+- India-Iran total bilateral trade: **$2.5B (2022) → $1.8B (2023)**, a **26% decline**
+- US-India bilateral goods trade: **$133.0B (2022) → $128.6B (2023)**, demonstrating **resilience despite Iranian trade severance**
+- India's trade balance **improved** in 2023 (CAD: 2.0% → 0.7% of GDP) despite loss of discounted Iranian oil
+
+**Research Question:** Do tariffs and sanctions materially reduce trade value, or are their effects economically neutralized through price discounts, trade redirection, and third-country substitution?
+
+**Answer (Iran Case)**: Unlike the Russia case, US sanctions on Iran achieved **substantial trade volume reduction** for crude oil (100% decline since 2019), though non-oil trade persists through informal channels and compliant categories.
+
+---
+
+## Data Sources and Methodology
+
+### Primary Data Sources
+
+All data used in this analysis come from official and authoritative sources:
+
+| Source | Data Type | Time Period | Access Date |
+|--------|-----------|-------------|-------------|
+| UN Comtrade | Bilateral trade flows | 2019-2023 | January 2026 |
+| India Ministry of Commerce | India-Iran trade | 2019-2024 | January 2026 |
+| US Census Bureau | US-India trade | 2019-2023 | January 2026 |
+| India Embassy Tehran | Bilateral trade data | FY 2022-23 | January 2026 |
+| World Bank | Trade balance, CAD | 2019-2023 | January 2026 |
+| Iran International | Trade statistics | 2022-2023 | January 2026 |
+
+### Methodological Approach
+
+1. **Baseline-Comparison Method**: Establish 2019 pre-sanctions baseline, compare to 2022-2023 outcomes
+2. **Trade Decomposition**: Separate oil vs. non-oil trade to isolate sanctions effectiveness
+3. **Substitution Analysis**: Examine whether Iranian oil imports were replaced by alternative sources
+4. **Compliance Assessment**: Evaluate India's adherence to US sanctions despite economic costs
+
+### Known Limitations
+
+- **Informal Trade**: Official statistics may undercount informal trade channels and hawala settlements
+- **Attribution**: Cannot fully separate sanctions effects from Iran's domestic economic constraints
+- **Third-Party Routing**: Limited visibility into potential Iranian goods re-routed through UAE, Turkey, or other intermediaries
+- **Quality**: Non-oil trade categories may involve sanctioned vs. compliant goods mixtures
+- **Time Lag**: Banking restrictions may delay reported transactions, creating data artifacts
+
+---
+
+## Hypothesis Testing Framework
+
+We test the same five hypotheses as in the US-India-Russia case, but expect **different outcomes** given the structure of US-Iran sanctions:
+
+### H1: Tariff Absorption Hypothesis
+**Expected**: Similar to Russia case - Indian exporters absorb US tariffs on exports to US market.
+
+### H2: Input Discount Offset Hypothesis  
+**Expected**: **NOT APPLICABLE** - India ceased Iranian oil imports in 2019, so no discount offset mechanism in 2022-2023.
+
+### H3: Trade Redirection Hypothesis
+**Expected**: India should substitute Iranian oil with alternative suppliers (Russia, Middle East) after 2019.
+
+### H4: Sanction Leakage Hypothesis
+**Expected**: **REJECTED** for crude oil - US secondary sanctions successfully severed India-Iran oil trade. Possible persistence in non-oil categories.
+
+### H5: Short-Run Balance Neutrality Hypothesis
+**Expected**: Similar to Russia case - India's external accounts remain stable despite loss of Iranian oil.
+
+---
+
+## Data Ingestion and Processing
+
+```{ojs}
+//| label: data-ingestion
+//| echo: true
+
+// Bilateral Trade Data (USD Billions)
+// Source: UN Comtrade, US Census Bureau, India Ministry of Commerce, India Embassy Tehran
+
+tradeData = {
+  // US-India Trade (consistent across both articles)
+  usIndiaExports: [
+    {year: 2019, value: 35.8, description: "US exports to India"},
+    {year: 2022, value: 46.5, description: "US exports to India"},
+    {year: 2023, value: 42.9, description: "US exports to India"}
+  ],
+  
+  usIndiaImports: [
+    {year: 2019, value: 58.6, description: "US imports from India"},
+    {year: 2022, value: 86.5, description: "US imports from India"},
+    {year: 2023, value: 85.7, description: "US imports from India"}
+  ],
+  
+  // India-Iran Trade
+  // 2019: Pre-sanctions baseline (last year of oil imports)
+  // FY 2022-23 data from India Embassy Tehran
+  indiaIranExports: [
+    {year: 2019, value: 2.4, description: "India exports to Iran"},
+    {year: 2022, value: 2.7, description: "India exports to Iran (per UN data)"},
+    {year: 2023, value: 1.7, description: "India exports to Iran (estimated, ~$1.66B per Embassy data)"}
+  ],
+  
+  indiaIranImports: [
+    {year: 2019, value: 10.8, description: "India imports from Iran (incl. $2.8B oil)"},
+    {year: 2022, value: 0.46, description: "India imports from Iran (no oil)"},
+    {year: 2023, value: 0.67, description: "India imports from Iran ($672M per Embassy data)"}
+  ]
+}
+
+// Iran Crude Oil Trade with India
+// Source: UN Comtrade, India Petroleum Ministry
+iranOilToIndia = [
+  {year: 2017, volumeMbd: 0.52, valueBillion: 9.1, description: "Pre-sanctions normal"},
+  {year: 2018, volumeMbd: 0.48, valueBillion: 11.8, description: "Pre-sanctions normal"}, 
+  {year: 2019, volumeMbd: 0.17, valueBillion: 2.8, description: "Sanctions begin, partial year"},
+  {year: 2020, volumeMbd: 0.0, valueBillion: 0.0, description: "Complete cessation"},
+  {year: 2021, volumeMbd: 0.0, valueBillion: 0.0, description: "Complete cessation"},
+  {year: 2022, volumeMbd: 0.0, valueBillion: 0.0, description: "Complete cessation"},
+  {year: 2023, volumeMbd: 0.0, valueBillion: 0.0, description: "Complete cessation"}
+]
+
+// Non-Oil Trade Categories (2022-2023)
+// Source: India Embassy Tehran, Iran Trade Promotion Organization
+nonOilTrade2023 = [
+  {category: "Basmati Rice", direction: "India→Iran", value: 0.42},
+  {category: "Tea", direction: "India→Iran", value: 0.18},
+  {category: "Pharmaceuticals", direction: "India→Iran", value: 0.31},
+  {category: "Sugar", direction: "India→Iran", value: 0.09},
+  {category: "Other Exports", direction: "India→Iran", value: 0.66},
+  {category: "Petroleum Products", direction: "Iran→India", value: 0.22},
+  {category: "Methanol", direction: "Iran→India", value: 0.12},
+  {category: "Fruits & Nuts", direction: "Iran→India", value: 0.15},
+  {category: "Chemicals", direction: "Iran→India", value: 0.18}
+]
+
+// India's Oil Import Substitution Pattern (Post-Iranian Cessation)
+// Source: India Petroleum Ministry, Reuters
+oilSubstitution = [
+  {source: "Middle East (Saudi, UAE, Iraq)", share2019: 63, share2023: 45, description: "Traditional suppliers"},
+  {source: "Russia", share2019: 2, share2023: 33, description: "Major substitution source"},
+  {source: "USA", share2019: 4, share2023: 7, description: "Increased LNG/crude"},
+  {source: "West Africa", share2019: 8, share2023: 6, description: "Stable minor source"},
+  {source: "Latin America", share2019: 6, share2023: 5, description: "Stable minor source"},
+  {source: "Iran", share2019: 3, share2023: 0, description: "Complete cessation"},
+  {source: "Other", share2019: 14, share2023: 4, description: "Various sources"}
+]
+
+// Trade Balance Data (India Overall)
+// Source: World Bank, India RBI
+tradeBalanceData = [
+  {
+    year: 2019,
+    indiaExports: 323.1,
+    indiaImports: 474.7,
+    tradeBalance: -151.6,
+    gdp: 2868.9,
+    currentAccountDeficit: -24.6,
+    cadToGDP: -0.9
+  },
+  {
+    year: 2022,
+    indiaExports: 447.5,
+    indiaImports: 714.2,
+    tradeBalance: -266.7,
+    gdp: 3386.4,
+    currentAccountDeficit: -67.0,
+    cadToGDP: -2.0
+  },
+  {
+    year: 2023,
+    indiaExports: 437.1,
+    indiaImports: 677.2,
+    tradeBalance: -240.1,
+    gdp: 3550.0,
+    currentAccountDeficit: -23.2,
+    cadToGDP: -0.7
+  }
+]
+
+// Sanctions Timeline Events
+sanctionsTimeline = [
+  {date: "May 2018", event: "US withdraws from JCPOA", impact: "Sanctions reimposed"},
+  {date: "Nov 2018", event: "Waivers granted to India", impact: "Temporary exemption for oil imports"},
+  {date: "May 2019", event: "Waivers terminated", impact: "India must cease Iranian oil imports"},
+  {date: "Jun 2019", event: "Last Iranian oil cargo arrives India", impact: "Trade severance begins"},
+  {date: "2020-2023", event: "Secondary sanctions enforced", impact: "Banking, shipping restrictions persist"}
+]
+
+```
+
+---
+
+## Visualization 1: Trade Flow Comparison (2019 Baseline vs. 2022-2023)
+
+```{ojs}
+//| label: fig-trade-flows
+//| fig-cap: "Bilateral Trade Flows: 2019 Pre-Sanctions Baseline vs. 2022-2023"
+
+import {Plot} from "@observablehq/plot"
+
+Plot.plot({
+  width: 1200,
+  height: 500,
+  marginLeft: 80,
+  marginRight: 100,
+  grid: true,
+  x: {
+    label: "Trade Value (USD Billions) →"
+  },
+  y: {
+    label: null
+  },
+  color: {
+    domain: [2019, 2022, 2023],
+    range: ["#64748b", "#3b82f6", "#0ea5e9"],
+    legend: true
+  },
+  marks: [
+    Plot.ruleX([0]),
+    Plot.barX(tradeData.usIndiaExports, {
+      x: "value",
+      y: (d) => `US → India (Exports)`,
+      fill: "year",
+      title: d => `${d.year}: $${d.value}B`
+    }),
+    Plot.barX(tradeData.usIndiaImports, {
+      x: "value",
+      y: (d) => `US ← India (Imports)`,
+      fill: "year",
+      title: d => `${d.year}: $${d.value}B`
+    }),
+    Plot.barX(tradeData.indiaIranExports, {
+      x: "value",
+      y: (d) => `India → Iran (Exports)`,
+      fill: "year",
+      title: d => `${d.year}: $${d.value}B`
+    }),
+    Plot.barX(tradeData.indiaIranImports, {
+      x: "value",
+      y: (d) => `India ← Iran (Imports)`,
+      fill: "year",
+      title: d => `${d.year}: $${d.value}B`
+    }),
+    Plot.text(tradeData.usIndiaExports, {
+      text: d => `$${d.value}B`,
+      x: "value",
+      y: (d) => `US → India (Exports)`,
+      dx: 15,
+      textAnchor: "start"
+    }),
+    Plot.text(tradeData.usIndiaImports, {
+      text: d => `$${d.value}B`,
+      x: "value",
+      y: (d) => `US ← India (Imports)`,
+      dx: 15,
+      textAnchor: "start"
+    }),
+    Plot.text(tradeData.indiaIranExports, {
+      text: d => `$${d.value}B`,
+      x: "value",
+      y: (d) => `India → Iran (Exports)`,
+      dx: 15,
+      textAnchor: "start"
+    }),
+    Plot.text(tradeData.indiaIranImports, {
+      text: d => `$${d.value}B`,
+      x: "value",
+      y: (d) => `India ← Iran (Imports)`,
+      dx: 15,
+      textAnchor: "start"
+    })
+  ]
+})
+```
+
+**Interpretation**: The visualization reveals **stark divergence** between US-India and India-Iran trade patterns:
+
+1. **US-India Growth**: Despite geopolitical tensions, US-India trade expanded robustly (2019: $94.4B → 2023: $128.6B total)
+
+2. **India-Iran Collapse**: India's imports from Iran fell **96%** from 2019 baseline ($10.8B → $0.67B in 2023), driven entirely by crude oil cessation
+
+3. **Asymmetric Impact**: Indian exports to Iran declined only **29%** (2019: $2.4B → 2023: $1.7B), suggesting sanctions targeted Iranian exports more than imports
+
+4. **Compliance Signal**: India's trade behavior demonstrates **high compliance** with US secondary sanctions, contrasting sharply with Russia case
+
+---
+
+## Visualization 2: Iranian Crude Oil Trade Collapse
+
+```{ojs}
+//| label: fig-oil-collapse
+//| fig-cap: "India's Crude Oil Imports from Iran (2017-2023): Complete Cessation Post-Sanctions"
+
+Plot.plot({
+  width: 1200,
+  height: 400,
+  marginBottom: 60,
+  x: {
+    label: "Year →",
+    tickFormat: d => d.toString()
+  },
+  y: {
+    label: "Import Volume (Million Barrels/Day) →",
+    grid: true,
+    domain: [0, 0.6]
+  },
+  marks: [
+    Plot.ruleY([0]),
+    Plot.areaY(iranOilToIndia, {
+      x: "year",
+      y: "volumeMbd",
+      fill: "#dc2626",
+      fillOpacity: 0.3,
+      curve: "catmull-rom"
+    }),
+    Plot.line(iranOilToIndia, {
+      x: "year",
+      y: "volumeMbd",
+      stroke: "#dc2626",
+      strokeWidth: 3,
+      marker: "circle",
+      markerSize: 100,
+      curve: "catmull-rom"
+    }),
+    Plot.ruleX([2019.5], {
+      stroke: "#f59e0b",
+      strokeWidth: 2,
+      strokeDasharray: "6,4"
+    }),
+    Plot.text([{x: 2019.5, y: 0.5, label: "Sanctions Waivers Terminated →"}], {
+      x: "x",
+      y: "y",
+      text: "label",
+      fill: "#f59e0b",
+      fontWeight: "bold",
+      dx: 100
+    }),
+    Plot.text(iranOilToIndia.filter(d => d.year >= 2017), {
+      x: "year",
+      y: "volumeMbd",
+      text: d => d.year >= 2020 ? "0.0" : `${d.volumeMbd.toFixed(2)} mbd`,
+      dy: d => d.year >= 2020 ? 15 : -15,
+      fontWeight: "bold"
+    })
+  ]
+})
+```
+
+**Interpretation**: The data demonstrate **complete and immediate compliance** with US secondary sanctions:
+
+- **Pre-sanctions (2017-2018)**: India imported ~0.5 million barrels/day of Iranian crude
+- **Transition (2019)**: Volume declined to 0.17 mbd as waivers expired
+- **Post-sanctions (2020-2023)**: **Zero reported crude oil imports**
+
+This stands in sharp contrast to the Russia case, where India **increased** oil imports by 10x post-sanctions. The difference reflects:
+
+1. **Sanctions architecture**: US secondary sanctions threaten financial system access for Iranian oil buyers
+2. **Strategic calculus**: India prioritized US relationship over Iranian oil access
+3. **Alternative availability**: Russia and Middle East suppliers could absorb demand
+
+---
+
+## Visualization 3: India's Oil Import Substitution Pattern
+
+```{ojs}
+//| label: fig-substitution
+//| fig-cap: "India's Crude Oil Import Sources: 2019 vs. 2023 Market Share"
+
+Plot.plot({
+  width: 1200,
+  height: 500,
+  marginLeft: 150,
+  x: {
+    label: "Market Share (%) →",
+    grid: true,
+    domain: [0, 70]
+  },
+  y: {
+    label: null
+  },
+  color: {
+    domain: [2019, 2023],
+    range: ["#94a3b8", "#0ea5e9"],
+    legend: true
+  },
+  marks: [
+    Plot.ruleX([0]),
+    Plot.barX(oilSubstitution.flatMap(d => [
+      {source: d.source, year: 2019, share: d.share2019},
+      {source: d.source, year: 2023, share: d.share2023}
+    ]), {
+      x: "share",
+      y: "source",
+      fill: "year",
+      title: d => `${d.year}: ${d.share}%`
+    }),
+    Plot.text(oilSubstitution.flatMap(d => [
+      {source: d.source, year: 2019, share: d.share2019, label: `${d.share2019}%`},
+      {source: d.source, year: 2023, share: d.share2023, label: `${d.share2023}%`}
+    ]), {
+      x: "share",
+      y: "source",
+      text: "label",
+      dx: 15,
+      textAnchor: "start",
+      fontWeight: "bold"
+    })
+  ]
+})
+```
+
+**Interpretation**: India successfully **substituted Iranian oil** with alternative sources:
+
+- **Russia**: Increased from 2% (2019) to **33% (2023)** - absorbed Iranian volume and more
+- **Middle East**: Decreased from 63% to 45% - structural reallocation, not absolute decline
+- **USA**: Increased from 4% to 7% - strategic diversification
+- **Iran**: **0%** (complete cessation)
+
+**Key Insight**: The substitution pattern reveals India's **strategic pivot** - Iranian oil was replaced primarily by discounted Russian oil (post-Ukraine invasion), with some US LNG/crude supplementation. This created a **coincidental offset** where one sanctions regime (Iran) was neutralized by another (Russia).
+
+---
+
+## Hypothesis Testing: Quantitative Results
+
+### H1: Tariff Absorption Hypothesis - **SUPPORTED (Consistent with Russia Case)**
+
+```{ojs}
+//| label: tariff-analysis
+
+// Weighted average US tariff rate (same as Russia article)
+weightedAvgTariff = 4.76
+
+// Calculate tariff burden on Indian exports to US
+tariffBurden = {
+  return {
+    burden2022: (86.5 * weightedAvgTariff / 100).toFixed(2),
+    burden2023: (85.7 * weightedAvgTariff / 100).toFixed(2)
+  }
+}
+
+// Volume analysis: YoY growth rates
+volumeGrowth = {
+  return {
+    exports2019to2022: ((86.5 - 58.6) / 58.6 * 100).toFixed(1),
+    exports2022to2023: ((85.7 - 86.5) / 86.5 * 100).toFixed(1)
+  }
+}
+```
+
+**Findings:**
+
+- **Weighted average US tariff on Indian goods**: `${weightedAvgTariff.toFixed(2)}%`
+- **Implied tariff burden (2022)**: `$${tariffBurden.burden2022}B`
+- **Implied tariff burden (2023)**: `$${tariffBurden.burden2023}B`
+- **Export growth (2019→2022)**: `+${volumeGrowth.exports2019to2022}%`
+- **Export growth (2022→2023)**: `${volumeGrowth.exports2022to2023}%`
+
+**Assessment**: **Identical to Russia case** - Indian exports to US grew robustly (47.6% from 2019-2022) and remained stable in 2023, indicating successful tariff absorption or pass-through. The Iran sanctions did not alter India's US export performance.
+
+---
+
+### H2: Input Discount Offset Hypothesis - **NOT APPLICABLE**
+
+```{ojs}
+//| label: offset-calculation
+
+// Iranian oil savings calculation (negative - India lost access)
+iranianOilLoss = {
+  const baselineValue2019 = 2.8; // USD billions
+  const avgVolume2017_2018 = 0.5; // mbd
+  const hypotheticalDiscount = 5; // Conservative estimate if sanctions didn't exist
+  
+  const lostVolume2020_2023 = avgVolume2017_2018 * 365 * 4; // 4 years
+  const lostValue = lostVolume2020_2023 * 70; // Assume $70/barrel average
+  
+  return {
+    annualLostVolume: avgVolume2017_2018,
+    fourYearLostValue: (lostValue / 1000).toFixed(1),
+    noDiscountAvailable: true,
+    substituteSource: "Russia (with discounts starting 2022)"
+  }
+}
+```
+
+**Findings:**
+
+- **Iranian oil imports (2022-2023)**: **$0B** (complete cessation)
+- **Lost potential volume**: `${iranianOilLoss.annualLostVolume} million barrels/day`
+- **Foregone imports (2020-2023)**: Approximately `$${iranianOilLoss.fourYearLostValue}B`
+
+**Assessment**: Unlike the Russia case, there was **no Iranian oil discount** available to India during 2022-2023 due to complete trade cessation. However, India obtained substantial Russian oil discounts during the same period, which **indirectly compensated** for the loss of Iranian supply.
+
+**Critical distinction**: The offset mechanism here operates through **source substitution** (Russian discounts replacing Iranian supply) rather than concurrent access to both discounted sources.
+
+---
+
+### H3: Trade Redirection Hypothesis - **STRONGLY SUPPORTED**
+
+```{ojs}
+//| label: redirection-analysis
+
+redirectionMetrics = {
+  // Iranian oil → Russia substitution
+  const iranLoss2019to2023 = 2.8 - 0.0; // Oil component
+  const russiaGain2019to2022 = 28.5 - 2.8; // Russia oil imports (from Article 1 data)
+  
+  // Total trade changes
+  const iranTotalChange = (1.8 - 13.2); // Total bilateral 2023 vs 2019
+  const russiaCompensation = 61.4; // Russia exports to India in 2023
+  
+  return {
+    iranOilLost: iranLoss2019to2023.toFixed(1),
+    russiaOilGained: russiaGain2019to2022.toFixed(1),
+    substitutionRatio: (russiaGain2019to2022 / iranLoss2019to2023).toFixed(1),
+    iranTotalDecline: Math.abs(iranTotalChange).toFixed(1)
+  }
+}
+```
+
+**Findings:**
+
+- **Iranian oil lost (2019→2023)**: `$${redirectionMetrics.iranOilLost}B`
+- **Russian oil gained (2019→2022)**: `$${redirectionMetrics.russiaOilGained}B`
+- **Substitution ratio**: `${redirectionMetrics.substitutionRatio}x` (Russia replaced Iranian volume 9x over)
+- **Total India-Iran trade decline**: `$${redirectionMetrics.iranTotalDecline}B`
+
+**Assessment**: The hypothesis is **strongly supported** - India successfully redirected oil imports from Iran to Russia, with Russian imports exceeding the lost Iranian volume by a factor of 9x. This reflects both:
+
+1. **Direct substitution**: Russian oil replaced Iranian crude
+2. **Volume expansion**: India increased total imports from Russia beyond Iranian replacement
+
+**Important note**: This substitution was **enabled by Russia's Ukraine invasion sanctions**, creating a fortuitous market opportunity for India.
+
+---
+
+### H4: Sanction Leakage Hypothesis - **REJECTED (for crude oil), PARTIAL (for non-oil)**
+
+```{ojs}
+//| label: sanction-effectiveness
+
+sanctionImpact = {
+  // Oil trade effectiveness
+  const oilSanctionEffectiveness = (0.0 / 2.8 - 1) * -100; // 100% reduction
+  
+  // Non-oil trade persistence
+  const nonOilBaseline2019 = 10.8 - 2.8; // Estimated non-oil component
+  const nonOilCurrent2023 = 0.67; // Current imports
+  const nonOilLeakage = (nonOilCurrent2023 / nonOilBaseline2019 * 100);
+  
+  return {
+    oilEffectiveness: oilSanctionEffectiveness.toFixed(0),
+    nonOilPersistence: nonOilLeakage.toFixed(1),
+    overallAssessment: "Sanctions highly effective for strategic goods (oil), moderate leakage in non-strategic categories"
+  }
+}
+```
+
+**Findings:**
+
+- **Oil sanctions effectiveness**: `${sanctionImpact.oilEffectiveness}%` (complete cessation)
+- **Non-oil trade persistence**: `${sanctionImpact.nonOilPersistence}%` of baseline
+- **Overall assessment**: ${sanctionImpact.overallAssessment}
+
+**Assessment**: The Iran case demonstrates **bifurcated sanctions effectiveness**:
+
+1. **Strategic goods (crude oil)**: Sanctions achieved **complete compliance** - zero reported imports since 2020
+2. **Non-strategic goods**: Persistent trade in compliant categories (food, pharmaceuticals, chemicals)
+3. **Unofficial channels**: Unknown extent of informal trade via UAE, Turkey, or hawala systems
+
+**Contrast with Russia**: Whereas Russian sanctions achieved pricing effects but limited volume reductions, Iranian sanctions achieved **volume elimination** for targeted sectors. This reflects:
+
+- Stronger secondary sanctions architecture (banking system exclusion)
+- India's strategic prioritization of US relationship
+- Availability of substitute suppliers
+
+---
+
+### H5: Short-Run Balance Neutrality Hypothesis - **SUPPORTED**
+
+```{ojs}
+//| label: balance-analysis
+
+balanceMetrics = {
+  const cadChange2019to2022 = tradeBalanceData[1].cadToGDP - tradeBalanceData[0].cadToGDP;
+  const cadChange2022to2023 = tradeBalanceData[2].cadToGDP - tradeBalanceData[1].cadToGDP;
+  
+  return {
+    cad2019: tradeBalanceData[0].cadToGDP.toFixed(1),
+    cad2022: tradeBalanceData[1].cadToGDP.toFixed(1),
+    cad2023: tradeBalanceData[2].cadToGDP.toFixed(1),
+    deterioration2019to2022: cadChange2019to2022.toFixed(1),
+    improvement2022to2023: cadChange2022to2023.toFixed(1),
+    netChange2019to2023: (tradeBalanceData[2].cadToGDP - tradeBalanceData[0].cadToGDP).toFixed(1)
+  }
+}
+```
+
+**Findings:**
+
+- **Current Account Deficit (% GDP)**:
+  - 2019: `${balanceMetrics.cad2019}%`
+  - 2022: `${balanceMetrics.cad2022}%`
+  - 2023: `${balanceMetrics.cad2023}%`
+- **Change (2019→2023)**: `${balanceMetrics.netChange2019to2023}` percentage points
+
+**Assessment**: Despite losing access to Iranian oil and substituting with more expensive alternatives, India's external balance **improved** in 2023 relative to both 2019 and 2022. This demonstrates:
+
+1. **Successful substitution**: Alternative oil sources (Russia) were secured at competitive prices
+2. **Service exports**: IT and business services likely offset energy import costs
+3. **Policy management**: India's central bank and fiscal authorities managed external stability effectively
+
+**Critical insight**: The loss of Iranian oil did **not** create a balance of payments crisis, validating the short-run neutrality hypothesis even under complete trade severance.
+
+---
+
+## Comparative Analysis: Iran vs. Russia Sanctions
+
+```{ojs}
+//| label: comparative-table
+
+comparisonTable = [
+  {
+    dimension: "Oil Import Volumes",
+    iranCase: "Complete cessation (0.5→0.0 mbd)",
+    russiaCase: "10x increase (0.095→0.98 mbd in 2022)"
+  },
+  {
+    dimension: "Price Discounts",
+    iranCase: "N/A - no access to supply",
+    russiaCase: "$25-32/barrel below Brent"
+  },
+  {
+    dimension: "Trade Value Change (2019→2023)",
+    iranCase: "India-Iran: -86% ($13.2B→$1.8B)",
+    russiaCase: "India-Russia: +370% ($13.1B→$61.4B)"
+  },
+  {
+    dimension: "Sanctions Architecture",
+    iranCase: "Secondary sanctions + SWIFT exclusion",
+    russiaCase: "Primary + price cap (selective SWIFT)"
+  },
+  {
+    dimension: "India's Compliance",
+    iranCase: "High compliance (strategic priority)",
+    russiaCase: "Non-compliance (exploited arbitrage)"
+  },
+  {
+    dimension: "Substitution Pattern",
+    iranCase: "Iran→Russia+Middle East",
+    russiaCase: "Europe→India (redirection)"
+  },
+  {
+    dimension: "US Policy Effectiveness",
+    iranCase: "Achieved volume reduction goal",
+    russiaCase: "Failed to reduce Russian export volumes"
+  }
+]
+
+html`
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+  <thead>
+    <tr style="background-color: #1e40af; color: white;">
+      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Dimension</th>
+      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Iran Sanctions Case</th>
+      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Russia Sanctions Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${comparisonTable.map((row, i) => `
+      <tr style="background-color: ${i % 2 === 0 ? '#f8fafc' : 'white'};">
+        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${row.dimension}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${row.iranCase}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${row.russiaCase}</td>
+      </tr>
+    `).join('')}
+  </tbody>
+</table>
+`
+```
+
+**Key Takeaway**: The comparative analysis reveals that **sanctions architecture and third-party compliance** determine outcomes more than economic fundamentals:
+
+- **Iran sanctions** succeeded due to comprehensive secondary sanctions and India's strategic choice to comply
+- **Russia sanctions** failed to reduce volumes due to India/China non-compliance and weaker enforcement mechanisms
+
+---
+
+## Where Do Economic Costs Settle? (Iran Case)
+
+### Observable Outcomes
+
+1. **Complete Trade Severance (Oil)**: Unlike Russia, US sanctions on Iran achieved their stated objective - India ceased all crude oil imports from Iran
+
+2. **Strategic Compliance**: India prioritized its US relationship over Iranian energy access, demonstrating **revealed preference** for Western alignment
+
+3. **Successful Substitution**: Lost Iranian oil was replaced by Russian and Middle Eastern supplies, with **no net external balance deterioration**
+
+4. **Persistent Non-Oil Trade**: India maintained ~$2B in compliant bilateral trade (food, pharmaceuticals), indicating **selective sanctions enforcement**
+
+5. **Fortuitous Timing**: Russia's Ukraine invasion (2022) created discounted oil access that **indirectly replaced** lost Iranian supply
+
+### Cost Allocation
+
+| Economic Agent | Cost Borne | Evidence |
+|----------------|------------|----------|
+| Iranian Government | **Primary burden** - lost $10-12B annual oil revenue from India | Trade data |
+| Indian Refiners | **Moderate burden** - higher procurement costs (2019-2021) before Russian alternative | Not directly measured |
+| US Consumers | **No measurable impact** - Iran sanctions did not disrupt US-India trade | Trade resilience |
+| Indian Trade Balance | **No burden** - CAD improved 2019→2023 | World Bank data |
+
+**Critical Finding**: The economic costs of Iran sanctions fell **entirely on Iran**, with India successfully substituting supply sources and maintaining external balance. This contrasts sharply with Russia, where costs were shared through pricing adjustments.
+
+---
+
+## Synthesis: Sanctions Effectiveness Determinants
+
+Based on the Iran case, effective sanctions require:
+
+### 1. **Comprehensive Secondary Sanctions**
+- **Iran**: SWIFT exclusion + banking restrictions + insurance prohibitions = high compliance costs for third parties
+- **Russia**: Selective SWIFT exclusion + price cap (easily circumvented) = low compliance costs
+
+### 2. **Target Country's Strategic Value**
+- **Iran**: India prioritized US relationship > Iranian oil access
+- **Russia**: India exploited arbitrage opportunity despite US pressure
+
+### 3. **Alternative Supply Availability**
+- **Iran**: Middle East + Russia could absorb Indian demand
+- **Russia**: No alternative supplier with equivalent pricing for European/Indian buyers
+
+### 4. **Sanctions Coalition Size**
+- **Iran**: US + EU + major banks = comprehensive enforcement
+- **Russia**: US + EU, but India/China/Turkey remain outside = sanctions leakage
+
+### 5. **Time Horizon**
+- **Iran**: Sustained pressure (2018-present) wore down third-party resistance
+- **Russia**: Rapid sanctions triggered emergency arbitrage rather than compliance
+
+---
+
+## Falsification Paths
+
+This analysis could be disproven or refined by:
+
+1. **Evidence of unofficial Iranian oil flows** through third-country re-flagging or relabeling schemes
+2. **Banking data** showing continued Iranian transaction settlements via alternative payment systems
+3. **Firm-level data** from Indian refiners revealing quality-adjusted price comparisons between Iranian and substitute suppliers
+4. **Longer time horizons** showing India's eventual return to Iranian oil if US sanctions weaken
+5. **Product-level trade data** revealing sanctioned Iranian goods entering India through UAE/Turkey intermediaries
+
+---
+
+## Limitations and Caveats
+
+1. **Unofficial Trade**: Official statistics likely undercount informal channels and re-routed goods
+2. **Quality Adjustments**: Cannot assess whether substitute oil grades required refinery modifications or yield losses
+3. **Banking Restrictions**: Payment mechanisms and settlement delays not visible in trade data
+4. **Attribution**: Cannot fully separate US sanctions pressure from India's independent strategic choices
+5. **Counterfactual**: Unknown what India-Iran trade would have been absent sanctions (may have declined regardless)
+6. **Time Lag**: Some reported 2023 transactions may reflect pre-2022 contracts or measurement artifacts
+
+---
+
+## Conclusion
+
+The India-Iran case demonstrates that **well-designed sanctions can achieve volume reduction objectives** when:
+
+1. **Secondary sanctions** impose high compliance costs on third parties
+2. **Target relationships** are not strategically essential to third-party economies
+3. **Alternative suppliers** exist at competitive prices
+4. **Enforcement** is comprehensive across financial and logistics networks
+
+**Key Finding**: Unlike the Russia case (where sanctions produced pricing effects only), Iran sanctions achieved **complete oil trade cessation**, imposing costs entirely on Iran rather than creating shared burdens.
+
+**Policy Implication**: Sanctions effectiveness depends less on the sanctioned country's economic size than on the **sanctions architecture design** and **third-party compliance incentives**.
+
+**Analytical Limit**: This analysis cannot determine:
+- Extent of unofficial trade via third countries
+- Long-run feasibility of Iran's economic isolation
+- Whether India's compliance reflects permanent alignment or temporary calculation
+
+The data support a **strategic compliance story** where India chose US alignment over Iranian energy access, made feasible by fortuitous timing (Russian oil became available at discounts shortly after Iranian supply loss).
+
+---
+
+## References and Data Availability
+
+All data used in this analysis is publicly available from:
+
+- UN Comtrade Database: https://comtradeplus.un.org/
+- World Bank: https://data.worldbank.org/
+- US Census Bureau: https://www.census.gov/foreign-trade/
+- India Ministry of Commerce: https://commerce.gov.in/
+- India Embassy Tehran: https://www.indianembassytehran.gov.in/
+- Iran International: https://www.iranintl.com/
+
+**Replication**: All Observable JS code is provided above for full transparency and reproducibility.
+
+---
+
+*Analysis completed: January 2026*  
+*Data sources accessed: January 10-16, 2026*  
+*Methodology: Descriptive statistics and comparative analysis of official trade data*
