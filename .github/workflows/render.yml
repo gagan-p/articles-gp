@@ -35,7 +35,7 @@ jobs:
       - name: Install D2
         run: |
           curl -fsSL https://d2lang.com/install.sh | sh -s --
-          sudo mv ./bin/d2 /usr/local/bin/
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           d2 --version
       
       - name: Render Quarto Project
