@@ -1037,7 +1037,7 @@ As any macroeconomist will tell you, the quickest way to make God laugh is to sh
 
 **Author:** Gagan is interested in tech, democracy, economics and history. He is assisted by Claude, DeepSeek, HF/Omni. The ideas and tones of the content and views are the authors. Charts are 100% claude and data collection and presentation + the base english of the draft is the AIs contribution.
 
-**Data Availability:** All analysis code, data sources, and methodology is public, happy to respond if there are queries
+**Data Availability:** All analysis code, data sources, and methodology is public, happy to respond if there are queries. If we cook/esimate/analyze/fabricate I believe the text will say so. If anything is missed or wrong or misrepresented, its a mistake not intentional. As the AI say to err is Human 
 
 **Acknowledgments:** Thanks to fabricated policy insiders for off-record conversations that never happened but capture real incentive structures.
 
