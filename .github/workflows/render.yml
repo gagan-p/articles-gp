@@ -7,6 +7,7 @@ on:
       - 'articles/**'
       - 'index.qmd'
       - '_quarto.yml'
+      - '_extensions/**'
 
 jobs:
   render-deploy:
@@ -30,6 +31,12 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install jupyter pandas plotly numpy
+      
+      - name: Install D2
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          sudo mv ./bin/d2 /usr/local/bin/
+          d2 --version
       
       - name: Render Quarto Project
         run: quarto render
