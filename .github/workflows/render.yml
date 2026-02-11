@@ -1,4 +1,4 @@
-name: Render and Deploy Quarto Site
+name: Render and Deploy Quarto Site <gagan>
 
 on:
   push:
@@ -32,14 +32,17 @@ jobs:
         run: |
           pip install jupyter pandas plotly numpy
       
-      - name: Install D2
+      - name: Install D2 - SIMPLE APPROACH
         run: |
-          curl -fsSL https://d2lang.com/install.sh | sh -s --
-          # Add D2 to PATH for the rest of the workflow
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-      
-      - name: Verify D2 installation
-        run: |
+          # Download D2 directly
+          curl -fsSL https://github.com/terrastruct/d2/releases/download/v0.7.1/d2-v0.7.1-linux-amd64.tar.gz -o d2.tar.gz
+          # Extract it
+          tar -xzf d2.tar.gz
+          # Move to a standard location
+          sudo mv d2-v0.7.1/bin/d2 /usr/local/bin/
+          # Clean up
+          rm -rf d2.tar.gz d2-v0.7.1
+          # Verify installation
           d2 --version
       
       - name: Render Quarto Project
