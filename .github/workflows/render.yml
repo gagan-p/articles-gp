@@ -1,4 +1,4 @@
-name: Render and Deploy Quarto Site
+name: Render and Deploy Quarto Site without D2
 
 on:
   push:
