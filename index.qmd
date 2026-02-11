@@ -6,3 +6,4 @@ title: "Articles"
 
 - [India's Tariff Liberalization (1991-2025)](articles/tariff-liberalization.html)
 - [The ₹800 Crore Selfie Stick: A Macroeconomic Autopsy of India's Orange Economy Budget](articles/orange-economy-critique.html)
+- [A abstaining - Selfproclaimed Viswaguru  ](articles/comparative_geopolitical_analysis_2019_2024.html)
