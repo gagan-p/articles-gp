@@ -240,6 +240,8 @@ The ten events were selected based on the following criteria:
 As Security Council paralysis deepened, the General Assembly emerged as alternative venue for norm-setting:
 
 **UNGA Resolutions Adopted (2022-2024):**
+
+
 | Issue | Resolution | Vote | Legal Effect |
 |-------|-----------|------|--------------|
 | Ukraine | ES-11/1 (March 2022) | 141-5-35 | Non-binding; moral authority |
