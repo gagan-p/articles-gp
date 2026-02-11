@@ -1,0 +1,6 @@
+name: d2
+version: 1.0.0
+author: Data Intuitive
+contributes:
+  filters:
+    - d2.lua
