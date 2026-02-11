@@ -35,7 +35,11 @@ jobs:
       - name: Install D2
         run: |
           curl -fsSL https://d2lang.com/install.sh | sh -s --
+          # Add D2 to PATH for the rest of the workflow
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Verify D2 installation
+        run: |
           d2 --version
       
       - name: Render Quarto Project
