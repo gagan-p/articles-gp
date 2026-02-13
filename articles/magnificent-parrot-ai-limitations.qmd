@@ -688,6 +688,7 @@ Result: Incorrect, outdated, potentially legally problematic advice
 ```
 
 **Workaround options:**
+
 1. Retrain entire model (months, millions of dollars)
 2. Use Retrieval Augmented Generation (RAG) with current database
 3. Build knowledge graph with versioned facts
