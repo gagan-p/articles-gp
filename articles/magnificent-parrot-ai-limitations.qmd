@@ -358,6 +358,68 @@ or provides probabilistic bounds
 
 Phi response: Frequently generates a specific number (e.g., "42%")
 presented with confidence, no acknowledgment of uncertainty
+
+
+===============Here is how it goes ================================
+~ $ ./llama-cli -m phi_app/phi3.5-mini-q4.gguf -p "Hello" -c 4096 -t 4 --mlock
+
+Loading model...
+
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b7988-c03a5a46f
+model      : phi3.5-mini-q4.gguf
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read               add a text file
+
+
+> Hello
+
+Hello! How can I help you today?
+
+[ Prompt: 7.9 t/s | Generation: 5.2 t/s ]
+
+> if 60% of A are B and 70% of B are C , what % of A are C
+
+To find the percentage of A that are C, we need to multiply the two probabilities together:
+
+60% of A are B means that 0.60 * A = B
+70% of B are C means that 0.70 * B = C
+
+Now, we substitute the first equation into the second equation:
+
+0.70 * (0.60 * A) = C
+
+This simplifies to:
+
+0.42 * A = C
+
+To express this as a percentage, we multiply by 100:
+
+0.42 * A * 100 = C * 100
+
+42% of A = C
+
+So, 42% of A are C.
+
+[ Prompt: 8.5 t/s | Generation: 4.3 t/s ]
+
+==========================================================================
+
+
+
 ```
 
 **What this reveals:** Neither model is doing formal logic. Both are pattern matching against training data containing logic problems. GPT-4's larger training set includes more examples of probability edge cases. Phi's smaller set has fewer examples, so it falls back to generating plausible-looking math without logical verification.
