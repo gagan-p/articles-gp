@@ -325,10 +325,77 @@ Result: Model "forgets" what was discussed, contradicts itself
 
 I documented this precisely:
 
-**Exchange 1-3:** Coherent, maintains thread  
-**Exchange 4-6:** Starts losing earlier context  
-**Exchange 7+:** Contradicts earlier statements, coherence degrades  
+I documented this precisely with phi on my phone. Here are actual exchange patterns:
 
+**Exchange 1-3: Coherent, maintains thread**
+```
+Exchange 1:
+Me: "Explain how transformer attention mechanisms work"
+Phi: [Provides coherent explanation of Q, K, V matrices and attention scores]
+
+Exchange 2:  
+Me: "How does this differ from RNN memory?"
+Phi: [Correctly references Exchange 1 explanation, compares attention to RNN hidden states]
+
+Exchange 3:
+Me: "What are the computational complexity implications?"
+Phi: [Still maintains context, discusses O(n²) complexity of attention vs O(n) of RNNs]
+
+Status: Working well. Context window has room. Model remembers earlier discussion.
+```
+
+**Exchange 4-6: Starts losing earlier context**
+```
+Exchange 4:
+Me: "Can you explain the multi-head attention variant?"
+Phi: [Explanation present but slightly less connected to original transformer discussion]
+
+Exchange 5:
+Me: "How does this relate to the attention mechanism you explained earlier?"
+Phi: [References "earlier" but starts getting details slightly wrong, 
+      less precise about which variant was discussed]
+
+Exchange 6:
+Me: "Compare the complexity we discussed to multi-head attention"
+Phi: [Gives complexity analysis but doesn't correctly reference the O(n²) 
+      mentioned in Exchange 3 - that's starting to fall out of context window]
+
+Status: Degrading. Earlier tokens being compressed or dropped to make room for new exchanges.
+```
+
+**Exchange 7+: Contradicts earlier statements, coherence degrades**
+```
+Exchange 7:
+Me: "So to summarize, transformers use attention instead of recurrence, right?"
+Phi: [Confirms, but summary doesn't match the nuanced comparison from Exchange 2]
+
+Exchange 8:
+Me: "What was the key computational advantage you mentioned?"
+Phi: [Gives an answer about parallelization - technically true but wasn't 
+      what was emphasized in Exchange 3; complexity discussion has been dropped]
+
+Exchange 9:
+Me: "Remind me, what's the complexity of standard attention?"
+Phi: [May give a different answer than Exchange 3, or claim it wasn't discussed,
+      because those tokens are no longer in active context window]
+
+Status: Broken. Model has "forgotten" earlier conversation. Not memory loss - 
+        mechanical context window overflow. Earlier tokens literally dropped 
+        to make space for new tokens.
+```
+
+I ran this series of question multiple times around exchnage 9 I started getting variations in the "idea the response was representing" , hence I used the word may. Upto exchnage 8 in general i find consistent response. The context is chaging based on the response as my questions are same , since the weights are freezed and my prompt is not changing , and a machine is only predicting , I expected the response to not change it becomes a database query in essense. But there are chnages in the initial response to the first prompt itself in different runs, I did ask briefly why its hapening, to the larger hosted LLMs. The response I got is this is linked with "Sampling Temperature". So in essense this is becoming a static database query, of course there are complexities.  
+
+**The pattern:** This isn't the model getting tired or confused. This is a deterministic process. The context window has finite size (~4096 tokens in my phi configuration). Each exchange consumes tokens:
+
+- Question: ~50-100 tokens
+- Answer: ~200-300 tokens  
+- Total per exchange: ~250-400 tokens
+
+After 8-12 exchanges: 250 × 10 = 2,500 tokens minimum  
+Context starts filling up, earliest tokens get truncated
+
+The model doesn't "remember" them. They're gone. The degradation is mechanical, not psychological.
 This isn't memory failure. This is **mechanical context window overflow.** The model has no memory beyond what fits in the current context window. When that fills up, earlier tokens get dropped. The model doesn't "remember" them in any meaningful sense.
 
 ### Observation 3: Logical Reasoning Requests → Plausible Nonsense
@@ -419,6 +486,14 @@ So, 42% of A are C.
 ==========================================================================
 
 
+Mathematical explanation:
+- Minimum case: If the 60% of A that are B are exactly the same 
+  as the 70% of B that are C, then 42% of A are C (0.6 × 0.7)
+- Maximum case: If all B that are C include all A that are B, 
+  then 60% of A are C
+- Without knowing the overlap, cannot determine exact percentage
+
+Actual phi response (running on Android via llama-cli):
 
 ```
 
