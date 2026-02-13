@@ -28,12 +28,14 @@ Turns out, it vomits garbage much faster than the cloud-backed models. Not becau
 The irony: I'm asking Claude to help me write about why LLMs aren't intelligent. The demonstration writes itself.
 
 **Core thesis in four points:**
-1. AI can't do logic (pattern matching ≠ reasoning)
-2. AI can't learn (frozen weights)
-3. AI can't innovate (pattern recombination only)
-4. AI regresses to the mean (excellence requires deviation; AI penalizes deviation)
+
+- 1. AI can't do logic (pattern matching ≠ reasoning)
+- 2. AI can't learn (frozen weights)
+- 3. AI can't innovate (pattern recombination only)
+- 4. AI regresses to the mean (excellence requires deviation; AI penalizes deviation)
 
 **Counterintuitive predictions:**
+
 - IT staffing increases (someone must validate probabilistic outputs)
 - Creative mediocrity at scale (variance compression)
 - Database-query professions compress (but create validation job market)
