@@ -8,3 +8,4 @@ title: "Articles"
 - [The ₹800 Crore Selfie Stick: A Macroeconomic Autopsy of India's Orange Economy Budget](articles/orange-economy-critique.html)
 - [A abstaining - Selfproclaimed Viswaguru  ](articles/comparative_geopolitical_analysis_2019_2024.html)
 - [When your LLM says "I am Sorry" and AI eating IT Service Jobs](articles/magnificent-parrot-concise.html)
+- [Its not that LLMs do not mean it when they say it](articles/magnificent-parrot-part-two.html)
