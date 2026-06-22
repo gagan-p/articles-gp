@@ -1,0 +1,509 @@
+---
+author: gp
+date: 2026-06-17
+subtitle: China built foundational software. India built services.
+title: The Software Myth
+---
+
+```{=org}
+#+STARTUP: overview indent
+```
+```{=org}
+#+PROPERTY: header-args :exports both :eval no-export
+```
+```{=org}
+#+PROPERTY: header-args:python :results output
+```
+The standard framing goes like this: China dominates hardware ---
+semiconductors, manufacturing, supply chains --- while India dominates
+software. It is repeated in boardrooms, policy papers, and technology
+journalism with the confidence of settled fact. It is also wrong, in a
+way that matters.
+
+China has built a full-stack alternative to US enterprise software
+infrastructure. Databases, operating systems, RPC frameworks, service
+meshes, consensus protocols, cryptography libraries --- the layer that
+other software runs on, built from scratch, open-sourced, and now
+deployed commercially across Asia. India\'s \"software advantage\" is a
+services advantage: Indian engineers writing code for Western companies
+on Western infrastructure. That is valuable. It is not the same thing.
+
+This distinction --- between foundational software and services --- is
+not semantic. The country that controls foundational infrastructure
+controls the terms on which everything above it is built. China
+understood this earlier than most, built accordingly, and now has a
+durable lead in open-source infrastructure software that is almost
+entirely invisible in the standard China-versus-India technology
+narrative.
+
+# What Foundational Software Actually Means {#foundational}
+
+Foundational software is not application code. It is not services. It is
+the layer that, if it disappears, everything above it stops working.
+Databases. Operating systems. Network proxies. Message queues. RPC
+frameworks. Consensus algorithms. Cryptography libraries. The software
+that sits below your application and above your hardware.
+
+The table below maps verifiable OSS contributions by layer. Open
+protocols (UPI, Aadhaar) are listed separately --- they are significant
+but are specifications, not deployable code.
+
+  Layer                China                                        India
+  -------------------- -------------------------------------------- --------------------
+  OS / Kernel          openEuler (Huawei), Asterinas (Ant)          ---
+  Virtualization       Kata Containers (Hyper.sh, partial)          ---
+  Database             OceanBase, TiDB, openGauss, Doris, TuGraph   ---
+  Messaging            RocketMQ (Alibaba)                           ---
+  RPC / Networking     Dubbo, SOFARPC, Kitex (ByteDance), BFE       ---
+  Service Mesh         MOSN (Ant)                                   ---
+  Service Registry     Nacos (Alibaba), Polaris (Tencent)           ---
+  Distributed Txn      Seata (Alibaba)                              ---
+  Consensus            SOFAJRaft (Ant)                              ---
+  Cryptography         Tongsuo (Ant)                                ---
+  ML Framework         PaddlePaddle (Baidu), MindSpore (Huawei)     ---
+  Container Registry   Harbor (VMware Shanghai)                     ---
+  API Gateway          APISIX (API7)                                ---
+  Git Hosting          Gitea (Chinese-origin)                       ---
+  App Framework        SOFABoot (Ant)                               Frappe (Mumbai)
+  Identity Platform    ---                                          MOSIP (IIIT-B)
+  *Open Protocol*      ---                                          UPI, Aadhaar, ONDC
+
+The global foundational software stack was built almost entirely in the
+United States: Linux, PostgreSQL, MySQL, Kafka, gRPC, Envoy, etcd,
+TensorFlow. India contributed engineers to many of these projects ---
+individually, as employees of US companies. India as a country, through
+its own companies and institutions, contributed almost nothing at the
+foundational layer.
+
+China, in the decade between 2015 and 2025, built a parallel stack
+covering nearly every one of these categories. It did not do so because
+Chinese engineers are more talented than Indian engineers. It did so
+because Chinese companies faced an existential threat that Indian
+companies did not, and responded by building infrastructure.
+
+# China\'s Full-Stack Answer {#china-stack}
+
+The most comprehensive view of China\'s foundational OSS output is Ant
+Group\'s SOFAStack. It is not a single tool --- it is an entire
+infrastructure layer, built to run Alipay at scale, open-sourced under
+Apache-2.0 licensing, and now commercially deployed across Chinese
+financial institutions.
+
+  Layer              Tool(s)                        Language   License
+  ------------------ ------------------------------ ---------- ---------------
+  Application fw     SOFABoot, SOFAArk              Java       Apache-2.0
+  RPC                SOFARPC, SOFABolt              Java       Apache-2.0
+  Service registry   SOFARegistry, Nacos            Java       Apache-2.0
+  Distributed txn    Seata                          Java       Apache-2.0
+  Messaging          RocketMQ                       Java       Apache-2.0
+  Consensus          SOFAJRaft                      Java       Apache-2.0
+  Service mesh       MOSN, Layotto                  Go         Apache-2.0
+  Database           OceanBase, TuGraph             C++        MulanPubL-2.0
+  Secure kernel      Asterinas                      Rust       MPL-2.0
+  Cryptography       Tongsuo                        C          Apache-2.0
+  Privacy ML         SecretFlow                     Python     Apache-2.0
+  Frontend           Ant Design, AntV, Umi, Eggjs   JS/TS      MIT
+
+Per Ant Group\'s public disclosures, SOFAStack components were adopted
+by over 60% of China\'s top 50 banks. The commercialisation model is
+deliberate: open the tools, close the production extensions. The LDC
+router, internal registry, and risk engine that make SOFAStack
+production-grade at Ant\'s scale are not public. The open-source release
+is the top of an enterprise sales funnel.
+
+The rest of China\'s tech industry follows the same pattern. Baidu\'s
+PaddlePaddle is a production-grade deep learning framework with genuine
+domestic enterprise deployment. BFE, Baidu\'s Go-based reverse proxy
+open-sourced in 2019, handles Baidu\'s production traffic and is
+technically comparable to Nginx combined with HAProxy. Huawei\'s
+openEuler is a Linux distribution built as a domestic RHEL replacement;
+openGauss is a PostgreSQL-derived relational database targeted at
+state-owned enterprises. ByteDance\'s CloudWeGo suite --- Kitex, Hertz,
+Monoio, Volo --- is Go and Rust infrastructure built to serve TikTok\'s
+global traffic, with Monoio (an io_uring-based async runtime) attracting
+contributors outside China.
+
+The chart below accumulates Apache Software Foundation project donations
+from Chinese companies since 2015. Each of these is a production-grade
+infrastructure tool, not a research prototype.
+
+``` {#apache-china-timeline .ojs}
+apache_projects = [
+  {year: 2015, project: "RocketMQ",         org: "Alibaba"},
+  {year: 2017, project: "Dubbo",            org: "Alibaba"},
+  {year: 2018, project: "Weex",             org: "Alibaba"},
+  {year: 2019, project: "Seata",            org: "Alibaba"},
+  {year: 2019, project: "Nacos",            org: "Alibaba"},
+  {year: 2019, project: "ShardingSphere",   org: "JD.com"},
+  {year: 2020, project: "APISIX",           org: "API7"},
+  {year: 2020, project: "DolphinScheduler", org: "DiDi"},
+  {year: 2021, project: "EventMesh",        org: "WeBank"},
+  {year: 2021, project: "Linkis",           org: "WeBank"},
+  {year: 2022, project: "Doris",            org: "Baidu"},
+  {year: 2023, project: "Paimon",           org: "Alibaba"},
+  {year: 2023, project: "Fury",             org: "Ant Group"},
+  {year: 2024, project: "HoraeDB",          org: "Ant Group"},
+]
+
+byYear = d3.rollup(apache_projects, v => v.length, d => d.year)
+yearArr = Array.from(byYear, ([year, count]) => ({year, count}))
+             .sort((a, b) => a.year - b.year)
+cumData = yearArr.map((d, i, arr) => ({
+  year: d.year,
+  cumulative: arr.slice(0, i + 1).reduce((s, x) => s + x.count, 0)
+}))
+
+Plot.plot({
+  title: "Chinese infrastructure projects donated to Apache ASF",
+  x: {tickFormat: "d", label: "Year"},
+  y: {label: "Cumulative projects", grid: true},
+  marks: [
+    Plot.areaY(cumData, {
+      x: "year", y: "cumulative",
+      fill: "#d62728", fillOpacity: 0.12
+    }),
+    Plot.lineY(cumData, {
+      x: "year", y: "cumulative",
+      stroke: "#d62728", strokeWidth: 2
+    }),
+    Plot.dot(cumData, {x: "year", y: "cumulative", fill: "#d62728", r: 4}),
+    Plot.text(apache_projects, {
+      x: "year",
+      y: d => cumData.find(c => c.year === d.year)?.cumulative,
+      text: "project", dy: -10, fontSize: 9, rotate: -25
+    })
+  ]
+})
+```
+
+# The Forcing Function: IOE and the 863 Programme {#forcing-function}
+
+None of this happened organically. China\'s infrastructure OSS output is
+traceable to two forcing functions operating simultaneously: an
+existential vendor dependency problem, and a government programme that
+funded its replacement.
+
+IOE --- IBM for servers, Oracle for databases, EMC for storage ---
+dominated Chinese enterprise IT through the 2010s at pricing calibrated
+for Western markets, with supply-chain dependencies that ran straight
+through American companies. Post-2018 trade restrictions converted those
+dependencies from expensive inconveniences into strategic liabilities.
+The Chinese government\'s IOE replacement programme mandated domestic
+alternatives at every infrastructure layer. Chinese tech companies did
+not respond by writing research papers. They built software.
+
+Ant Financial\'s OceanBase is the canonical example. Per Alibaba\'s
+published accounts, Oracle\'s database could not handle Singles\' Day
+transaction volumes --- the engineering problem was existential and no
+amount of hardware spending could resolve it. Ant built OceanBase to
+survive, not to sell. The commercial opportunity came later.
+
+The pattern repeats at every layer: RocketMQ replaced IBM MQ. MOSN
+replaced Envoy. openGauss replaced Oracle in state-owned enterprise
+procurement. openEuler replaced RHEL. Every open-source release is the
+downstream product of an internal survival decision made years earlier.
+
+The government\'s role was not passive. China\'s 863 Programme --- the
+National High-Technology R&D Plan, launched in 1986 --- funded specific
+technology outcomes rather than broad research. It named target
+capabilities and funded teams to build them. The United States ran the
+same model through DARPA: TCP/IP, the internet, GPS, and the transformer
+architecture underlying modern AI all originated in government
+programmes with specific engineering deliverables, not open grants.
+Neither China nor the US built strategic software infrastructure through
+market forces alone.
+
+# The Ecosystem Goes Deeper {#ecosystem}
+
+The big-company view of Chinese OSS still undersells the breadth.
+
+Gitea --- started by a Chinese developer as Gogs, now one of the most
+widely self-hosted Git platforms globally --- is used by engineering
+teams in Europe and North America who have no awareness of or interest
+in the Chinese technology ecosystem. They use it because it is the best
+tool for self-hosted version control. Forgejo, its community fork,
+extended the governance model. Together they represent something Chinese
+OSS rarely achieves: adoption driven entirely by technical merit, with
+no geopolitical or procurement logic behind it.
+
+Harbor, the container registry, started at VMware\'s Shanghai R&D centre
+and graduated from CNCF incubation to become the de facto standard for
+enterprise container registries --- deployed at organisations across
+North America and Europe. TiDB, from Beijing-based PingCAP, is a
+distributed SQL database competing directly with CockroachDB and
+YugabyteDB on Western terms, with genuine open-source community traction
+outside China.
+
+FISCO BCOS, from WeBank (a Tencent-backed digital bank), is a genuinely
+open permissioned blockchain with governance extending beyond any single
+company --- a meaningful contrast with most blockchain projects that
+claim openness while concentrating control.
+
+# India\'s Genuine Contribution: The Protocol Layer {#india-dpi}
+
+India\'s contribution to open technology is real, significant, and
+operates at a completely different layer. Not code. Protocol.
+
+The India Stack --- Aadhaar, UPI, ONDC, DigiLocker --- is a set of open
+digital infrastructure specifications built on government mandate, with
+private players competing on top. UPI is the clearest case: NPCI defined
+the protocol and mandated zero transaction fees on peer-to-peer
+payments, commoditising the payments layer and forcing every player to
+compete on distribution and product. The protocol is open. The
+implementations --- PhonePe, Google Pay, Paytm --- are not.
+
+  Component   Type                 Scale (2025)       What is open
+  ----------- -------------------- ------------------ ----------------------------------
+  Aadhaar     Digital identity     1.3B+ enrolled     Specification; not OSS code
+  UPI         Real-time payments   INR 20T+ monthly   Protocol spec; impls proprietary
+  ONDC        Open commerce net    Growing            Protocol and network spec
+  ABHA        Health identity      Aadhaar-linked     API specification
+
+UPI deserves particular clarity. NPCI published the protocol and
+mandated zero transaction fees on peer-to-peer payments. PhonePe, Google
+Pay, and Paytm all built proprietary implementations on top of that open
+specification. The protocol is open. The code is not. This is a
+meaningful and replicable model --- Singapore\'s PayNow, Brazil\'s Pix,
+and others drew from it --- but it is not open-source software.
+
+This is a genuine and globally significant contribution. The UPI model
+has been studied and replicated across a dozen countries. The Aadhaar
+architecture influenced identity infrastructure design worldwide. But
+none of it is deployable open-source code. It is foundational policy
+expressed as open standards. The distinction matters when measuring who
+controls the software layer.
+
+# MOSIP: The OSS Exception That Proves the Rule {#mosip}
+
+The Modular Open Source Identity Platform is India\'s most significant
+open-source software contribution --- and it is almost unknown outside
+development-sector circles. Incubated at IIIT-Bangalore in 2018, MOSIP
+takes the design principles behind Aadhaar and packages them as
+deployable software that any country can run without purchasing from a
+Western biometric vendor.
+
+As of 2025, MOSIP had active implementations in 14 countries, with over
+100 million residents enrolled across Africa, Southeast Asia, and Latin
+America. Morocco, Philippines, Ethiopia, Nigeria, Peru --- countries
+building sovereign identity infrastructure on Indian-incubated software.
+
+``` {#mosip-growth-chart .ojs}
+mosip = [
+  {year: 2020, residents_m: 0,   countries: 2},
+  {year: 2021, residents_m: 8,   countries: 5},
+  {year: 2022, residents_m: 30,  countries: 9},
+  {year: 2023, residents_m: 65,  countries: 12},
+  {year: 2024, residents_m: 95,  countries: 13},
+  {year: 2025, residents_m: 110, countries: 14},
+]
+
+Plot.plot({
+  title: "MOSIP: residents enrolled globally (millions, as of 2025)",
+  x: {tickFormat: "d", label: "Year"},
+  y: {label: "Residents enrolled (M)", grid: true},
+  marks: [
+    Plot.areaY(mosip, {
+      x: "year", y: "residents_m",
+      fill: "#1565C0", fillOpacity: 0.15
+    }),
+    Plot.lineY(mosip, {
+      x: "year", y: "residents_m",
+      stroke: "#1565C0", strokeWidth: 2
+    }),
+    Plot.dot(mosip, {x: "year", y: "residents_m", fill: "#1565C0", r: 4}),
+    Plot.text(mosip, {
+      x: "year", y: "residents_m",
+      text: d => d.countries + " countries",
+      dy: -12, fontSize: 9
+    }),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+MOSIP is important precisely because it is software, not just a
+specification. It can be deployed, forked, improved, and adapted. In
+that sense it is India\'s closest analog to what Ant did with SOFAStack.
+The difference: there is no commercial tier. MOSIP is public
+infrastructure with no product attached. That limits its trajectory but
+also makes it a genuine public good.
+
+# Indian Companies That Built But Did Not Open {#indian-builders}
+
+The interesting Indian cases are not the services companies. They are
+the companies that built foundationally and chose not to open-source
+their work.
+
+**Zoho** is the most striking example. Across 18 self-owned global data
+centres, Zoho runs hardware and software stacks it built itself,
+refusing to use hyperscalers on principle. Artos, a Linux-based
+enterprise desktop OS, is under development. Ulaa, Zoho\'s own browser
+launched in 2023, is built on Chromium but with Google services removed
+and privacy protections added --- the same starting point as Brave,
+built by a company a fraction of Zoho\'s scale.
+
+Most significantly: Zoho built Deluge (Domain Specific Language for the
+Universal Grid Environment), a proprietary scripting language that
+powers the entire Zoho application stack. Every automation in Zoho CRM,
+Zoho Creator, Zoho Analytics is written in Deluge. Zoho built a
+programming language. That is foundational software by any definition.
+None of it --- not Deluge, not Artos, not the data centre tooling ---
+has been open-sourced. The depth exists. The community contribution does
+not.
+
+**PhonePe** takes a different approach: architectural transparency
+without open source. The company publishes detailed technical
+disclosures of its internal infrastructure. Drove, a NUMA-aware
+container orchestrator. Nimbus, a bare-metal provisioning system built
+on custom iPXE. PPeC Agent, managing approximately 350,000 cores and 3
+petabytes of RAM across PhonePe\'s infrastructure, per their published
+engineering blog. Average VM creation time: approximately seven seconds.
+These are non-trivial engineering achievements. None of them is
+open-source.
+
+**Frappe** is the genuine exception. The Frappe framework --- a Python
+full-stack web framework built by Frappe Technologies in Mumbai --- is
+open-source and powers ERPNext, one of the most widely deployed
+open-source ERP systems globally. Frappe is real OSS with a real
+community. But it is application-layer software. It sits on top of
+existing databases and web servers. It does not replace them. India\'s
+one clear OSS product company built an application, not infrastructure.
+
+The chart below shows where each country\'s contributions land in the
+infrastructure stack.
+
+``` {#layer-coverage-matrix .ojs}
+layers = [
+  "OS / Kernel", "Cryptography", "Database", "Consensus",
+  "Messaging", "RPC / Networking", "Service Mesh",
+  "Service Registry", "App Framework", "ML Framework",
+  "Frontend / UI", "Protocol / Spec"
+]
+
+coverage = [
+  {country: "China", layer: "OS / Kernel",        depth: 3},
+  {country: "China", layer: "Cryptography",        depth: 3},
+  {country: "China", layer: "Database",            depth: 3},
+  {country: "China", layer: "Consensus",           depth: 3},
+  {country: "China", layer: "Messaging",           depth: 3},
+  {country: "China", layer: "RPC / Networking",    depth: 3},
+  {country: "China", layer: "Service Mesh",        depth: 3},
+  {country: "China", layer: "Service Registry",    depth: 3},
+  {country: "China", layer: "App Framework",       depth: 3},
+  {country: "China", layer: "ML Framework",        depth: 2},
+  {country: "China", layer: "Frontend / UI",       depth: 3},
+  {country: "China", layer: "Protocol / Spec",     depth: 1},
+  {country: "India", layer: "OS / Kernel",         depth: 0},
+  {country: "India", layer: "Cryptography",        depth: 0},
+  {country: "India", layer: "Database",            depth: 0},
+  {country: "India", layer: "Consensus",           depth: 0},
+  {country: "India", layer: "Messaging",           depth: 0},
+  {country: "India", layer: "RPC / Networking",    depth: 0},
+  {country: "India", layer: "Service Mesh",        depth: 0},
+  {country: "India", layer: "Service Registry",    depth: 0},
+  {country: "India", layer: "App Framework",       depth: 1},
+  {country: "India", layer: "ML Framework",        depth: 0},
+  {country: "India", layer: "Frontend / UI",       depth: 1},
+  {country: "India", layer: "Protocol / Spec",     depth: 3},
+]
+
+Plot.plot({
+  title: "Open-source infrastructure depth by layer (0 = none, 3 = deep)",
+  marginLeft: 130,
+  x: {label: null, domain: ["China", "India"]},
+  y: {label: null, domain: [...layers].reverse()},
+  color: {
+    domain: [0, 1, 2, 3],
+    range: ["#f0f0f0", "#fdae6b", "#f16913", "#7f2704"],
+    legend: true,
+    tickFormat: d => ["None", "Limited", "Partial", "Deep"][d]
+  },
+  marks: [
+    Plot.cell(coverage, {
+      x: "country", y: "layer",
+      fill: "depth", inset: 2
+    })
+  ]
+})
+```
+
+# The Structural Explanation {#structural}
+
+The gap is not a talent gap. The engineers who designed AWS\'s core
+infrastructure, who wrote the distributed systems that run Google and
+Facebook, who built the databases that power half the internet --- many
+of them trained at Indian institutions. They built foundational
+software. They built it for American companies, on American payrolls,
+for American users. India exported the talent and imported the
+infrastructure they built.
+
+This happened because India\'s technology industry was structured from
+the beginning as a services export industry. Infosys, Wipro, TCS were
+built to write code for Western clients on Western infrastructure. There
+was no domestic scale problem that required building a new database.
+There was no government programme that mandated replacing Oracle. The
+forcing function that created Chinese infrastructure OSS simply did not
+exist.
+
+China\'s technology companies were structurally different: built for
+domestic consumption at a scale that no Western SaaS company could
+address. Alibaba\'s Singles\' Day traffic is not an AWS design target.
+Tencent\'s WeChat user base is not a scenario that Salesforce was
+architected for. When scale exceeds what purchased infrastructure can
+handle, you build. When scale is someone else\'s problem, you don\'t.
+
+The government funding dimension reinforces this. DARPA does not fund
+research. It funds outcomes --- \"build a packet-switched network that
+survives nuclear attack\" is an engineering contract, not a research
+grant. China\'s 863 Programme operated identically: named technologies,
+funded teams, specific deliverables. India\'s equivalent bodies --- DST,
+SERB, NASSCOM initiatives --- fund research papers and academic
+publications. Papers do not replace Oracle.
+
+# What India Could Do {#india-path}
+
+The standard response to India\'s foundational software gap points to
+the IITs and IISc --- well-funded, internationally recognised, natural
+homes for deep technical work. This is probably the wrong answer.
+
+IIT graduates have excellent options. Google, Microsoft, and every major
+US technology company recruit aggressively from the top Indian
+institutions. A student at IIT Delhi who builds a distributed database
+is passing up a comfortable career to do something difficult with
+uncertain reward. Most do not make that choice. The incentive structure
+does not reward foundational building.
+
+The more promising candidate is the engineer at a B-grade
+NAAC-accredited institution in Coimbatore or Nagpur or Bhubaneswar --- a
+student with strong technical foundations, fewer premium corporate
+options, and a stronger incentive to build something rather than join
+something. That constraint is a forcing function. It is the same logic
+that produced OceanBase: necessity, not abundance.
+
+The missing ingredient is not talent. It is directed capital pointed at
+specific engineering problems. A credible Indian infrastructure OSS
+programme would look like this: ten named engineering problems --- a
+distributed SQL database, a production-grade service mesh, an ML
+training framework competitive with PyTorch --- funded at B-tier
+institutions with engineering deliverables and timelines, not
+publication targets. Not broad research grants. Engineering contracts.
+
+The model exists. DARPA invented it. China\'s 863 Programme replicated
+it. India has not tried it for software infrastructure, at any
+institution, at any scale.
+
+# Conclusion
+
+> The software myth runs as follows: China makes hardware, India makes
+> software. The reality is that China makes hardware and foundational
+> software. India makes services. Services and foundational software are
+> not the same thing, and the difference is not academic. The country
+> that controls the database, the operating system, the RPC framework,
+> and the service mesh controls the terms on which everything above
+> those layers is built. China has spent a decade building that control,
+> driven by a US vendor dependency it could no longer afford. India\'s
+> engineers helped build the same infrastructure --- for American
+> companies, for American users, on American payrolls. The talent was
+> never the constraint. The forcing function was. That forcing function
+> can be manufactured through policy. It has not been. Until it is, the
+> gap described in this article will not close on its own.
