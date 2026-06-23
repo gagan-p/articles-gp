@@ -35,7 +35,14 @@ jobs:
               -o "articles/${base}.qmd"
             sed -i -E 's/^``` ?(ojs|python|r|julia)$/```{\1}/' \
               "articles/${base}.qmd"
-            echo "Converted: $f -> articles/${base}.qmd"
+            if [ -f "articles_original_org/${base}.css" ]; then
+              cp "articles_original_org/${base}.css" "articles/${base}.css"
+              css_file="${base}.css"
+            else
+              css_file="styles.css"
+            fi
+            sed -i "2i css: ${css_file}" "articles/${base}.qmd"
+            echo "Converted: $f -> articles/${base}.qmd (css: ${css_file})"
           done
 
       - name: Commit converted qmd files
@@ -43,7 +50,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email \
             "github-actions[bot]@users.noreply.github.com"
-          git add articles/*.qmd
+          git add articles/*.qmd articles/*.css 2>/dev/null || git add articles/*.qmd
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
