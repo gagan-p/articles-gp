@@ -126,8 +126,10 @@ The chart below accumulates Apache Software Foundation project
 donations from Chinese companies since 2015. Each of these is a
 production-grade infrastructure tool, not a research prototype.
 
-#+NAME: apache-china-timeline
-#+begin_src ojs
+#+begin_export markdown
+```{ojs}
+//| label: apache-china-timeline
+//| fig-cap: "Chinese infrastructure projects donated to Apache ASF"
 apache_projects = [
   {year: 2015, project: "RocketMQ",         org: "Alibaba"},
   {year: 2017, project: "Dubbo",            org: "Alibaba"},
@@ -174,7 +176,8 @@ Plot.plot({
     })
   ]
 })
-#+end_src
+```
+#+end_export
 
 * The Forcing Function: IOE and the 863 Programme
 :PROPERTIES:
@@ -298,8 +301,10 @@ over 100 million residents enrolled across Africa, Southeast Asia, and
 Latin America. Morocco, Philippines, Ethiopia, Nigeria, Peru — countries
 building sovereign identity infrastructure on Indian-incubated software.
 
-#+NAME: mosip-growth-chart
-#+begin_src ojs
+#+begin_export markdown
+```{ojs}
+//| label: mosip-growth-chart
+//| fig-cap: "MOSIP: residents enrolled globally (millions, as of 2025)"
 mosip = [
   {year: 2020, residents_m: 0,   countries: 2},
   {year: 2021, residents_m: 8,   countries: 5},
@@ -331,7 +336,8 @@ Plot.plot({
     Plot.ruleY([0])
   ]
 })
-#+end_src
+```
+#+end_export
 
 MOSIP is important precisely because it is software, not just a
 specification. It can be deployed, forked, improved, and adapted. In
@@ -385,8 +391,10 @@ one clear OSS product company built an application, not infrastructure.
 The chart below shows where each country's contributions land in the
 infrastructure stack.
 
-#+NAME: layer-coverage-matrix
-#+begin_src ojs
+#+begin_export markdown
+```{ojs}
+//| label: layer-coverage-matrix
+//| fig-cap: "OSS infrastructure depth by layer (0 = none, 3 = deep)"
 layers = [
   "OS / Kernel", "Cryptography", "Database", "Consensus",
   "Messaging", "RPC / Networking", "Service Mesh",
@@ -439,7 +447,8 @@ Plot.plot({
     })
   ]
 })
-#+end_src
+```
+#+end_export
 
 * The Structural Explanation
 :PROPERTIES:
