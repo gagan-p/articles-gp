@@ -1,0 +1,879 @@
+---
+css: software_oss_Ind_Chn.css
+author: gp
+date: 2026-06-24
+subtitle: India has the engineers. China has the software. The gap, the
+  reasons, and the early signs it is starting to close.
+title: The Pursuit of Average
+---
+
+```{=org}
+#+STARTUP: overview indent
+```
+```{=org}
+#+PROPERTY: header-args :exports both :eval no-export
+```
+<div class="exec-summary">
+<div class="exec-title">In one breath</div>
+<p>
+India is called a software nation on the strength of some 17 million
+developers, yet it builds <em>applications</em> on foundations — databases,
+message queues, kernels — it does not own. <a href="#comparison">China built
+that foundational layer</a> and India did not, and the reason is not talent but
+structure: the <a href="#mechanisms">three mechanisms</a> that produce
+foundational software barely operate here. The encouraging part is that a
+<a href="#transition">transition has begun</a> — scaled winners like Zerodha,
+PhonePe, and Zoho are descending into the foundations — but mostly from the
+already-scaled, and <a href="#path">the missing half</a> is the garage aimed at
+a big problem before scale forces it.
+</p>
+</div>
+<div class="disclaimer-mini">
+Facts and figures here are cited; interpretations are the author's and are meant
+to provoke. Contribution data is partial — counts are proxies, not censuses.
+Errors of fact should be corrected; errors of opinion are on purpose.
+</div>
+
+# The Claim, and the Word It Hides Behind {#claim}
+
+India is a software nation. This is repeated in boardrooms and budget
+speeches with the calm of a fact that has never been asked to prove
+itself, and by one measure it survives the asking: as of late 2025,
+roughly 17 million Indian developers on GitHub, the second-largest
+population on the platform, growing fastest, due to overtake the United
+States by 2028.[^1] Seventeen million is real. It is also the wrong
+number to be proud of.
+
+\"Software nation\" smuggles in a word it never defines. There is
+application software --- the app, the website, the dashboard that emails
+you when a server sulks --- and there is foundational software: the
+database the app writes to, the operating system it runs on, the message
+queue it leans on, the cryptography between it and the morning
+headlines. The application is what the user sees. The foundation is what
+the application stands on, generally without thinking about it, the way
+one does not think about the floor until it is gone.
+
+India builds applications. With a small and instructive set of
+exceptions, it does not build foundations. China does. This is the
+actual situation under the comfortable cliché that China makes hardware
+and India makes software --- a sentence half right in the way that is
+more dangerous than being wrong outright.
+
+## The argument, as a pyramid
+
+This essay is built as an argument pyramid: a single claim at the top,
+resting on layers of narrower claims, each resting on evidence, several
+levels deep. Only the top two levels are drawn here; the rest is the
+prose that follows.
+
+<div class="pyramid-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" class="pyramid-svg" role="img" aria-label="Argument pyramid: top two levels">
+  <rect x="160" y="20" width="400" height="64" rx="6" class="pyr-apex"/>
+  <text x="360" y="44" text-anchor="middle" class="pyr-apex-t">India is celebrated for software, yet builds on</text>
+  <text x="360" y="62" text-anchor="middle" class="pyr-apex-t">foundations it does not own. The gap with China is</text>
+  <text x="360" y="80" text-anchor="middle" class="pyr-apex-t">structural, not a matter of talent — and it is closable.</text>
+
+  <line x1="360" y1="84" x2="100" y2="150" class="pyr-line"/>
+  <line x1="360" y1="84" x2="280" y2="150" class="pyr-line"/>
+  <line x1="360" y1="84" x2="440" y2="150" class="pyr-line"/>
+  <line x1="360" y1="84" x2="620" y2="150" class="pyr-line"/>
+
+  <rect x="20" y="150" width="160" height="120" rx="6" class="pyr-l1"/>
+  <text x="100" y="182" text-anchor="middle" class="pyr-l1-t">The claim is</text>
+  <text x="100" y="198" text-anchor="middle" class="pyr-l1-t">miscategorised:</text>
+  <text x="100" y="214" text-anchor="middle" class="pyr-l1-t">application,</text>
+  <text x="100" y="230" text-anchor="middle" class="pyr-l1-t">not foundation.</text>
+
+  <rect x="200" y="150" width="160" height="120" rx="6" class="pyr-l1"/>
+  <text x="280" y="182" text-anchor="middle" class="pyr-l1-t">China's stack is</text>
+  <text x="280" y="198" text-anchor="middle" class="pyr-l1-t">categorically</text>
+  <text x="280" y="214" text-anchor="middle" class="pyr-l1-t">deeper, adopted</text>
+  <text x="280" y="230" text-anchor="middle" class="pyr-l1-t">on merit.</text>
+
+  <rect x="380" y="150" width="160" height="120" rx="6" class="pyr-l1"/>
+  <text x="460" y="182" text-anchor="middle" class="pyr-l1-t">Foundations are</text>
+  <text x="460" y="198" text-anchor="middle" class="pyr-l1-t">born of three</text>
+  <text x="460" y="214" text-anchor="middle" class="pyr-l1-t">mechanisms India</text>
+  <text x="460" y="230" text-anchor="middle" class="pyr-l1-t">barely runs.</text>
+
+  <rect x="560" y="150" width="160" height="120" rx="6" class="pyr-l1"/>
+  <text x="640" y="182" text-anchor="middle" class="pyr-l1-t">A transition is</text>
+  <text x="640" y="198" text-anchor="middle" class="pyr-l1-t">underway, but the</text>
+  <text x="640" y="214" text-anchor="middle" class="pyr-l1-t">garage must aim</text>
+  <text x="640" y="230" text-anchor="middle" class="pyr-l1-t">at big problems.</text>
+
+  <text x="360" y="292" text-anchor="middle" class="pyr-caption">…each box rests on the evidence in the sections below.</text>
+</svg>
+</div>
+
+The standard answer to \"why doesn\'t India build foundations\" reaches
+for talent. The standard answer is wrong. The real answer is structural,
+and a structure can be changed.
+
+# Two Phenotypes in One Browser {#phenotypes}
+
+Foundational software is born two ways, and both are running in a
+program you probably have open. Visit `chrome://version` or
+`edge://version` and consider what is underneath.
+
+LevelDB sits inside the browser\'s IndexedDB and several internal
+databases. It was written in 2011 by Jeff Dean and Sanjay Ghemawat ---
+two of the most decorated engineers alive --- at Google, to solve a
+problem Google had.[^2] It is excellent, and it is *institutional*
+software: abundant resources, an explicit mandate, two people whose
+careers were in no danger. The open-source release came afterwards, the
+way one decides what to do with leftovers.
+
+SQLite sits elsewhere in the same process --- the cookie store, the
+history, the preferences. It was begun in 2000 by D. Richard Hipp,
+alone, under a United States Navy contract to track equipment aboard a
+guided-missile destroyer.[^3] When the contract ended he kept going, and
+placed the result in the public domain --- no licence, no foundation, no
+company --- whereupon it became the most widely deployed database engine
+in history: every phone, every browser, Airbus avionics, every copy of
+WhatsApp on Earth.[^4] One person, because the problem was interesting
+and the existing tools were wrong.
+
+Where most projects keep a licence, SQLite keeps a blessing, visible in
+its own source:[^5]
+
+> May you do good and not evil. May you find forgiveness for yourself
+> and forgive others. May you share freely, never taking more than you
+> give.
+
+Two pieces of foundational software, in one binary, neither having
+displaced the other because they were never competing. One is what a
+powerful institution produces on purpose. The other is what a single
+person produces because they cannot help it. A country that builds
+neither kind is missing two distinct mechanisms --- and the rest of this
+essay is really one question: which of them does India run, and which
+does it quietly suppress?
+
+# The Comparison Nobody Enjoys {#comparison}
+
+Foundational software has the courtesy of being countable. Between
+silicon and the running application sits a finite stack of layers, and
+for each we can ask whether a country\'s industry shipped a
+globally-deployed open-source implementation, or did not.
+
+```{ojs}
+//| label: fig-layer-coverage
+//| fig-cap: "Open-source foundational depth by layer (0 none, 3 deep). Scoring is the author's; argue with the cells, not the colours."
+
+layers = ["OS / Kernel","Cryptography","Database","Consensus","Messaging",
+  "RPC / Networking","Service Mesh","Service Registry","Distributed Txn",
+  "Container Tooling","App Framework","ML / AI Framework","Frontend / UI",
+  "Protocol / Spec"]
+cov = [
+ ["China","OS / Kernel",3],["China","Cryptography",3],["China","Database",3],
+ ["China","Consensus",3],["China","Messaging",3],["China","RPC / Networking",3],
+ ["China","Service Mesh",3],["China","Service Registry",3],["China","Distributed Txn",3],
+ ["China","Container Tooling",3],["China","App Framework",3],["China","ML / AI Framework",2],
+ ["China","Frontend / UI",3],["China","Protocol / Spec",1],
+ ["India","OS / Kernel",0],["India","Cryptography",0],["India","Database",0],
+ ["India","Consensus",0],["India","Messaging",0],["India","RPC / Networking",0],
+ ["India","Service Mesh",0],["India","Service Registry",0],["India","Distributed Txn",0],
+ ["India","Container Tooling",0],["India","App Framework",1],["India","ML / AI Framework",2],
+ ["India","Frontend / UI",1],["India","Protocol / Spec",3]
+].map(([c,l,d]) => ({c,l,d}))
+
+Plot.plot({
+  marginLeft: 150, marginRight: 10,
+  x: {label: null, domain: ["China","India"]},
+  y: {label: null, domain: [...layers].reverse()},
+  color: {domain:[0,1,2,3], range:["#f7f7f7","#fdae6b","#f16913","#7f2704"],
+          legend:true, tickFormat:d=>["None","Limited","Partial","Deep"][d]},
+  marks: [
+    Plot.cell(cov, {x:"c", y:"l", fill:"d", inset:2}),
+    Plot.text(cov, {x:"c", y:"l", text:d=>["—","▪","▪▪","▪▪▪"][d.d],
+      fill:d=>d.d>=2?"#fff":"#999", fontSize:11})
+  ]
+})
+```
+
+The Indian column is the colour of an empty page across the whole
+infrastructure middle. It registers only at the extremes --- the
+protocol layer (UPI, Aadhaar, ONDC) and, lately, the AI-model layer.
+Between them, nothing: no database, no message queue, no service mesh,
+no consensus library, no cryptography library, no operating system. The
+scoring is mine and defensible cell by cell; the shape is not an
+opinion.
+
+The most complete specimen of what India did not build is Ant Group\'s
+SOFAStack --- an entire infrastructure layer, built because Alipay ran
+at a scale purchased software declined to survive, then
+open-sourced.[^6]
+
+  Layer           Project     Why it exists
+  --------------- ----------- -------------------------------------------------------
+  Database        OceanBase   Oracle could not survive Singles\' Day
+  Messaging       RocketMQ    IBM MQ lacked transactional semantics
+  Service mesh    MOSN        Envoy could not carry Ant\'s protocol
+  Consensus       SOFAJRaft   latency, at a scale that punishes it
+  Registry        Nacos       replacing Consul + etcd + ZooKeeper
+  Cryptography    Tongsuo     Chinese SM2/SM3/SM4 compliance
+  Secure kernel   Asterinas   a memory-safe kernel, because the others would not do
+
+And that is one company. Beyond it: ByteDance\'s CloudWeGo (Go and
+Rust), Baidu\'s PaddlePaddle and BFE, Huawei\'s openEuler and openGauss,
+PingCAP\'s TiDB, WeBank\'s FISCO BCOS. There is even an entire layer
+India is absent from that China owns outright: Apache APISIX, the
+high-traffic API gateway built by api7.ai, donated to the Apache
+Software Foundation in 2019 and run at scale worldwide.[^7] Fourteen
+Chinese infrastructure projects were handed to the Apache Software
+Foundation between 2015 and 2024 --- production tools, not conference
+demos.[^8]
+
+And the deepest of them cross over on merit, not mandate: Gitea, Harbor,
+and TiDB are run by engineers who could not place Hangzhou on a map.[^9]
+You can even read the intent before the code --- ByteDance ships under
+Apache-2.0, the \"please, world, take this\" licence, while OceanBase
+uses the China-origin MulanPubL-2.0 that a Western bank\'s lawyers must
+stop and read;[^10] and OceanBase, courting foreign banks, has good
+English documentation where the domestically-sold SOFABoot does not.
+
+## A named absence: the gateway and identity layer
+
+It is worth dwelling on one layer, because the absence there is total
+and the market is crowded. The API gateway --- the traffic cop that sits
+in front of every modern microservice --- has a deep field of
+open-source and commercial options: Kong from the United States, Apigee
+now inside Google, APISIX from China, Tyk from the United Kingdom,
+MuleSoft inside Salesforce, Gravitee from France. Identity and access
+management is similar: Keycloak from Red Hat, Ory\'s Kratos and Hydra
+from Germany, Auth0 now inside Okta. Across this entire layer --- the
+gates and the locks of the internet --- India has built nothing that the
+world runs. The one Indian name in the vicinity, Postman, sits a storey
+above, at tooling, not at the gateway itself, and we will come to why
+that distinction matters.
+
+# How Foundational Software Is Actually Born {#mechanisms}
+
+If China has it and India does not, the useful question is mechanical:
+by what process does foundational software come to exist? The record is
+consistent and points to three mechanisms.
+
+The **iconoclast** decides the existing tool is wrong at a level no
+configuration can fix, and rebuilds it. SQLite is the archetype; Gitea,
+begun by one developer in 2014, is the same impulse with Chinese
+characteristics; Redpanda, which we will meet again, is the same bet
+against Kafka.
+
+The **domain expert who learns to code** is the most underrated of the
+three, and has quietly produced much of the scientific stack.
+
+<div class="story-box">
+<div class="story-label">A psychiatrist writes the world's neuroimaging standard</div>
+<p>
+Karl Friston is, by training, a psychiatrist. In the early 1990s, doing brain
+imaging at the Wellcome Trust, he needed statistical analyses of PET and MRI scans
+that no software could perform — so he wrote them. SPM became, and remains, the
+dominant package in human neuroimaging; a vast share of every brain-imaging paper
+of the last thirty years rests on software written by a doctor who declined to
+wait for a tool.[fn:spm]
+</p>
+</div>
+
+He is not a fluke. R came from two statisticians wanting a better way to
+teach; QGIS from a geographer who wanted a GIS that ran on Linux;
+OpenFOAM from mechanical engineers; BLAS, under nearly all numerical
+computing, from numerical analysts doing physics.[^11] In every case the
+generality was an accident of depth. Nobody set out to build
+foundational infrastructure; they had a problem too specific for the
+available tools, and built it right.
+
+  Tool       Domain           Author\'s training
+  ---------- ---------------- ----------------------
+  SPM        Neuroimaging     Psychiatrist
+  R          Statistics       Statisticians
+  QGIS       Geospatial       Geographer
+  OpenFOAM   Fluid dynamics   Mechanical engineers
+  BLAS       Linear algebra   Numerical analysts
+
+The third mechanism is the **cross-disciplinary room** --- the institute
+where a problem and a codebase are shared across fields. CERN\'s
+byproducts include the World Wide Web.[^12] And the cleanest modern
+example of this mechanism is not in India, which is the uncomfortable
+part.
+
+<div class="story-box">
+<div class="story-label">The lone star — and it is not India</div>
+<p>
+The University of Moratuwa, in Sri Lanka, runs a computer-science research group
+whose work became foundational software the world depends on. Sanjiva Weerawarana
+— Purdue PhD, eight years at IBM Research, a visiting professor at Moratuwa who
+chose to stay in Colombo rather than relocate to San Jose — co-founded WSO2 in
+2005.[fn:wso2] Out of the Moratuwa research orbit, led by Srinath Perera, came
+Siddhi: a stream-processing and complex-event-processing engine that became the
+runtime inside WSO2's products and is deployed for real-time work at the scale of
+Uber's fraud detection — a use confirmed, with some delight, in Weerawarana's own
+account of moonlighting as an Uber driver.[fn:siddhi] WSO2 also ships an API
+manager, an identity server, and Ballerina, a programming language purpose-built
+for integration.
+</p>
+<p>
+Sri Lanka has 22 million people and no software-nation mythology whatsoever. One
+university research group there produced a globally-deployed streaming engine. The
+IITs produce more computer-science graduates in a year than Moratuwa has in its
+history; Moratuwa has the engine. The mechanism is not population. It is the room
+where a problem and a codebase are shared, and a professor who stayed.
+</p>
+</div>
+
+There is a fourth thing, not a mechanism but a norm: how the work is
+shared. Foundational software accretes a community when its makers
+publish the reasoning openly, before it is finished.
+
+<div class="story-box story-box-counter">
+<div class="story-label">What sharing the work looks like</div>
+<p>
+Anthropic's interpretability group publishes its research — including dead ends and
+half-formed results — openly on the Transformer Circuits thread, in the open, as it
+goes.[fn:tc] This is not foundational software and it is not Indian; it is the
+<em>norm</em> the rest of this essay keeps pointing at: the habit of showing the
+work, which converts a private insight into a thing others can build on. It is
+exactly the connective tissue the lone Indian builder, later in this story, does
+not have.
+</p>
+</div>
+
+China runs all three mechanisms and the norm. Sri Lanka, on the evidence
+of one professor, runs the third. The question for India is how many of
+them its system permits.
+
+# What Has, and Has Not, Happened Here {#india}
+
+India\'s real contribution is genuine and lives at the protocol layer.
+The India Stack --- Aadhaar, UPI, ONDC --- is a set of open
+specifications on which private players compete; UPI clears over 14
+billion transactions a month and has been copied from Singapore to
+Brazil.[^13] But it must be described precisely, because imprecision is
+where self-congratulation lives: UPI is a specification, not deployable
+code, and PhonePe, Google Pay, and Paytm built proprietary
+implementations on top of it. The cleanest exception is MOSIP, the
+open-source identity platform from IIIT-Bangalore, now running in
+fourteen countries --- India\'s clearest single export of foundational
+open-source software, and tellingly never Apache-incubated.[^14]
+
+The most important recent development is also the most inconvenient for
+the thesis, and honesty requires stating it at full strength.
+
+<div class="story-box story-box-counter">
+<div class="story-label">Sarvam — the strongest recent release, and why it is still not a foundation</div>
+<p>
+In February 2026, Sarvam AI — founded by two AI4Bharat alumni from IIT Madras —
+released Sarvam-30B and a 105-billion-parameter model, trained from scratch on
+Indian-language data and open-sourced under Apache-2.0 on Hugging Face.[fn:sarvam]
+It is the closest India has come to the Chinese pattern: a real constraint, a build
+from first principles, an open release under the global-adoption licence.
+</p>
+<p>
+And yet a trained model is not foundational software in the sense this essay uses
+everywhere else. A database, a queue, a kernel are infrastructure that other
+software runs <em>on</em>; a model is an artefact <em>produced by</em> running that
+infrastructure — and Sarvam's trains and serves, with some irony, on American and
+Chinese foundations. It is an open model, not an open foundation. Krutrim, the
+other flagship, is weaker still: models shipped, then senior leaders and clarity
+shed in roughly equal measure.[fn:krutrim] The model layer is a genuine stirring.
+It is not, yet, the floor.
+</p>
+</div>
+
+The iconoclast does fire here --- rarely, unsupported, which is what
+makes it clarifying. It appears as foundational software built for love,
+from a real need.
+
+<div class="story-box">
+<div class="story-label">Listmonk, and a language in code</div>
+<p>
+Kailash Nadh, who works at the brokerage Zerodha, needed a high-performance
+self-hosted mailing-list manager, found none adequate, and built one — Listmonk,
+MIT-licensed, now used worldwide.[fn:listmonk] Santhosh Thottingal has spent years
+on the foundational layer of a whole language: Malayalam fonts, a morphological
+analyser, a hyphenation dictionary — the sort of thing nobody notices until it is
+missing and text stops rendering.[fn:thottingal] He is a product of the ecosystem
+that appeared when Kerala, constrained by budget rather than ideology, put
+open-source software in its schools in the early 2000s. Both are a labour of love
+born from a need and an interest.
+</p>
+</div>
+
+There is also a genuine Indian success in this neighbourhood, and it is
+worth being exact about where it sits.
+
+<div class="story-box">
+<div class="story-label">Postman — a real win, one storey above the foundation</div>
+<p>
+Postman began in Bangalore in 2014 — Abhinav Asthana, Ankit Sobti, and Abhijit Kane,
+starting from a humble Chrome extension — and became the global standard for API
+testing and collaboration, used by tens of millions of developers and most of the
+Fortune 500.[fn:postman] This is a real and large success. It is also, precisely, a
+developer tool, not an API gateway or a piece of infrastructure: India's most
+globally-adopted API product sits one storey above the gateway, and the gateway
+itself is Chinese (APISIX) or American (Kong, Apigee). This is not a criticism of
+Postman. It is an accurate map of where Indian builders have succeeded — the
+application and tooling layer — and where they have not.
+</p>
+</div>
+
+And then there is the mechanism that, in India, mostly does not fire at
+all.
+
+<div class="anecdote-box">
+<div class="anecdote-label">A personal note</div>
+<p>
+Someone I know is building a messaging system from the ground up — not a wrapper
+around Kafka, a redesign that starts from different premises about ordering and
+about what "delivery" means when a consumer can be arbitrarily slow. The argument is
+coherent, the code exists, the benchmarks are being written. What does not exist
+around it is everything else: runway, an early-adopter community, a blog that makes
+the problem legible, a conference slot. Redpanda made the same bet — that Kafka is
+wrong at the architecture level — and is now in production at thousands of
+companies.[fn:redpanda] The difference is not the insight. It is access to the
+connective tissue that turns a correct idea into a project with a community.
+</p>
+</div>
+
+The other two mechanisms barely fire. There is no Indian SPM, no Indian
+R, no Indian CERN. The exception that proves the rule is AI4Bharat at
+IIT Madras --- the one genuinely cross-disciplinary effort, whose alumni
+founded Sarvam. The single working instance of mechanism three produced
+the single counterexample. The sample size is one, and it behaves
+exactly as the theory predicts.
+
+# Why --- The Pursuit of Average {#why}
+
+So why, with the second-largest developer population on Earth, does
+India build at the top of the stack and almost never at the bottom? The
+seventeen million is the clue, not the rebuttal: headcount and
+foundational output are different axes, and the whole confusion is the
+act of treating one as a proxy for the other.
+
+```{ojs}
+//| label: fig-quantity-quality
+//| fig-cap: "Developer headcount vs foundational depth. Headcount from public GitHub figures; the vertical axis is the author's layer tally — illustrative, not an index, do not cite it in a thesis."
+
+data = [
+ {c:"United States", devs:25, f:14, label:"US"},
+ {c:"China", devs:12, f:13, label:"China"},
+ {c:"India", devs:17, f:2, label:"India"},
+ {c:"Germany", devs:6, f:5, label:"Germany"},
+ {c:"UK", devs:4, f:4, label:"UK"},
+]
+Plot.plot({
+  marginLeft:50, marginBottom:45,
+  x:{label:"GitHub developers (millions, 2025) →", grid:true, domain:[0,28]},
+  y:{label:"↑ Foundational depth (illustrative)", grid:true, domain:[0,16]},
+  marks:[
+    Plot.dot(data, {x:"devs", y:"f", r:8, fill:"#2c3e50", opacity:0.85}),
+    Plot.text(data, {x:"devs", y:"f", text:"label", dy:-14, fontSize:11, fontWeight:"bold"}),
+    Plot.text([{x:17,y:2}], {x:"x", y:"y",
+      text:["← most engineers, near the fewest foundations"], dx:90, fontSize:9, fill:"#c0392b"})
+  ]
+})
+```
+
+India sits far right on people and near the floor on foundations;
+Germany and the UK, with a fraction of the developers, sit well above
+it. The talent is present and something else is absent. Four structural
+reasons account for the something.
+
+There is **no forcing function**. China built OceanBase because
+Singles\' Day broke Oracle and money could not un-break it.[^15]
+India\'s industry was built as a services-export business writing code
+for Western clients on Western infrastructure, very well and very
+profitably; there was no domestic scale problem that broke a purchased
+database, and data-localisation rules are satisfied by running in AWS
+Mumbai. The pressure that manufactures foundational software was never
+applied.
+
+There is the **jugaad trap**. Indian engineering venerates the frugal
+workaround assembled from existing parts,[^16] which is admirable at the
+product layer and the exact opposite of the foundational impulse: jugaad
+celebrates the existing foundation and builds cleverly atop it, where
+SQLite and OceanBase exist because someone judged the foundation wrong
+and rebuilt it. A culture that rewards the workaround over the rebuild
+produces applications. It is doing precisely what it is optimised to do.
+
+There is the **silo, and the price of failure**. The domain-expert
+mechanism needs a doctor or a geographer to be able to learn to code ---
+and the system to tolerate the time. Indian professional education is
+unusually siloed, and the failure cost is asymmetric: elsewhere a
+researcher who spends two years on a tool that fails loses two years;
+here they can lose their standing, funding, and career. The mechanism
+that produced SPM requires permission to fail at the primary task, and
+the system declines to grant it.
+
+And there is the **feedback loop that never closed** --- the most
+instructive of the four, because it shows the missing ingredient is not
+what people assume.
+
+<div class="story-box">
+<div class="story-label">BARC did the documentation right, and it still wasn't enough</div>
+<p>
+The usual story is that India's state computing failed for want of documentation. It
+is more uncomfortable than that. India's Department of Atomic Energy, through BARC,
+built more than twenty ANUPAM supercomputers from 1991 onward and documented them
+properly — in peer-reviewed papers, in Springer volumes, in the scientific
+record.[fn:barc] C-DAC's PARAM, by contrast, lives mostly in press releases. Yet
+neither produced reusable open software, and BARC's good documentation did not save
+it, because ANUPAM was built for <em>internal</em> reactor physics — there was no
+external user to pull the work outward, fork it, demand it improve. The missing
+ingredient was never the blog. It was the downstream user.
+</p>
+</div>
+
+The same lesson, generalised, separates India\'s state programs from the
+comparators that worked.
+
+  Country       Body           What it built                     Did it yield reusable software?
+  ------------- -------------- --------------------------------- ------------------------------------------
+  India         C-DAC, C-DOT   Supercomputers, exchanges         Hardware yes; reusable OSS no
+  India         BARC (DAE)     20+ ANUPAM supercomputers         Documented science; internal-use; no OSS
+  Brazil        Embrapa        Agricultural research, networks   Yes --- tied to farmer problems
+  South Korea   ETRI           Telecoms, chips, accelerators     Yes --- handed to industry
+  Taiwan        NCHC / ITRI    HPC coupled to semiconductors     Yes --- feeds the chip ecosystem
+
+India built machines. The comparators built capabilities coupled to a
+user who exerted pressure. C-DAC also lost on procurement, where
+specifications were quietly written to match the incumbent foreign
+vendor, and on retention, where the services boom tripled salaries and
+the capability walked out, leaving process behind. OceanBase improved
+because Alipay\'s load broke it in public; ANUPAM and PARAM faced no
+such pressure and calcified.
+
+And when the talent did build foundational software, it often did so
+elsewhere, for someone else.
+
+<div class="story-box">
+<div class="story-label">Apigee — the export, named</div>
+<p>
+The API-management company that became Apigee began as Sonoa Systems in 2004 in Santa
+Clara, founded by Raj Singh — an engineer of Indian origin, from Meerut — and Ravi
+Chandra; Chet Kapoor joined as CEO in 2006 and later took it public. Google bought it
+in 2016 for about 625 million dollars.[fn:apigee] An engineer with an Indian name built
+foundational API infrastructure that twenty of the Fortune 100 came to depend on. He
+built it in San Jose, on American capital, for an American acquirer. The talent was not
+absent. The system that would have kept it in India was. This is the most concrete
+instance of the talent being exported at a discount.
+</p>
+</div>
+
+The composite is fairly called a pursuit of the average --- not an
+insult to individuals, many of them world-class, but a description of
+what the system selects for. The safe path is the services job, the
+application on someone else\'s cloud, the workaround admired in the
+standup. The foundational build --- slow, uncertain, demanding both a
+tolerance for failure and a serene indifference to the premium career
+--- is exactly the profile the incentive structure filters out before
+the interview.
+
+# The Transition Is Real --- and Going the Wrong Way {#transition}
+
+Here the story turns, because something genuinely new is happening. The
+Indian companies that survived and scaled are now descending into the
+foundational layer --- building the floor because the borrowed one
+finally stopped fitting. And one company went there on principle, before
+it had to.
+
+<div class="story-box">
+<div class="story-label">Zerodha — the model already working</div>
+<p>
+A thirty-person tech team runs roughly a fifth of India's stock trades, about fourteen
+million trades on a record day, at sub-forty-millisecond mean latency, on self-hosted
+open source with no vendor lock-in.[fn:zerodha-s] They open-source what they build and
+run it themselves — DungBeetle, a distributed SQL job server; kaf-relay, for Kafka
+replication; Listmonk — and they <em>co-founded FOSS United</em> and put a million
+dollars a year into a FOSS fund.[fn:zerodha-o] Their own blog states the disposition
+plainly: "Nobody has any background in finance… everyone has been a hacker or a
+hobbyist straight out of college. What colleges, neither do we ask, nor do we keep a
+track of."[fn:zerodha-blog] When a four-decade, single-handed Kannada dictionary
+surfaced, it was discovered and open-sourced not by a university but by this
+brokerage. It is the iconoclast and the domain expert and the connective tissue, in
+one company.
+</p>
+</div>
+
+<div class="story-box">
+<div class="story-label">Drove — built, opened, and waiting for an audience</div>
+<p>
+PhonePe — a payments company — built its own container orchestrator, Drove, as a
+declared successor to Apache Mesos/Marathon, and a bare-metal provisioner, Nimbus, on
+custom iPXE.[fn:drove] Drove is genuinely open-sourced, documented, and was presented
+for technical review at Rootconf in early 2025. It is real, it runs PhonePe's
+production infrastructure — and it is almost entirely un-adopted outside PhonePe. There
+is no chorus of outside companies, no "we switched from Kubernetes to Drove" write-ups.
+This is the new failure mode: not built-but-not-opened, but built, opened, and left at
+the edge of adoption for want of the unglamorous evangelism — the benchmarks, the
+outsider documentation, the marketing — that turns a published repository into a
+standard.
+</p>
+</div>
+
+<div class="story-box">
+<div class="story-label">Frappe — the unglamorous birth</div>
+<p>
+India's one genuine application-framework export began without ceremony. Frappe's
+ERPNext was licensed under the GPL and sat on Google Code from 2009; its founder
+rewrote it, by his own account, "a couple of times," and in the early days it had "no
+clear deployment instructions, very sparse documentation and no community
+forum."[fn:frappe] From that unpromising start it grew a forum now past twenty-two
+thousand members. Foundational-ish software, born ugly, kept alive by persistence.
+</p>
+</div>
+
+<div class="story-box">
+<div class="story-label">Zoho — the descent made on principle</div>
+<p>
+Zoho is the outlier that matters most. Founded in 1996 as AdventNet by Sridhar Vembu —
+IIT Madras, a Princeton PhD, ex-Qualcomm, who returned not to Bangalore but to the
+town of Tenkasi in rural Tamil Nadu — it bootstrapped to over a hundred million users
+and well past a billion dollars in revenue without ever taking venture capital, and is
+still private.[fn:zoho-sv] Its first product, in the 1990s, was WebNMS, a
+network-management framework sold to telcos worldwide — infrastructure, not an
+application, from the very start.[fn:webnms] It built its own scripting language,
+Deluge, to run Zoho Creator and Flow; an owned language is an owned layer. It shipped
+Ulaa, a Chromium-based browser whose DNS routes through India's national root
+servers.[fn:ulaa] And, most strikingly, Zoho does not rent its foundation: its products
+run on hardware Zoho owns and software frameworks Zoho wrote, atop Linux and Postgres,
+in its own data centres — not on AWS, Azure, or Google Cloud — and in 2026 it unveiled
+Nathu La, a server motherboard and chassis it designed in-house, for sovereignty and to
+cut inference cost.[fn:zoho-server]
+</p>
+<p>
+Every other company in this story descended into the foundations because scale forced
+it. Zoho descended because Vembu decided it was the right thing to do — before the
+scale arrived, before the database broke, before anyone called it necessary. Zoho is
+not open source, and the thesis holds regardless: the issue is foundational work, not
+licensing. Zoho is the proof that the decision to own the floor can be made on
+principle, years before economics demands it.
+</p>
+</div>
+
+This descent is real, recent, and the right direction. But for the most
+part it is a privilege of the already-scaled: it flows downward, only
+after winning at scale, and each winner builds only the few pieces its
+own problem demands. That is a structural ceiling. Few companies reach
+that scale, so the country gets few foundational projects, each narrow.
+
+The encouraging exception to the ceiling is FOSS United --- co-founded
+by Zerodha --- which is the closest thing India has to the connective
+tissue this essay keeps naming as missing: a network, conferences, a
+fund, the beginnings of a place where a builder in one town can discover
+the builder in another who solved the same problem last year. It is the
+right bridge, half-built.
+
+What India still does not have is the other half: the garage aimed at a
+genuinely big problem before scale forces it. The lone builder normally
+has a small problem an existing library handles, so jugaad is rational
+and they stay at the top of the stack. The SQLite phenotype --- the
+small builder going deep before anyone has said it is worth money --- is
+precisely the thing the descent of the scaled winners cannot supply, and
+it is the thing the country most lacks.
+
+# A Way Out That Does Not Run Through the IITs {#path}
+
+The reflexive prescription points at the IITs. It is almost certainly
+wrong: their graduates have the best options in the country, and the
+student who builds a distributed database is declining a comfortable
+offer to do something hard with an uncertain payoff. The elite
+institution has the talent and exactly the wrong incentives.
+
+A better target is the engineer at a B-tier polytechnic in a tier-two
+city --- strong fundamentals, fewer escape routes, and proximity to a
+real problem no existing software solves. Picture a garment cluster like
+Tiruppur, or a mining-transport hub. A local transporter --- a dozen
+trucks, family-run --- has a routing problem whose addresses mix Tamil
+script, transliteration, and informal landmarks that Google Maps treats
+with contempt. No enterprise software addresses it at a price the
+transporter can pay, because the market is too small to interest anyone
+in California. The nearby polytechnic has students who need projects.
+Every part of the forcing function is already in the room: a real
+problem, no budget, local capability, and an economics that makes
+proprietary software impossible --- so the output is open by default,
+not from virtue but because there is nobody to sell it to.
+
+Kerala already ran this experiment by accident: a budget-driven decision
+to put open-source software in schools produced, two decades on, a
+generation of foundational contributors. No grand vision was required,
+and none was present.
+
+And one company has been running the talent half of this experiment on
+purpose for two decades. Zoho hires without degrees, from tier-two and
+tier-three towns, and trains its people internally through Zoho Schools;
+its headquarters is a village, and the village is treated as the asset
+rather than the handicap. The experiment this essay asks someone to run
+--- strong local talent, a real problem, freedom from the premium-
+career pull --- is the experiment Zoho has been quietly running since
+the mid-2000s, and it is no coincidence that the same company owns its
+stack from the server motherboard to the browser.
+
+Alongside the organic, a directed programme on the DARPA and 863 pattern
+--- not research grants, which buy papers, but engineering contracts,
+which buy software, with named deliverables and dates. Ten named
+problems: a distributed database tuned for UPI-scale transaction graphs,
+a production-grade Indian-language morphological analyser, an open
+pipeline turning ISRO imagery into per-field guidance for a farmer, a
+genomics toolkit calibrated for Indian population structure rather than
+borrowed European references.[^17] Run them at regional institutions,
+because the constraint is the asset.
+
+And the two bridges, stated plainly, because they are the whole fix: a
+forcing function for the garage, so the small builder meets a big
+problem before scale would otherwise force it; and a
+marketing-and-adoption layer for the descenders, so that a Drove becomes
+a shared foundation rather than a private one. The pressures that might
+supply the first are already assembling on their own --- the
+data-localisation provisions of the DPDP Act, the RBI\'s circulars on
+cloud concentration, the public compute of the IndiaAI Mission that
+produced Sarvam. Whether anyone names them and points them at the
+infrastructure layers is a choice, and it has not yet been made.
+
+# Early Signs, and an Honest Close {#close}
+
+India writes a staggering quantity of software and is not, with a thin
+and widening set of exceptions, a foundational software nation. China
+is. The gap appears the moment one stops counting developers and starts
+counting databases and message queues, and it is not a gap of talent ---
+the engineers who built much of the world\'s foundational infrastructure
+trained here and built it for American companies, on American payrolls.
+Apigee is the named, specific exemplar: the talent was exported at a
+discount.
+
+But the close is not despair, because the early signs are real. The
+scaled winners are descending into the foundations --- Zerodha, PhonePe,
+Frappe --- and Zoho went there on principle before scale forced it.
+Zerodha is building the connective tissue the country lacked. Sarvam has
+done something genuinely open, even if it is a model and not yet a
+floor. The descent has begun. What has not begun is the ascent --- the
+garage going deep before scale forces it --- and that is the half that
+produces the SQLites, because the SQLite phenotype is by definition the
+small builder attacking a deep problem before anyone has told them it is
+worth money.
+
+The dedication in SQLite\'s source is not a policy instrument. *Share
+freely, never taking more than you give* is a disposition, and
+dispositions cannot be issued as an order. But the conditions under
+which that disposition turns into software can be deliberately built,
+and India has not built them at scale. That is a choice --- and, unlike
+talent, it is one the country still gets to make, while the window is
+open and Sarvam is still the exception rather than the proof.
+
+<div class="editor-note">
+<strong>Editor's note.</strong> This essay makes interpretive leaps across a large and
+uneven evidence base, and some of them will be wrong. Where a fact is misstated, a
+project miscredited, or a person's work mischaracterised, the error is mine and I
+apologise for it; corrections are welcome and will be made. The arguments, as opposed to
+the facts, are offered in good faith and in the hope of being usefully disagreed with.
+</div>
+
+# Sources
+
+# Further Areas of Interest {#further}
+
+This essay opens more threads than one piece can pursue. Each of the
+following is hinted at above and deserves its own treatment.
+
+-   **The licence as geopolitics.** Apache-2.0 versus MulanPubL-2.0 was
+    treated here as a signal of intent; a fuller study would map how
+    licence choice tracks the ambition to be adopted globally versus the
+    obligation to comply domestically --- and what that implies for a
+    Western enterprise\'s legal review of any China-origin tool.
+
+-   **The Apache Foundation as trust machinery.** Fourteen Chinese
+    projects routed through the ASF; MOSIP, India\'s cleanest export,
+    did not. Why incubation at a neutral foundation functions as an
+    internationalisation step, and why Indian projects skip it, is a
+    question this essay only gestures at.
+
+-   **The Sri Lanka comparison, properly.** WSO2 and Siddhi suggest a
+    22-million-person country ran the cross-disciplinary mechanism India
+    did not. What did the University of Moratuwa do --- institutionally
+    --- that Indian engineering colleges have not, and is it
+    transferable?
+
+-   **The model layer\'s trajectory.** Sarvam is, for now, an open model
+    rather than an open foundation. Whether the IndiaAI cohort (Sarvam,
+    BharatGen, Soket AI, and others) descends into the infrastructure
+    beneath the models --- training stacks, serving engines, inference
+    runtimes --- is the single most important thing to watch over the
+    next three years.
+
+-   **Zoho as a controlled experiment.** A company that owns its stack
+    from an in-house server motherboard to a browser, hires from
+    villages without degrees, and refuses outside capital is a natural
+    experiment in nearly every prescription this essay makes. Its
+    successes and its limits both deserve close, unsentimental study ---
+    including where vertical integration becomes a constraint rather
+    than a strength.
+
+-   **The marketing-and-adoption gap.** Drove is built, opened, and
+    largely un-adopted. The unglamorous discipline that turns a
+    published repository into a standard --- benchmarks, outsider
+    documentation, conference advocacy, semantic-versioning discipline
+    --- is itself a capability India underinvests in, and it would repay
+    a dedicated study of what successful open-source go-to-market
+    actually requires.
+
+-   **The protocol-to-code question.** ONDC ships reference
+    implementations; Zoho is in talks with iSpirt to publish an open
+    messaging protocol for Arattai. Whether India\'s genuine strength at
+    the protocol layer can be deliberately converted into deployable
+    foundational code is perhaps the most actionable open question of
+    all.
+
+-   **The returning diaspora.** Apigee\'s foundational work happened in
+    San Jose. With visa friction rising and remote work normalised, some
+    of that talent is returning or building from India. Whether the
+    system can now retain what it once exported is a live, testable
+    proposition.
+
+[^1]: GitHub, *Octoverse 2024* --- India \~17M developers, 28% YoY,
+    projected to pass the US by 2028.
+    <https://github.blog/news-insights/octoverse/octoverse-2024/>
+
+[^2]: Google, LevelDB (2011). <https://github.com/google/leveldb>
+
+[^3]: D. R. Hipp, *SQLite history*.
+    <https://www.sqlite.org/history.html>
+
+[^4]: SQLite, *Most widely deployed*.
+    <https://www.sqlite.org/mostdeployed.html>
+
+[^5]: SQLite, *copyright and dedication*.
+    <https://www.sqlite.org/copyright.html>
+
+[^6]: Ant Group, SOFAStack. <https://www.sofastack.tech>
+
+[^7]: Apache APISIX (api7.ai); donated to the ASF 2019.
+    <https://apisix.apache.org> ; <https://github.com/apache/apisix>
+
+[^8]: Apache Software Foundation project records, 2015--2024.
+    <https://apache.org>
+
+[^9]: Gitea <https://about.gitea.com> ; Harbor <https://goharbor.io> ;
+    TiDB <https://www.pingcap.com>
+
+[^10]: OceanBase (MulanPubL-2.0)
+    <https://github.com/oceanbase/oceanbase> ; ByteDance CloudWeGo
+    (Apache-2.0) <https://www.cloudwego.io>
+
+[^11]: R: Ihaka & Gentleman (1996), *J. Comput. Graph. Stat.* 5(3); QGIS
+    <https://qgis.org/en/site/about/> ; OpenFOAM <https://openfoam.org>
+    ; BLAS: Lawson et al. (1979), *ACM TOMS* 5(3).
+
+[^12]: CERN, *The birth of the Web*.
+    <https://home.cern/science/computing/birth-web>
+
+[^13]: NPCI, UPI product statistics.
+    <https://www.npci.org.in/what-we-do/upi/product-statistics>
+
+[^14]: MOSIP (IIIT-Bangalore). <https://mosip.io>
+
+[^15]: On the 863 Programme and IOE replacement: Feigenbaum (2003),
+    *China\'s Techno-Warriors*, Stanford UP; Naughton (2021).
+
+[^16]: Radjou, Prabhu & Ahuja (2012), *Jugaad Innovation*, Jossey-Bass.
+
+[^17]: On Indian population genetic diversity: Basu et al. (2016),
+    *Nature Communications* 7:11897.
