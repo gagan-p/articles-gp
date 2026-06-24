@@ -7,25 +7,11 @@
 #+OPTIONS: toc:2 num:nil ^:nil
 #+PROPERTY: header-args :exports both :eval no-export
 
-#+begin_export markdown
----
-title: "The Pursuit of Average"
-subtitle: "India has the engineers. China has the software."
-author: "gp"
-date: "2026-06-24"
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    number-sections: false
-    code-fold: true
-    theme: cosmo
-    css: software_oss_Ind_Chn.css
-execute:
-  echo: false
-  warning: false
----
-#+end_export
+# NOTE: Do not add a YAML block here. The org-to-qmd workflow runs
+# `quarto pandoc --standalone` which generates front matter from the
+# #+TITLE / #+SUBTITLE / #+AUTHOR / #+DATE lines above, then injects the
+# `css:` line via sed. A second YAML block would render as a stray block
+# in the published article. Global format settings live in _quarto.yml.
 
 #+begin_export html
 <div class="exec-summary">
