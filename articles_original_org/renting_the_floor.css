@@ -1,314 +1,33 @@
-/* ================================================================
- RENTING THE FLOOR — Global Styles for Standard HTML Output
-   ================================================================
-   This stylesheet is designed to work with ANY org→markdown→html
-   pipeline (Pandoc, Quarto, Jekyll, etc.) because it targets
-   standard HTML elements only: h1-h4, table, blockquote, p, a,
- code, pre, ol, li, and section.footnotesso. No custom classes are
-   required. */
+/* ============================================================
+   Renting the Floor — styles (table-driven version)
+     .box-positive  green — the four case boxes (§8)
+   Org tables, quote blocks, and footnotes use the site theme.
+   ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Source+Serif+4:opsz,wght@8..60,400;600;700&display=swap');
-
-/* ---- Root variables ---- */
-:root {
-  --color-text: #0f172a;
-  --color-muted: #64748b;
-  --color-accent: #d97706;
-  --color-accent-light: #fffbeb;
-  --color-danger: #dc2626;
-  --color-china: #059669;
-  --color-us: #2563eb;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --bg-body: #f8fafc;
-  --bg-card: #ffffff;
-  --radius: 10px;
-  --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.06);
+.box-positive {
+  background: #ecf6ee;
+  border: 1px solid #bfe0c6;
+  border-left: 5px solid #2e7d32;
+  border-radius: 6px;
+  padding: 0.95rem 1.25rem;
+  margin: 1.3rem 0;
+  line-height: 1.58;
 }
-
-/* ---- Base ---- */
-* { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
- -webkit-font-smoothing: antialiased;
-}
-
-body {
-  font-family: var(--font-serif);
-  color: var(--color-text);
-  background: var(--bg-body);
-  line-height: 1.75;
-  font-size: 18px;
-  margin: 0;
-  padding: 0;
-}
-
-/* ---- Layout ---- */
-/* Constrain reading measure and center on large screens */
-@media (min-width: 860px) {
-  body {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 3rem 2rem 5rem;
-  }
-}
-@media (max-width: 859px) {
-  body {
-    padding: 2rem 1.25rem 4rem;
-    font-size: 16px;
-  }
-}
-
-/* ---- Headings ---- */
-h1, h2, h3, h4 {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--color-text);
-  margin-top: 0;
-}
-
-/* Title / H1 — treated as hero */
-h1 {
-  font-size: clamp(2.4rem, 6vw, 3.8rem);
-  text-align: center;
-  margin-bottom: 0.2rem;
-  padding-top: 2rem;
-}
-
-/* Subtitle — typically generated as a <p> immediately after h1,
- or as a <p class="subtitle"> by some converters */
-h1 + p,
-h1 + p.subtitle,
-.subtitle {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  color: var(--color-muted);
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-  line-height: 1.5;
-  font-weight: 400;
-}
-
-/* H2 = major sections */
-h2 {
-  font-size: 1.9rem;
-  margin-top: 5rem;
-  padding-top: 2.5rem;
-  border-top: 2px solid #e2e8f0;
-}
-
-/* H3 = subsections */
-h3 {
-  font-size: 1.4rem;
-  margin-top: 3rem;
-  color: #334155;
-}
-
-/* H4 = sub-subsections / callout headers inside blockquotes */
-h4 {
-  font-size: 1.05rem;
-  margin-top: 2rem;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* ---- Paragraphs & Links ---- */
-p {
-  margin: 1.2rem 0;
- orphans: 3;
-}
-
-a {
-  color: var(--color-accent);
-  text-underline-offset: 3px;
-}
-a:hover {
-  color: #b45309;
-}
-
-/* ---- Tables (Global) ---- */
-/* Every table gets the editorial styling without needing a class */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  margin: 2rem 0;
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
-  box-shadow: var(--shadow);
-}
-
-thead {
-  background: #0f172a;
-  color: #ffffff;
-}
-
-th {
+.box-positive p { margin: 0; }
+.box-positive a { color: #1f6326; text-decoration: underline; }
+.box-label {
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 0.75rem;
-  padding: 0.85rem 1rem;
-  text-align: left;
-  border-bottom: 2px solid #334155;
-}
-
-td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-tbody tr:hover {
-  background: #f1f5f9;
-}
-
-/* Zebra striping for very wide tables */
-tbody tr:nth-child(even) {
-  background: #fafafa;
-}
-
-tbody tr:nth-child(even):hover {
-  background: #f1f5f9;
-}
-
-/* ---- Blockquotes (used for callouts & case studies) ---- */
-blockquote {
-  border-left: 5px solid var(--color-accent);
-  background: var(--color-accent-light);
-  padding: 1.4rem 1.5rem 1.4rem 1.8rem;
-  margin: 2.5rem 0;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-family: var(--font-sans);
   font-size: 0.95rem;
-  color: #451a03;
-  line-height: 1.6;
-  box-shadow: var(--shadow);
+  margin-bottom: 0.45rem;
+  color: #1f6326;
 }
 
-blockquote p:first-child {
-  margin-top: 0;
-}
-
-blockquote p:last-child {
-  margin-bottom: 0;
-}
-
-blockquote strong {
-  color: #78350f;
-  font-weight: 700;
-}
-
-/* ---- Lists ---- */
-ul, ol {
-  padding-left: 1.4rem;
-  margin: 1rem 0;
-}
-
-li {
-  margin-bottom: 0.55rem;
-}
-
-li::marker {
-  color: var(--color-accent);
-}
-
-/* ---- Code / Preformatted ---- */
-pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  overflow-x: auto;
-  font-family: 'SF Mono', Monaco, Inconsolata, 'Fira Code', monospace;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin: 1.5rem 0;
-}
-
-code {
-  background: #f1f5f9;
-  color: #c2410c;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'SF Mono', Monaco, Inconsolata, 'Fira Code', monospace;
-  font-size: 0.88em;
-}
-
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-  font-size: inherit;
-}
-
-/* ---- Footnotes ---- */
-.footnotes,
-section.footnotes,
-#footnotes,
-[role="doc-endnotes"] {
-  font-size: 0.85rem;
-  color: var(--color-muted);
-  border-top: 2px solid #e2e8f0;
-  margin-top: 6rem;
-  padding-top: 2.5rem;
-  font-family: var(--font-sans);
-  line-height: 1.65;
-}
-
-.footnotes ol,
-section.footnotes ol,
-#footnotes ol {
-  padding-left: 1.2rem;
-}
-
-.footnotes li,
-section.footnotes li,
-#footnotes li {
-  margin-bottom: 0.7rem;
-}
-
-/* Superscript footnote refs in body text */
-a.footnote-ref,
-a[role="doc-noteref"] {
-  color: var(--color-accent);
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 0.85em;
-}
-
-/* ---- Horizontal rules (if any) ---- */
-hr {
-  border: none;
-  border-top: 1px solid #e2e8f0;
-  margin: 3rem 0;
-}
-
-/* ---- Print tweaks ---- */
-@media print {
-  body {
-    font-size: 12pt;
-    background: white;
-    max-width: none;
-    padding: 0;
+@media (prefers-color-scheme: dark) {
+  .box-positive {
+    background: #14241a;
+    border-color: #2c4a35;
+    border-left-color: #4f9d57;
   }
-  h2 {
-    page-break-before: always;
-  }
-  blockquote {
-    box-shadow: none;
-    border: 1px solid #e2e8f0;
-  }
+  .box-positive a { color: #84c98c; }
+  .box-label { color: #84c98c; }
 }
