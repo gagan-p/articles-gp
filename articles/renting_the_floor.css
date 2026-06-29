@@ -1,0 +1,163 @@
+/* ============================================================
+   Renting the Floor — article styles
+   Box families:
+     .exec-summary   blue     — opening summary
+     .disclaimer-mini amber    — verification disclaimer
+     .box-state      slate    — DARPA / 863 / Torch / India state programmes
+     .box-positive   green    — what India gets right (MOSIP, FLOSS, Frappe)
+     .box-shoot      gold     — green shoots / transition (Zoho, PhonePe)
+     .editor-note    dashed   — closing note
+   All blocks define a dark-mode variant via prefers-color-scheme.
+   ============================================================ */
+
+:root {
+  --rtf-text: #2b2b2b;
+  --rtf-muted: #555;
+}
+
+/* ---------- Executive summary ---------- */
+.exec-summary {
+  background: #eef4fb;
+  border: 1px solid #c2d6ee;
+  border-left: 5px solid #2c5f9e;
+  border-radius: 6px;
+  padding: 1.1rem 1.4rem;
+  margin: 1.6rem 0 1.1rem 0;
+}
+.exec-summary .exec-title {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #2c5f9e;
+  margin-bottom: 0.5rem;
+}
+.exec-summary p { margin: 0; line-height: 1.6; }
+.exec-summary a { color: #1f4e85; text-decoration: underline; }
+
+/* ---------- Mini disclaimer ---------- */
+.disclaimer-mini {
+  font-size: 0.85rem;
+  color: var(--rtf-muted);
+  border-left: 3px solid #f0ad4e;
+  background: #fcf8ee;
+  padding: 0.7rem 1.1rem;
+  margin: 0 0 2rem 0;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.55;
+}
+
+/* ---------- Shared box scaffolding ---------- */
+.box-state, .box-positive, .box-shoot {
+  border-radius: 6px;
+  padding: 0.95rem 1.25rem;
+  margin: 1.3rem 0;
+  line-height: 1.58;
+}
+.box-state p, .box-positive p, .box-shoot p { margin: 0; }
+.box-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.45rem;
+}
+
+/* ---------- State-programme boxes (slate) ---------- */
+.box-state {
+  background: #f1f3f5;
+  border: 1px solid #d4dade;
+  border-left: 5px solid #5a6b7b;
+}
+.box-state .box-label { color: #3f4d5a; }
+/* India variant — warmer edge to signal the contrast */
+.box-state-india {
+  background: #f7f2ee;
+  border-left-color: #b5713c;
+}
+.box-state-india .box-label { color: #8a4f23; }
+
+/* ---------- Positive boxes — what India gets right (green) ---------- */
+.box-positive {
+  background: #ecf6ee;
+  border: 1px solid #bfe0c6;
+  border-left: 5px solid #2e7d32;
+}
+.box-positive .box-label { color: #1f6326; }
+
+/* ---------- Green-shoot / transition boxes (gold) ---------- */
+.box-shoot {
+  background: #fbf6e8;
+  border: 1px solid #e6d6a8;
+  border-left: 5px solid #c0a020;
+}
+.box-shoot .box-label { color: #8a6d12; }
+
+/* ---------- Editor's note ---------- */
+.editor-note {
+  border: 1px dashed #b0b0b0;
+  background: #fcfcfc;
+  padding: 0.85rem 1.2rem;
+  margin: 1.8rem 0;
+  font-size: 0.9rem;
+  color: var(--rtf-muted);
+  border-radius: 4px;
+  line-height: 1.55;
+}
+
+/* ---------- Figure captions a touch quieter ---------- */
+figcaption, .figure-caption {
+  font-size: 0.82rem !important;
+  color: #6a6a6a !important;
+}
+
+/* ============================================================
+   Dark mode
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  .exec-summary {
+    background: #14202e;
+    border-color: #2c4868;
+    border-left-color: #5b9be0;
+  }
+  .exec-summary .exec-title { color: #7db4ec; }
+  .exec-summary a { color: #8fc1f3; }
+
+  .disclaimer-mini {
+    background: #2a2616;
+    color: #c9c4b4;
+    border-left-color: #c8922e;
+  }
+
+  .box-state {
+    background: #1c2127;
+    border-color: #333c45;
+    border-left-color: #7d93a6;
+  }
+  .box-state .box-label { color: #a9bccd; }
+  .box-state-india {
+    background: #271f18;
+    border-left-color: #c2884d;
+  }
+  .box-state-india .box-label { color: #d79a63; }
+
+  .box-positive {
+    background: #14241a;
+    border-color: #2c4a35;
+    border-left-color: #4f9d57;
+  }
+  .box-positive .box-label { color: #84c98c; }
+
+  .box-shoot {
+    background: #241f10;
+    border-color: #4a3f1f;
+    border-left-color: #cdaa3a;
+  }
+  .box-shoot .box-label { color: #d9bb55; }
+
+  .editor-note {
+    background: #1a1a1a;
+    color: #b5b5b5;
+    border-color: #555;
+  }
+
+  figcaption, .figure-caption { color: #9a9a9a !important; }
+}
