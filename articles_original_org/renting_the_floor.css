@@ -1,33 +1,24 @@
-/* ============================================================
-   Renting the Floor — styles (table-driven version)
-     .box-positive  green — the four case boxes (§8)
-   Org tables, quote blocks, and footnotes use the site theme.
-   ============================================================ */
-
-.box-positive {
-  background: #ecf6ee;
-  border: 1px solid #bfe0c6;
-  border-left: 5px solid #2e7d32;
+/* Renting the Floor — story boxes. Tables, quotes, footnotes use the site theme. */
+.story {
+  background: #f6f4ef;
+  border: 1px solid #d9d2c4;
+  border-left: 5px solid #7f2704;
   border-radius: 6px;
-  padding: 0.95rem 1.25rem;
-  margin: 1.3rem 0;
-  line-height: 1.58;
+  padding: 1rem 1.3rem;
+  margin: 1.5rem 0;
+  line-height: 1.62;
 }
-.box-positive p { margin: 0; }
-.box-positive a { color: #1f6326; text-decoration: underline; }
-.box-label {
+.story p { margin: 0 0 0.7rem 0; }
+.story p:last-child { margin-bottom: 0; }
+.story-label {
   font-weight: 700;
-  font-size: 0.95rem;
-  margin-bottom: 0.45rem;
-  color: #1f6326;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #7f2704;
+  margin-bottom: 0.6rem;
 }
-
 @media (prefers-color-scheme: dark) {
-  .box-positive {
-    background: #14241a;
-    border-color: #2c4a35;
-    border-left-color: #4f9d57;
-  }
-  .box-positive a { color: #84c98c; }
-  .box-label { color: #84c98c; }
+  .story { background: #201c17; border-color: #3a3226; border-left-color: #c0571f; }
+  .story-label { color: #d9843f; }
 }

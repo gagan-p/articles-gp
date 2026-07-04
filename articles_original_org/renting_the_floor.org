@@ -1,737 +1,1063 @@
 # -*- fill-column: 72 -*-
 #+TITLE: Renting the Floor
-#+SUBTITLE: India builds applications, not foundations. The gap with China is structural — a matter of conditions, not talent.
+#+SUBTITLE: India has the world's largest developer base and one of its smallest outputs of foundational software. China, from the same starting point, chose otherwise.
 #+AUTHOR: gp
-#+DATE: 2026-06-27
+#+DATE: 2026-07-02
+#+OPTIONS: toc:3 num:t
+
+#+begin_export html
+<style>
+.story{background:#f6f4ef;border:1px solid #d9d2c4;border-left:5px solid #7f2704;border-radius:6px;padding:1rem 1.3rem;margin:1.5rem 0;line-height:1.62}
+.story p{margin:0 0 .7rem 0}
+.story p:last-child{margin-bottom:0}
+.story-label{font-weight:700;font-size:.9rem;letter-spacing:.03em;text-transform:uppercase;color:#7f2704;margin-bottom:.6rem}
+@media (prefers-color-scheme:dark){.story{background:#201c17;border-color:#3a3226;border-left-color:#c0571f}.story-label{color:#d9843f}}
+</style>
+#+end_export
 
 #+begin_quote
-A note on method. This essay began with a hypothesis — that India does not
-produce foundational systems software — and then sought evidence for it. That
-order of operations carries a bias, and where evidence was ambiguous the
-hypothesis got the benefit of the doubt. Quantitative claims are sourced in the
-footnotes and current to mid-2026; market values in particular move daily, so the
-premium argument in §1.3 is built to hold at the order-of-magnitude level, not on
-any one day's price. The interpretive sections (§9, §10) and the five-mechanism
-taxonomy (§7) are analytical models, not peer-reviewed findings. Corrections and
-counter-evidence are welcome.
+A note on method.
+
+1. Figures are drawn from public sources and are current as on the date of publishing; each is cited in the notes.
+2. Market capitalisations are approximate and move daily.
+3. Where a claim is the author's judgement rather than a sourced figure, it is marked as such.
 #+end_quote
 
-Through 2026, the market judged India's software model. As AI began automating
-the billable hour, the IT-services giants — TCS, Infosys, Wipro — shed a combined
-₹8.5 lakh crore, the exchange's worst-hit sector.[fn:13] In the same months
-Alibaba was re-rated up by roughly 70%, recast as an AI-and-cloud infrastructure
-company.[fn:31] AI disintermediated the tenant and redefined the landlord — the
-same technology, opposite outcomes, because one owned the floor it runs on and the
-other rented it.
-
-* 1. The Claim
+* India's Software Industry Is a Success
 :PROPERTIES:
-:CUSTOM_ID: claim
+:CUSTOM_ID: scale
 :END:
 
-** 1.1 Two Kinds of Software
-:PROPERTIES:
-:CUSTOM_ID: types
-:END:
+The Indian software industry is world-class: US$283bn[fn:nasscom] in annual
+revenue, 5.1% growth[fn:nasscom] in a weak global market, 5.80mn people
+employed,[fn:nasscom] and the largest and fastest-growing base of developers in the
+world.[fn:octoverse]
 
-India is called a software nation. The title conflates two layers the industry
-itself keeps apart.
-
-| Layer | What it is | Examples |
-|-------+------------+----------|
-| Application | what a user touches | wallets, dashboards, ERP, SaaS |
-| Middleware | the glue between apps and the floor | app frameworks, API gateways, ORMs |
-| Systems / foundational | the floor everything runs on | OS, database, message broker, runtime |
-
-Foundational software — /systems software/, in the trade — is the floor, and the
-test for it is simple: /does other software depend on it?/ Whoever owns the floor
-sets the terms for everyone above. India's headline numbers all measure the top
-row. India is a tenant.
-
-** 1.2 India's Champions Are All Application-Layer
-:PROPERTIES:
-:CUSTOM_ID: champions
-:END:
-
-India's software giants are not technology companies in the Silicon Valley sense.
-They are labour-cost arbitrage businesses that happen to run on code.
-
-| Company | Revenue (FY25–26) | Employees | Model |
-|---------+-------------------+-----------+-------|
-| TCS | ~US$30B[fn:23] | 584,519[fn:14] | IT services, offshoring |
-| Infosys | ~US$19.5B[fn:24] | 323,788[fn:14] | IT services, offshoring |
-| HCLTech | ~US$13B[fn:26] | 223,000[fn:14] | IT services, offshoring |
-| Wipro | ~US$10.4B[fn:25] | 233,232[fn:14] | IT services, offshoring |
-| Tech Mahindra | ~US$6B[fn:27] | 148,000[fn:14] | IT services, offshoring |
-
-The model is simple: Indian engineers at a fraction of Western cost. It is labour
-arbitrage, not technology arbitrage — sector revenue per employee has sat near
-US$50,000 across FY2020–FY2024.[fn:28] Three further measures confirm where the
-value sits:
-
-- /Patents./ TCS holds roughly 2,560 granted patents, most in process and
-  methodology classes rather than core systems software; IBM holds on the order
-  of 150,000 and Microsoft some 37,000 granted at the USPTO alone — a fifty-fold
-  gap or more.[fn:1]
-- /Products./ Few globally adopted software products originate in India; Tally,
-  Freshworks, and Zoho are the exceptions, and all three sit at the application
-  layer.
-- /Open source./ Indian /companies/ have almost no corporate footprint in the
-  Apache Foundation, the CNCF, or the Linux kernel. What contribution exists comes
-  from individuals — most of them on American payrolls.
-
-The success is real. It is application software and services, built on a floor
-owned elsewhere.
-
-** 1.3 The Foundational Premium: Market Value per Employee
-:PROPERTIES:
-:CUSTOM_ID: premium
-:END:
-
-Owning the floor commands a structural valuation premium. Measured as market
-value per employee, the firms that own foundational technology are worth two to
-three /orders of magnitude/ more per head than the firms that rent it. India's
-giants scaled headcount; they did not scale capital efficiency.
-
-| Company | Market cap (mid-2026) | Employees | ~US$ / employee | Foundational output |
-|---------+-----------------------+-----------+-----------------+---------------------|
-| NVIDIA | ~$4.9T[fn:11] | 42,000[fn:12] | ~$115M | CUDA, GPU architecture[fn:15] |
-| Apple | ~$4.6T[fn:11] | 166,000[fn:12] | ~$28M | Darwin/XNU, Swift[fn:16] |
-| TSMC | ~$2.3T[fn:11] | 83,825[fn:12] | ~$27M | foundry process |
-| Alphabet | ~$4.3T[fn:11] | 190,820[fn:12] | ~$23M | MapReduce, Kubernetes, Go[fn:18] |
-| Meta | ~$1.5T[fn:11] | 78,865[fn:12] | ~$19M | React, Cassandra[fn:19] |
-| Microsoft | ~$3.3T[fn:11] | 228,000[fn:12] | ~$14M | Windows NT, .NET[fn:17] |
-| Alibaba | ~$314B[fn:11] | 123,711[fn:12] | ~$2.5M | OceanBase, RocketMQ[fn:21] |
-| TCS | ~$90B[fn:13] | 584,519[fn:14] | ~$0.15M | — (services) |
-| Infosys | ~$47B[fn:13] | 323,788[fn:14] | ~$0.15M | — (services) |
-| Wipro | ~$20B[fn:13] | 233,232[fn:14] | ~$0.09M | — (services) |
-
-The spread runs from roughly US$90,000 per employee at Wipro to over US$100M at
-NVIDIA — a thousandfold or more. That gap is the foundational premium. The same
-pattern holds for private and acquired firms: LinkedIn produced Apache
-Kafka;[fn:20] ByteDance produced CloudWeGo and Monoio.[fn:22] And the premium is
-not static in India's favour — through 2026 the market actively re-rated the
-arbitrage model /downward/, with TCS, Infosys, and Wipro shedding a combined ₹8.5
-lakh crore in value as AI began to erode the billable-hours business,[fn:13] the
-thesis playing out in real time.
-
-* 2. Is It a Talent Problem? No — a Surplus of the Average
+** India Now Has the World's Largest Open-Source Contributor Base
 :PROPERTIES:
 :CUSTOM_ID: talent
 :END:
 
-India hosts roughly 17 million developers on GitHub, a large share of the global
-base.[fn:2] But ownership of the floor is measured by who /commits/ to
-foundational open source, not who /uses/ it — and on that measure the share
-collapses.
+| Metric (GitHub Octoverse 2025) | India |
+|--------------------------------+-------|
+| New developers added in the year | 5.2mn[fn:octoverse] (14% of 36mn new accounts, largest of any country) |
+| Public and open-source contributor base | largest in the world[fn:octoverse] (overtook the US for the first time) |
+| Distinct public repositories | 405k[fn:octoverse] (US 342k) |
+| Share of total contributions | ~12.5%[fn:octoverse] (US still first at ~31.8%) |
+| Projected developers by 2030 | 57.5mn[fn:octoverse] (~1 in 3 new developers globally) |
 
-| Country | Developer share (approx) | Foundational-OSS contribution (author estimate) |
-|---------+--------------------------+-------------------------------------------------|
-| USA | ~18% | ~35% |
-| China | ~16% | ~18% |
-| India | ~17% | ~2% |
-| UK | ~6% | ~6% |
-| Germany | ~5% | ~5% |
+India leads on contributor count and repositories, yet trails the US on total
+contribution volume: the success is real, but output per developer is thinner.
+Octoverse counts public activity only; 81.5% of all GitHub contributions occur in
+private repositories.[fn:octoverse]
 
-The 2% figure for India is an author's estimate from Apache geographic patterns
-and GitHub Innovation Graph active-user data, not a survey finding.[fn:29] The
-direction, not the decimal, is the point: a near-equal share of the world's
-developers, a near-absent share of its foundational commits.
-
-This reframes the question entirely. Seventeen million developers producing not
-one load-bearing database, kernel, or broker is not evidence of latent talent
-waiting for better conditions — it is a /surplus of the average/. The size of the
-cohort, set against the empty column, is the indictment, not the alibi. The
-ecosystem manufactures volume, not depth. The rest of this essay asks what
-produces depth, where China found it, and why India has not.
-
-* 3. India's Foundational Software, Listed in Full
+** Indian IT Is a US$283bn Industry, Built on Exports
 :PROPERTIES:
-:CUSTOM_ID: india-list
+:CUSTOM_ID: revenue
 :END:
 
-India has produced some foundational software. The list is short enough to print
-in full — which is itself the finding.
+| Measure (FY25) | Value |
+|----------------+-------|
+| Technology-industry revenue | US$283bn[fn:nasscom] (+5.1% YoY) |
+| Exports | US$224bn[fn:nasscom] (79% of revenue) |
+| Domestic market | US$58.2bn[fn:nasscom] |
+| Employees | 5.80mn[fn:nasscom] |
+| Top export destinations | US 50.3%, Europe 31.4% (UK 15.5%)[fn:ibef] |
+| Share of global IT-outsourcing delivery | ~55%, largest single supplier[fn:ibef] |
+| Share of total global IT-services market | ~5.5%[fn:itmarket] |
 
-| Project | Type | Origin | Licence | Scale |
-|---------+------+--------+---------+-------|
-| MOSIP | identity platform | IIIT-Bangalore, 2018 | MPL/MIT | ~26 countries, ~130M IDs[fn:3] |
-| Frappe | application framework | 2009 | GPL | community in the tens of thousands[fn:9] |
-| Listmonk | mailing-list manager | Zerodha | AGPL | used globally[fn:10] |
-| DungBeetle | distributed SQL job server | Zerodha | open source | internal[fn:10] |
-| kaf-relay | Kafka replication | Zerodha | open source | internal[fn:10] |
-| Drove | container orchestrator | PhonePe | open source | ~350K cores, 3PB[fn:4] |
-| Deluge | scripting language | Zoho | proprietary | runs the Zoho suite |
-| WebNMS | network management | Zoho/AdventNet | proprietary | used by telecoms |
+India supplies ~55% of the world's outsourced IT delivery but holds ~5.5% of the
+total services market: the market's supplier, not the market.
 
-It is scattered, under-resourced, and frequently closed. It has not coalesced into
-a stack. Contrast that, now, with a country where it did.
-
-* 4. China's Stack
+* India Sells Services and Applications, Not Products It Owns
 :PROPERTIES:
-:CUSTOM_ID: china-stack
+:CUSTOM_ID: value-chain
 :END:
 
-China is in this argument as the control, not the rival. The organising driver was
-/IOE-replacement/ — removing IBM (servers), Oracle (database), and EMC (storage)
-once they became cost and supply-chain liabilities.[fn:5] Almost every major
-project traces to the US incumbent it was built to displace.
+The scale of §1 sits in the low-capture part of the chain: India writes and runs
+software that others own, priced below what those owners would pay at home. The
+value captured is the cost gap, not the software.
 
-| US incumbent | → | Chinese replacement |
-|--------------+---+---------------------|
-| Oracle | → | OceanBase |
-| IBM MQ | → | RocketMQ |
-| RHEL | → | openEuler |
-| Envoy | → | MOSN |
-| PostgreSQL | → | openGauss |
-
-Unlike India's scattered list, this is a /stack/ — every layer filled, by name.
-
-| Layer | Project | Origin | Licence |
-|-------+---------+--------+---------|
-| Database | OceanBase | Ant/Alibaba | MulanPubL-2.0 |
-| Database | openGauss | Huawei | MulanPubL-2.0 |
-| Messaging | RocketMQ | Alibaba | Apache-2.0 |
-| Service mesh | MOSN | Ant | Apache-2.0 |
-| Service registry | Nacos | Alibaba | Apache-2.0 |
-| RPC | SOFARPC | Ant | Apache-2.0 |
-| RPC | Kitex | ByteDance | Apache-2.0 |
-| Enterprise Linux | openEuler | Huawei | GPL |
-| Consensus | SOFAJRaft | Ant | Apache-2.0 |
-| ML framework | PaddlePaddle | Baidu | Apache-2.0 |
-| ML framework | MindSpore | Huawei | Apache-2.0 |
-
-India has no equivalent inventory. That is not an omission in this essay; it is
-the finding.
-
-* 5. Depth at a Glance
+** The Value India Provides Is the Cost Gap
 :PROPERTIES:
-:CUSTOM_ID: depth
+:CUSTOM_ID: arbitrage
 :END:
 
-The same gap, scored layer by layer. The values are the author's judgement,
-mid-2026: 0 = none, 1 = shallow, 2–3 = deep.
+| Market | Gini Talent 2025 | whatisthesalary 2025–26 |
+|--------+------------------+-------------------------|
+| United States | US$99–111k[fn:devcost1] | US$130–150k base[fn:devcost2] |
+| United Kingdom | US$55k[fn:devcost1] | — |
+| Germany | US$52–64k[fn:devcost1] | — |
+| India | US$15–35k[fn:devcost1] | US$15–35k[fn:devcost2] |
 
-| Layer | USA | China | India |
-|-------+-----+-------+-------|
-| OS / kernel | 3 | 2 | 0 |
-| Relational DB | 3 | 3 | 1 |
-| Message queue | 3 | 3 | 0 |
-| RPC | 3 | 3 | 1 |
-| Service mesh | 3 | 3 | 0 |
-| Registry | 3 | 3 | 0 |
-| Consensus | 3 | 2 | 0 |
-| Crypto / TLS | 3 | 2 | 0 |
-| ML framework | 3 | 3 | 1 |
-| Graph DB | 3 | 2 | 0 |
+A mid-level US developer costs roughly 5–15× an Indian one. [Inferred] Sources vary
+by method (survey vs aggregator), so the ratio, not the point value, is the figure.
 
-India's column is near-empty. Everything else in this essay explains why.
-
-* 6. The Top 15 Foundational Projects
+** Built for Export; East Asia Built for Home First
 :PROPERTIES:
-:CUSTOM_ID: fifteen
+:CUSTOM_ID: domestic
 :END:
 
-To explain it, first establish how foundational software actually gets built —
-not by assertion, but from the cases. Here are fifteen of the most load-bearing
-foundational projects in use today, each classified by how it was actually
-built.[fn:6] The mechanism numbers are defined in [[#mechanisms][§7]].
+Scope is strict: this table lists /software vendors/ — firms whose revenue is the
+licensing or subscription of software, per IDC's three commercial-software segments
+(applications; application development and deployment; systems infrastructure).[fn:idc]
+Companies that merely run a service on their own software are handled separately below.
 
-| Software | How it was built | Mech. |
-|----------+------------------+-------|
-| SQLite | one person (Hipp), Navy contract, then public domain | 1 |
-| Linux | a student's hobby, then thousands of hands | 1 → 2 |
-| Git | Torvalds, ~2 weeks, after BitKeeper's licence was pulled | 1 + 5 |
-| Nginx | Sysoev, solo, against Rambler's C10K production wall | 1 + 5 |
-| Redis | Sanfilippo, for his startup, when MySQL couldn't keep up | 1 + 5 |
-| OpenSSL | SSLeay (two people) → community | 1 → 2 |
-| Apache httpd | a group patching abandoned NCSA code | 2 |
-| PostgreSQL | a Berkeley research project → community | 3 → 2 |
-| Kubernetes | Google externalising Borg | 3 → 2 |
-| LLVM | university research (Lattner) → Apple product need | 3 (+1) |
-| BSD / TCP-IP | Berkeley under DARPA contract | 3 (direct) |
-| The Web | a physicist at CERN needing to share documents | 4 |
-| R | statisticians needing a teaching tool | 4 |
-| OceanBase | Ant, when Oracle couldn't survive Alipay's load | 5 + 3 |
-| Hadoop | two builders on Google's papers, then Yahoo's backing | 5 + 3 |
+| Product | IDC segment | Country | Domestic revenue share |
+|---------+-------------+---------+------------------------|
+| Zoho | applications | India | not disclosed; US #1 market[fn:zoho] |
+| Freshworks | applications | India | <25% (RoW incl. India = 16%)[fn:frsh] |
+| Postman | app dev & deployment | India | not disclosed; export-first |
+| WPS Office | applications | China | >75% (~16× overseas subs)[fn:wps] |
+| Yonyou | applications (ERP) | China | >75% (82% of customers)[fn:yonyou] |
+| Kingdee | applications (ERP) | China | >75% (China #2 ERP, domestic-substitution)[fn:kingdee] |
+| DingTalk | applications | China | ~100% [Inferred][fn:dingtalk] |
+| Cybozu | applications | Japan | ~100% [Inferred][fn:japan] |
+| TmaxSoft (Tibero) | app dev & deployment (database) | Korea | >75% [Inferred][fn:tmax] |
 
-* 7. The Five Mechanisms
+Bands: ~100% = firm reports no geographic split because it operates almost entirely
+at home; >75% = majority-domestic with a disclosed figure (WPS ~16× overseas
+subscribers, Yonyou 82% of customers); <25% = the Indian export firms (Freshworks'
+entire rest-of-world segment, India included, is 16% of revenue).[fn:frsh] Every
+Indian row is export-first; every East-Asian row is domestic-first, including the one
+systems-level entry — TmaxSoft's database, built to displace Oracle at home.[fn:tmax]
+
+*** What Is Excluded, and Why
 :PROPERTIES:
-:CUSTOM_ID: mechanisms
+:CUSTOM_ID: excluded
 :END:
 
-** 7.1 The Taxonomy
+The test is whether a firm sells software, not whether it is built on software. By
+IDC's definition the software market is revenue from licensing or subscribing software
+to other organisations.[fn:idc] The firms below build sophisticated software but
+monetise a service operated /on/ it — advertising, retail, payments, transport — so
+their revenue is not software revenue and they sit outside the software market.
+
+| Company | Sells | Revenue source | Sits in |
+|---------+-------+----------------+---------|
+| Baidu | search | advertising | internet services[fn:baidu] |
+| Naver | search / portal | advertising, commerce | internet services[fn:naver] |
+| Kakao | messaging / platform | advertising, payments, content | internet services[fn:kakao] |
+| Alibaba / Taobao | e-commerce | retail, commissions | retail[fn:alibaba] |
+| Alipay (Ant) | payments | transaction fees | fintech / payments[fn:alipay] |
+| Didi | ride-hailing | transport commissions | mobility[fn:didi] |
+
+Including them would conflate /runs on software/ with /sells software/ — the exact
+distinction this essay draws.
+
+*** Messaging: the Same Split, One Layer Down
 :PROPERTIES:
-:CUSTOM_ID: taxonomy
+:CUSTOM_ID: messaging
 :END:
 
-Five mechanisms recur across the fifteen. The taxonomy is a model, not a
-peer-reviewed framework.
+Consumer messaging is not a software-vendor category — these firms monetise ads,
+payments, or content, not licences. But it is the clearest test of the foundational
+question, because building a messenger can yield a /protocol/ the world adopts, or
+merely an app at scale.
 
-| # | Mechanism | What it is | Examples |
-|---+-----------+------------+----------|
-| 1 | Lone obsessive | one person rebuilds a tool judged wrong at the root | SQLite, Git, Gitea |
-| 2 | Mass community | many hands, a shared standard, no single owner | Linux, PostgreSQL, Kubernetes |
-| 3 | Target-bound backing | an agency commissions a named deliverable for a real user | DARPA, the 863 Programme |
-| 4 | Cross-domain carry | a domain expert builds because no adequate tool exists | CERN (the Web), R |
-| 5 | Forcing function | a scale problem that refuses the workaround | OceanBase, Spanner |
+| App | Origin | Innovation, and what layer it sits at |
+|-----+--------+---------------------------------------|
+| Signal | US | The Signal Protocol (Double Ratchet + X3DH key exchange) — the end-to-end-encryption standard the industry adopted[fn:signal] |
+| Telegram | Russia | MTProto — its own transport-and-crypto protocol, built below the app; MTProto 2.0 formally verified[fn:mtproto] |
+| WhatsApp | US (Meta) | Not a new layer: built on open, peer-reviewed foundations — Erlang/BEAM, Mnesia, FreeBSD, an ejabberd-derived XMPP server — with encryption licensed from the Signal Protocol[fn:whatsapp] |
+| WeChat | China | Super-app ecosystem (payments, mini-programs) at national scale; proprietary, no open protocol [Inferred] |
+| LINE | Japan | App-layer; "Letter Sealing" end-to-end on standard primitives [Inferred] |
+| KakaoTalk | Korea | App-layer; near-universal domestic reach, no protocol contribution [Inferred] |
+| Hike | India | App-layer (stickers, local languages); reached unicorn status, shut down its messenger in 2021[fn:hike] |
+| Koo | India | App-layer (X/Twitter alternative); shut down 2024[fn:koo] |
+| Arattai (Zoho) | India | App-layer, domestically hosted (no AWS/Azure); government-endorsed 100× surge in Sept 2025, lost ranking by October; E2E added reactively in Nov 2025 on a conventional scheme, not a new protocol[fn:arattai] |
+| JioChat | India | App-layer; never reached scale [Inferred] |
 
-Two drivers dominate the others: /passion/ (1) and /need/ (5). Count the fifteen
-by mechanism and the distribution is the argument — projects fire several, so the
-counts sum past fifteen.
+[Author judgement] The pattern across these rows is a claim about /why/ consumer
+software gets adopted at scale. Adoption is earned one of two ways: by building
+something fundamentally new that others must then build on — a protocol — or by great
+engineering assembled on great, open foundations. Signal took the first path: the
+Signal Protocol is a genuine primitive, and WhatsApp, Google RCS, and others encrypt
+with it rather than reinvent it. WhatsApp took the second: it poured none of its own
+floor, but it stood on the best open, peer-reviewed foundations available — Erlang and
+its BEAM runtime and Mnesia database (Ericsson/OTP), FreeBSD, an ejabberd-derived XMPP
+server, the Signal Protocol — and engineered brilliantly on top. Telegram took the
+first path more aggressively, building MTProto, its own transport-and-crypto stack;
+it is contested precisely because it rolled its own rather than compose vetted parts.
 
-| Mechanism | Count (of 15) |
-|-----------+---------------|
-| 1 · Lone obsessive | 7 |
-| 5 · Forcing function | 6 |
-| 3 · Target-bound backing | 6 |
-| 2 · Mass community | 5 |
-| 4 · Cross-domain carry | 2 |
-| Elite teaching institution | 0 |
-| State, for a captive user | 0 |
+The common thread is exposure, not secrecy. A protocol succeeds only by publication
+and peer review; great engineering on open foundations succeeds only by improving
+software a competitor can inspect and fork. Durable consumer software is backed either
+by a fundamental technical change or by engineering on an open floor — and in both
+cases the work is out in the open, unafraid of scrutiny or of being improved upon.
 
-The lone obsessive and the forcing function drive most of the fifteen, usually
-together, often with institutional backing underneath. Cross-domain carry accounts
-for two — CERN and R are famous precisely because so few others did it. And the
-bottom two cells are /empty/: not one of the fifteen came from an elite teaching
-institution building software as its mission, or from a state programme aimed at a
-captive user. Those two empty cells are exactly where India's institutions sit.
+[Author judgement] India is absent from both routes. It produced neither a protocol
+nor an app engineered to last on those foundations; its entrants reached the app layer,
+added nothing back to the floor they consumed, and folded.
 
-** 7.2 The Mechanisms in China
+[Author judgement] A captive home market is the forcing function that builds durable
+products, and eventually the floor beneath them (§7). India sold outward and never
+hit that wall.
+
+** Per Employee, India's Firms Own Almost Nothing
 :PROPERTIES:
-:CUSTOM_ID: mech-china
+:CUSTOM_ID: perhead
 :END:
 
-| Project | Forcing function | Mech. |
-|---------+------------------+-------|
-| OceanBase (Ant) | Oracle could not survive Singles'-Day load; later took the TPC-C record[fn:7] | 5 + 3 |
-| RocketMQ (Alibaba) | ActiveMQ's IO collapsed as queues grew; donated to Apache[fn:8] | 5 → 2 |
-| openEuler (Huawei) | US export restrictions turned RHEL into a liability | 3 + 5 |
-| openGauss (Huawei) | the same pressure one layer up; a PostgreSQL-derived bank database | 3 + 5 |
-| MOSN (Ant) | Envoy could not carry Ant's financial-grade extensions | 5 + 3 |
-| Nacos (Alibaba) | registry beyond Consul/etcd; now used outside China | 5 → 2 |
-| Kitex / Hertz (ByteDance) | TikTok scale demanded Go; Apache-2.0 to signal global intent | 5 + 1 |
-| Monoio (ByteDance) | "Tokio is wrong at the architecture level"; a Rust runtime on io_uring | 1 + 5 |
-| TiDB (PingCAP) | three engineers on Google's Spanner paper; now CNCF | 4 + 2 |
-| Gitea (individual) | one developer, 2014, built for love — the pure iconoclast | 1 |
+#+begin_export markdown
+```{ojs}
+//| label: fig-perhead
+//| fig-cap: "Market value per employee, US$ million, log scale. Approximate and moving daily; the separation between the three tiers is the point, not the point values."
 
-** 7.3 The Mechanisms in India
+firms = [
+ {firm:"NVIDIA", perhead:110, kind:"Owns foundational software"},
+ {firm:"Alphabet", perhead:25, kind:"Owns foundational software"},
+ {firm:"Microsoft", perhead:14, kind:"Owns foundational software"},
+ {firm:"Oracle", perhead:3.5, kind:"Owns foundational software"},
+ {firm:"Alibaba", perhead:1.5, kind:"Owns foundational software"},
+ {firm:"Salesforce", perhead:1.8, kind:"Owns application software"},
+ {firm:"SAP", perhead:1.7, kind:"Owns application software"},
+ {firm:"Accenture", perhead:0.23, kind:"Sells services"},
+ {firm:"Infosys", perhead:0.22, kind:"Sells services"},
+ {firm:"TCS", perhead:0.20, kind:"Sells services"},
+ {firm:"Wipro", perhead:0.15, kind:"Sells services"},
+ {firm:"Cognizant", perhead:0.07, kind:"Sells services"}
+].sort((a,b)=>b.perhead-a.perhead)
+
+Plot.plot({
+  marginLeft: 90, marginRight: 40, height: 380,
+  x: {type:"log", label:"US$ million market value per employee →", grid:true},
+  y: {label:null, domain: firms.map(d=>d.firm)},
+  color: {domain:["Owns foundational software","Owns application software","Sells services"],
+          range:["#7f2704","#f16913","#9e9e9e"], legend:true},
+  marks: [
+    Plot.barX(firms, {x:"perhead", y:"firm", fill:"kind"}),
+    Plot.text(firms, {x:"perhead", y:"firm",
+      text:d=> d.perhead>=1 ? `$${d.perhead}M` : `$${(d.perhead*1000)|0}K`,
+      dx:6, textAnchor:"start", fontSize:10})
+  ]
+})
+```
+#+end_export
+
+Source: market capitalisations and headcounts, per companiesmarketcap.com and company filings.[fn:caps]
+
+[Author judgement] The ladder is exact and it is three-runged. Firms that own
+foundational software are valued in the tens of millions per employee; firms that own
+application software, a few million; firms that sell services, under a quarter-million.
+Accenture — the premium Western integrator — sits in the same band as the Indian
+services firms, not above them, which settles what the divider is: not geography or
+prestige, but whether a firm owns a layer others depend on. India's largest software
+firms occupy the lowest rung.
+
+** The Honest Exceptions
 :PROPERTIES:
-:CUSTOM_ID: mech-india
+:CUSTOM_ID: exceptions
 :END:
 
-| Project | What fired it | Mech. |
-|---------+---------------+-------|
-| MOSIP | a real external user — a government with no identity stack | 5 |
-| Frappe | a lone builder; no adequate open ERP for small business | 1 |
-| FLOSS/fund (Zerodha) | a private firm seeding the commons on principle | 2 |
-| Deluge (Zoho) | built foundationally on principle, before scale forced it | 3 |
-| Drove (PhonePe) | scale broke existing tools; open-sourced to share | 5 + 3 |
+India has produced real foundational-adjacent software. It clusters in three shapes —
+the lone individual, the re-domiciled firm, the internal tool — none of which becomes a
+systems primitive the world depends on.
 
-The Indian list runs to five lines against China's ten, and four of the five are
-single firms acting alone. The asymmetry is not a gap in the research. It is the
-result.
-
-* 8. Four Cases
-:PROPERTIES:
-:CUSTOM_ID: cases
-:END:
+| Project | What it is | Where it sits | The catch |
+|---------+------------+---------------+-----------|
+| Calibre[fn:calibre] | e-book manager, ~500k LOC | application | one person, ~18 years, unaffiliated |
+| Kitty[fn:kitty] | GPU terminal emulator | systems-tier | same person; see below |
+| Hasura[fn:hasura] | GraphQL query engine over Postgres, in Haskell | foundational-adjacent | re-domiciled to the US; see below |
+| kaf-relay[fn:zerodha] | Kafka-to-Kafka replication tool | glue on Kafka | one firm's internal tool, open-sourced |
+| DungBeetle[fn:dungbeetle] | SQL job server / async reporting | glue on Postgres | one firm's internal tool, open-sourced |
 
 #+begin_export html
-<div class="box-positive">
-<div class="box-label">MOSIP — the one clean foundational export</div>
+<div class="story">
+<div class="story-label">Kitty — the lone systems build</div>
 <p>
-<strong>What:</strong> a modular open-source identity platform, the reference
-implementation of Aadhaar's principles, built from 2018 at IIIT-Bangalore.
-<strong>Mechanism 5</strong> — a real external user, a government with no identity
-stack, pulling the software into the open. <strong>Scale:</strong> ~26 country
-engagements and ~130 million IDs generated by 2025. <strong>Caveat:</strong> MOSIP
-itself runs on AWS — even this export sits on someone else's cloud.
-<strong>Significance:</strong> proof India can build globally adopted foundational
-software when a genuine forcing function exists.
-</p>
-</div>
-<div class="box-positive">
-<div class="box-label">Frappe — the one framework of consequence</div>
-<p>
-<strong>What:</strong> an application framework (the sense in which Django and
-Rails are foundational); ERPNext is built on it. <strong>Origin:</strong> 2009,
-GPL. <strong>Mechanism 1</strong> — a lone builder, because no adequate open ERP
-existed for small business. <strong>Scale:</strong> a community in the tens of
-thousands. <strong>Significance:</strong> the lone-obsessive path that produces
-most of the world's foundations, fired for once at home.
-</p>
-</div>
-<div class="box-positive">
-<div class="box-label">Zerodha — the firm that funds the commons</div>
-<p>
-<strong>What:</strong> a brokerage that also builds and funds open source —
-Listmonk (AGPL, used globally), DungBeetle, kaf-relay. <strong>FLOSS/fund</strong>
-(Oct 2024) commits US$1M a year to global open source, the first round including
-US$100,000 to OpenSSL; it co-founded FOSS United. <strong>Mechanism 2</strong> — a
-private firm building the community machinery on principle, not because a balance
-sheet demanded it. <strong>Significance:</strong> the connective tissue India most
-lacks, seeded deliberately.
-</p>
-</div>
-<div class="box-positive">
-<div class="box-label">PhonePe / Drove — built, opened, un-adopted</div>
-<p>
-<strong>What:</strong> a container orchestrator (Drove) and bare-metal provisioner
-(Nimbus), open-sourced. <strong>How:</strong> PhonePe's scale — ~350,000 cores,
-3 PB, ~7s VM creation — broke existing tools, so it built its own.
-<strong>Mechanism 5 + 3.</strong> <strong>Status:</strong> in production, largely
-un-adopted outside PhonePe. <strong>Significance:</strong> proof that Indian firms
-at scale can build the floor — and that building it is not enough without
-<a href="#mechanisms">mechanism 2</a>.
+Kitty is a GPU-accelerated terminal emulator written by Kovid Goyal, the same
+Mumbai-based independent developer behind Calibre. It is genuinely systems-tier: it
+offloads glyph rendering to the GPU, defines its own terminal graphics and keyboard
+protocols, and is fast enough that other tools now target those protocols. It is the
+cleanest proof that the lone-obsessive archetype — the mechanism behind SQLite, Redis,
+and Nginx — exists in India. It is also unaffiliated, unfunded, and singular: one
+person, not an industry.
 </p>
 </div>
 #+end_export
 
-* 9. Why Have We Failed?
+#+begin_export html
+<div class="story">
+<div class="story-label">Hasura — the floor India built, then re-domiciled</div>
+<p>
+Hasura is the strongest foundational-adjacent company India has produced. It is a real
+query engine: an incoming GraphQL query is parsed to an intermediate representation,
+compiled to SQL, and executed with permissions enforced at the query layer — a
+compiler pipeline (parse → IR → codegen), written in Haskell, that other applications
+depend on. Its founders are Indian; its engineering is in Bengaluru.
+</p>
+<p>
+It is incorporated in San Francisco, raised ~$240mn in US venture
+capital, and reports a ₹0-revenue Indian entity — the engineering stays in Bengaluru,
+the ownership and value sit in the United States. India's best foundational-adjacent
+company had to become American to scale. It does not refute the thesis; it is the
+thesis in a single company.
+</p>
+</div>
+#+end_export
+
+#+begin_export html
+<div class="story">
+<div class="story-label">Author judgement: what I have seen in Indian BFSI</div>
+<p>
+[Author judgement] Zerodha open-sources the infrastructure it builds for itself —
+kaf-relay for Kafka replication, DungBeetle for asynchronous SQL reporting — from
+inside the largest Indian retail broker, a heavily regulated environment. That is
+exactly where a domestic foundational tool should gain trust. In my own work on Indian
+CBDC and BFSI systems, Kafka replication was a recurring pain point that kaf-relay
+directly addresses, yet I saw resistance to adopting it at the architectural layer, and
+I have not seen DungBeetle adopted in BFSI at all. [Hypothesis] The barrier is not
+capability but trust: an Indian-origin tool, however proven at Zerodha, is treated as a
+risk rather than a credential — the same reflex that makes the sector buy supported
+foreign distributions over domestic open source (§8).
+</p>
+</div>
+#+end_export
+
+The reflex at the wall is the tell. When Zepto outgrew its database it
+switched vendors (Aurora → DynamoDB → MongoDB) and filed patches upstream;[fn:zepto]
+when Alibaba outgrew Oracle it wrote OceanBase (§7). Same capability, opposite
+response — nothing forced the Indian firm to build the primitive, and its economics
+argued for renting it.
+
+* What India Builds, Precisely
 :PROPERTIES:
-:CUSTOM_ID: why
+:CUSTOM_ID: what-india-builds
 :END:
 
-#+begin_quote
-The three sub-sections that follow are analytical provocations, not findings drawn
-from survey data or econometrics. They are offered to test the hypothesis, not to
-assert it as fact. /(Inferred throughout.)/
-#+end_quote
-
-** 9.1 The Iconoclasts Exist — They Are Building Apps
+** The Unicorn Factory Is Mostly Non-Software Businesses
 :PROPERTIES:
-:CUSTOM_ID: madmen
+:CUSTOM_ID: unicorns
 :END:
 
-India does not lack obsessive engineers. It lacks obsessive engineers /building
-foundations/. The incentive structure pulls every able builder toward the next
-fintech app, the next SaaS product, the next services contract — the application
-layer, where the money is. The talent is real; its direction is the problem.
+| Category | Examples | What they actually are |
+|----------+----------+------------------------|
+| Fintech / lending | Moneyview, KreditBee, Navi, Dhan | lenders and brokers; the balance sheet is the business |
+| E-commerce / D2C | Jumbotail, Drools, Zepto | retail and distribution with an app |
+| Logistics | Porter, Rapido, BlackBuck | transport and freight with a dispatch app |
+| Gaming | Dream11, MPL, Gameskraft | real-money gaming operators |
+| EV / hardware | Ather, Ola Electric | manufacturers, not software |
+| SaaS (application) | DarwinBox, Chargebee, BrowserStack | real software product firms — application-layer |
+| AI (foundational-aiming) | Krutrim, Sarvam | the only two aiming at the foundational layer — both new |
 
-** 9.2 Those Who Would Build Foundations Are Not Supported
+Source: unicorn tracker and sector data, 2024–26.[fn:unicorns]
+
+[Author judgement] Most are businesses that /use/ software, not software businesses.
+The engineering is real — Zepto and Dream11 run genuine scale — but it is
+operational engineering on rented foundations, not foundational software.
+
+** Contribution Does Not Scale With Headcount
 :PROPERTIES:
-:CUSTOM_ID: support
+:CUSTOM_ID: contribution
 :END:
 
-The enabling conditions are missing across the board: no patient capital for
-foundational work; no institutional backing for a "build a database" project; no
-neutral governance, in the way the Apache Foundation gave Chinese projects a
-trusted home; and no community machinery to sustain a project past its first
-commit. The rare successes — Zerodha, MOSIP — happened /despite/ the system, not
-because of it.
+India has the largest developer base on earth (§1). Its contribution to shared code
+does not track that headcount.
 
-** 9.3 The Institutions See Only the Immediate
+| Contributions to EU-based open-source projects (2025) | Count |
+|-------------------------------------------------------+-------|
+| United States | 934k+ |
+| United Kingdom | 553k+ |
+| India | 347k+ |
+
+Source: European Commission OSS study, GitHub Innovation Graph data.[fn:eugit]
+
+India — with several times the UK's developer count — contributes less in absolute
+terms. Two structural facts explain the gap. Contribution to foundational projects
+is tracked by /employer/, not nationality: the Linux Foundation ranks Intel, Google,
+Oracle, Red Hat, Meta, and Huawei, and most Indian-origin systems work is done
+inside foreign firms and counted as theirs.[fn:lwn] And GitHub systematically
+undercounts China, because Chinese developers concentrate on the domestic forge
+Gitee (§7).[fn:eugit] At the country level, the one peer-reviewed measure puts India
+at ~5.4% of active open-source contributors — below the level its income
+predicts.[fn:wachs]
+
+** Krutrim and Sarvam: Real Work, on a Floor Poured Elsewhere
 :PROPERTIES:
-:CUSTOM_ID: myopia
+:CUSTOM_ID: foundational-ai
 :END:
 
-The Indian technology economy runs on quarterly billing cycles, not decadal
-horizons. The services giants are organised around billable hours, not R&D;[fn:28]
-startups answer to VCs who reward growth velocity, not engineering depth;
-government works in five-year plans, not twenty-year roadmaps. China's 863
-Programme funded ten- to fifteen-year horizons; India's STPI had a comparable
-horizon and pointed it at services export.
+| | Krutrim | Sarvam |
+|-+---------+--------|
+| Largest model | 12B dense (Mistral-NeMo base) | 105B MoE (~10.3B active), built from scratch |
+| Context window | 4,096 | 128K |
+| Languages | 10 | 22 (12 scripts) |
+| Tokeniser | multilingual, improved fertility | custom, ~1.4–2.1 tokens/word |
+| Licence | Krutrim Community | Apache 2.0 |
+| Ecosystem contribution | BharatBench | LangChain integration, open weights |
+| Does not build | OS, DB, runtime, kernel, hardware | OS, DB, runtime, kernel, hardware |
 
-** 9.4 What the Governments Did
+Source: model cards and releases, 2025–26.[fn:sarvam][fn:krutrim]
+
+[Author judgement] Both sit on PyTorch, CUDA, and Linux. By contrast DeepSeek (China)
+contributes architectural primitives (DeepSeekMoE, multi-head latent attention) and
+infrastructure tools (FlashMLA, DeepEP) that others adopt.[fn:deepseek] Krutrim and
+Sarvam optimise the application layer for a linguistic context the West will not
+serve — real, important work, but not the floor.
+
+** The India Stack: Protocols, Not Systems Software
 :PROPERTIES:
-:CUSTOM_ID: governments
+:CUSTOM_ID: india-stack
 :END:
 
-The contrast in state action is the cleanest in the essay.
+| Component | What it is | Foundational? |
+|-----------+------------+---------------|
+| UPI[fn:upi] | real-time payments rail; ~₹314 lakh crore FY26, ~half of global real-time payments | protocol, not a software floor; implementations proprietary |
+| Aadhaar[fn:aadhaar] | digital identity, ~1.3bn enrolled | protocol / identity layer |
+| MOSIP[fn:mosip] | open-source reference implementation of Aadhaar principles; 10+ countries | partial — genuine OSS, but identity infrastructure, runs on AWS |
+| Bhashini[fn:bhashini] | translation/speech layer, 22 languages | application/protocol layer above the LLMs |
 
-| | China | India |
-|-+-------+-------|
-| Research programme | 863 (1986): outcome-based funding, named deliverables, real users[fn:5] | — |
-| Commercialisation bridge | Torch (1988): lab-to-industry | STPI (1991): tax breaks, bandwidth, parks — pointed at services export |
-| Substitution mandate | IOE: remove IBM/Oracle/EMC | — |
-| Indigenous OS | (emerged from firms under pressure) | BOSS: a Linux re-spin, no adoption, no feedback loop |
-| Result | OceanBase, openEuler, RocketMQ | a services industry, and no foundational stack |
+[Author judgement] India leads the world in civic digital infrastructure — protocols
+and public rails. That is real. But it is the protocol and application layer, not the
+systems floor (databases, runtimes, brokers). A different, and shallower, category of
+ownership.
 
-The forms were not absent in India — DRDO is a mission-funded agency like DARPA,
-STPI an adoption bridge like Torch. The targeting was wrong: DRDO aimed at defence
-hardware for a single captive user, STPI at labour-cost arbitrage. /(See also the
-[[https://gagan-p.github.io/articles-gp/articles/orange-economy-critique.html][Orange
-Economy critique]].)/
-
-* 10. What Can Be Done
+* What Software Actually Is
 :PROPERTIES:
-:CUSTOM_ID: path
+:CUSTOM_ID: layers
 :END:
 
-** 10.1 Stop Asking the Elite Institutions
+| Layer | What it is | Examples |
+|-------+------------+----------|
+| Application | what a person uses | wallets, dashboards, ERP, office suites |
+| Middleware | glue between apps and the floor | frameworks, API gateways, query engines |
+| Foundational (systems) | the floor everything runs on | OS, database, message broker, runtime, cryptography |
+
+The trade term for the bottom row is /systems software/. Other software depends on it,
+and when it fails, everything above it fails at once. Value follows that dependency:
+whoever owns the floor sets the price, the roadmap, the licence, and the shutdown date
+for everyone standing on it. A nation strong only in the top row is a tenant, however
+prosperous.
+
+* Renting the Floor
 :PROPERTIES:
-:CUSTOM_ID: scrap
+:CUSTOM_ID: floor
 :END:
 
-India's reflex is to ask its elite institutions, big corporates, and government to
-deliver the breakthrough together. The [[#fifteen][cases]] say this cannot work,
-because the elite-institution model is aligned against four of the five
-mechanisms:
+Score each country's open-source foundational software layer by layer. India's
+column is empty down the entire middle.
 
-- /Mechanism 1/ — it optimises for individual escape velocity, not obsession; the
-  graduate who could build a database leaves, abroad or to the app layer.
-- /Mechanism 2/ — it is small and insular; it does not produce the distributed
-  communities that build Linux or Kubernetes.
-- /Mechanism 3/ — its funding is grant-based, not the outcome-based "deliver this
-  capability" of DARPA or 863.
-- /Mechanism 4/ — its silos keep the domain expert and the computing team apart, so
-  the scientist-programmer never emerges.
-- /Mechanism 5/ — it faces no production forcing function; no student meets a
-  Singles'-Day problem.
+#+begin_export markdown
+```{ojs}
+//| label: fig-depth
+//| fig-cap: "Foundational-software depth by layer, open-source, mid-2026. 0 none, 3 deep. [Author judgement] The scoring is the author's and defensible cell by cell; the shape is not an opinion."
 
-Asking it to produce foundations is asking it to do what it is structurally built
-not to do.
+layers = ["OS / Kernel","Cryptography","Database","Consensus","Messaging",
+  "RPC / Networking","Service Mesh","Service Registry","Distributed Txn",
+  "Container Tooling","App Framework","ML / AI Framework","Protocol / Spec"]
+cov = [
+ ["China","OS / Kernel",3],["China","Cryptography",3],["China","Database",3],
+ ["China","Consensus",3],["China","Messaging",3],["China","RPC / Networking",3],
+ ["China","Service Mesh",3],["China","Service Registry",3],["China","Distributed Txn",3],
+ ["China","Container Tooling",3],["China","App Framework",3],["China","ML / AI Framework",2],
+ ["China","Protocol / Spec",1],
+ ["India","OS / Kernel",0],["India","Cryptography",0],["India","Database",0],
+ ["India","Consensus",0],["India","Messaging",0],["India","RPC / Networking",0],
+ ["India","Service Mesh",0],["India","Service Registry",0],["India","Distributed Txn",0],
+ ["India","Container Tooling",0],["India","App Framework",1],["India","ML / AI Framework",2],
+ ["India","Protocol / Spec",3]
+].map(([c,l,d]) => ({c,l,d}))
 
-** 10.2 Build Clusters With a Real Problem
+Plot.plot({
+  marginLeft: 150, marginRight: 10,
+  x: {label:null, domain:["China","India"]},
+  y: {label:null, domain:[...layers].reverse()},
+  color: {domain:[0,1,2,3], range:["#f7f7f7","#fdae6b","#f16913","#7f2704"],
+          legend:true, tickFormat:d=>["None","Limited","Partial","Deep"][d]},
+  marks: [
+    Plot.cell(cov, {x:"c", y:"l", fill:"d", inset:2}),
+    Plot.text(cov, {x:"c", y:"l", text:d=>["—","▪","▪▪","▪▪▪"][d.d],
+      fill:d=>d.d>=2?"#fff":"#999", fontSize:11})
+  ]
+})
+```
+#+end_export
+
+India registers at the two ends only: the protocol layer (UPI, Aadhaar) and, lately,
+the AI-model layer. Between them — database, message queue, service mesh, consensus,
+OS, cryptography — nothing. China's column is dark almost the whole way down, and the
+software is named, open, and mostly donated to neutral international foundations.
+
+| Layer | Chinese systems software (examples) | Governance |
+|-------+-------------------------------------+------------|
+| OS / kernel | openEuler, openHarmony | vendor open-source; openHarmony donated to the OpenAtom Foundation[fn:cncf] |
+| Database | OceanBase, TiDB / TiKV | OceanBase open-sourced 2021;[fn:oceanbase] TiKV donated to CNCF, graduated[fn:cncf] |
+| Messaging | RocketMQ, EventMesh | both donated to Apache, top-level[fn:asf] |
+| RPC framework | Dubbo, bRPC | Dubbo donated to Apache[fn:asf] |
+| API gateway / mesh | APISIX, ShenYu | both donated to Apache[fn:asf] |
+| Registry / consensus | Nacos, SOFAJRaft | vendor open-source (Alibaba, Ant) |
+| Distributed txn / sharding | ShardingSphere, Seata | ShardingSphere donated to Apache[fn:asf] |
+| Container / distribution | Harbor, Dragonfly | both donated to CNCF, graduated[fn:cncf] |
+| SDN / networking | Kube-OVN, Spiderpool | Kube-OVN donated to CNCF (Alauda, China)[fn:cncf] |
+| Distributed storage / data | JuiceFS, Fluid | Fluid donated to CNCF (Alibaba); JuiceFS open-source (Juicedata, China)[fn:cncf] |
+| OLAP / analytics | Apache Kylin, Apache Doris | both donated to Apache[fn:asf] |
+
+[Author judgement] The governance column is the point as much as the names: China did
+not merely build these internally, it placed them in the Apache and CNCF commons, where
+the rest of the world adopts them and where the contribution is visible. India has no
+comparable column to name.
+
+* Same Start, Different Choice
 :PROPERTIES:
-:CUSTOM_ID: clusters
+:CUSTOM_ID: history
 :END:
 
-The configuration that fits is the opposite: clusters of small firms with a real,
-shared, unsolved problem and no budget to evade it, paired with a local
-polytechnic. Read against the [[#mechanisms][mechanisms]], it instantiates four of
-the five — the problem refuses the workaround at the cluster's price point (5);
-the polytechnic supplies builders not on an escape trajectory (1); the firms are
-the domain experts and the students the computing carry (4); and because no market
-is large enough to interest a proprietary vendor, whatever gets built is open by
-default (2).
+A generation ago China stood where India stands now: assembling and servicing what
+others designed. Around 2000, ranked on software, India was ahead — English, the
+services contracts, the export head-start. What changed was not the starting line but
+the direction each pointed its industry. India deepened services. China built the
+layer beneath. India's own attempts at a floor show the difference was direction, not
+capacity.
 
-| Cluster | The problem | What a solution looks like |
-|---------+-------------+----------------------------|
-| Garment (Tiruppur) | logistics over mixed-script addresses | route optimisation with Tamil/English address parsing |
-| Mining-transport hub | truck scheduling, load tracking | a small datastore with a plain-text entry interface |
-| Agriculture (mandi) | price discovery, quality grading | a mobile-first datastore with offline sync |
-| Small-town retail | inventory, billing, credit | a lightweight ERP with an Indian-language UI |
+#+begin_export html
+<div class="story">
+<div class="story-label">BOSS — the announcement mistaken for the work</div>
+<p>
+BOSS (Bharat Operating System Solutions), a Debian derivative from C-DAC, has been
+promoted since 2007 as India's national Linux. It never achieved adoption at scale,
+even inside government. Re-skinning Debian is not building an OS; it is configuring
+one. The floor stayed foreign; only the wallpaper was Indian.
+</p>
+</div>
+#+end_export
 
-Kerala ran a version of this by accident: a budget-driven decision to put
-open-source software in schools produced, two decades on, a disproportionate share
-of India's foundational contributors — the Malayalam computing community, its
-fonts and morphological tools. The forcing function was poverty, not policy.
+#+begin_export html
+<div class="story">
+<div class="story-label">Kerala — the forcing function that worked by accident</div>
+<p>
+Kerala put free software in its schools from the mid-2000s (IT@School, later KITE),
+because it could not afford licences. Two decades on, the state produces a
+disproportionate share of India's Malayalam-language and free-software contributors —
+fonts, morphology, localisation. Poverty was the forcing function. It usually is.
+</p>
+</div>
+#+end_export
 
-* 11. Where to Point a Ten-Year Bet
+* China Built the Floor
 :PROPERTIES:
-:CUSTOM_ID: tenyear
+:CUSTOM_ID: china
 :END:
 
-A critique that ends at "build clusters" is weaker than one that names the target.
-Leadership is not won by chasing a layer the US and China already own — that is how
-one becomes a late tenant again. The test for a defensible target is one clause or
-the other: the layer is /being rewritten now/, so incumbency is open; or it is
-/structurally Indian/, so the forcing function is real, local, and un-poachable by
-any foreign firm. Five candidates, ranked against that test.
+China's move into foundational software was driven by strategy and siege: the "delete
+IOE" policy (remove IBM servers, Oracle databases, EMC storage), export controls, and
+consumer platforms at a scale purchased Western software could not survive.
 
-| Rank | Target | Being rewritten? | Structurally Indian? | Crowding risk | Verdict |
-|------+--------+------------------+----------------------+---------------+---------|
-| 1 | Indic-language computing infrastructure — tokenizers, morphology engines, fonts, speech | yes (LLM era) | yes (22 scripts, a billion users) | low (foreign firms cover only Hindi) | strongest |
-| 2 | DPI as foundational software — the open reference stack beneath UPI/ONDC/Aadhaar | partly | yes (India leads the protocol) | low (no trusted sovereign vendor) | strong |
-| 3 | Privacy-preserving / confidential compute | yes | partly (DPDPA, RBI localisation) | medium | plausible |
-| 4 | Earth-observation & agri data pipelines | no | partly (ISRO data, local crops) | low | niche |
-| 5 | Post-transformer inference runtime | yes (wide open) | no | high (US/China racing) | late tenant |
+#+begin_export html
+<div class="story">
+<div class="story-label">The story of OceanBase</div>
+<p>
+In 2010 Alipay ran on Oracle, and on Singles' Day — the largest shopping
+event on earth — the load exceeded what any purchased database was built to survive.
+Ant Group decided the database itself was wrong for the problem and rebuilt it, in
+C++, from the basics, over a decade.
+</p>
+<p>
+It replaced Oracle in production gradually — ten percent of Alipay's traffic, then
+all of it. In October 2019 OceanBase recorded 60.88 million tpmC on the TPC-C
+benchmark, taking the world record off Oracle's 2010 mark of 30.25 million; in May
+2020 it reached 707 million, peer-reviewed at VLDB 2022.
+A firm that rented Oracle a decade earlier held the record Oracle used to own — and
+by 2025 Alibaba Cloud's PolarDB pushed it to 2.055 billion.
+</p>
+<p>
+The lesson is not that Chinese engineers are gifted. A real wall — a load that could
+not be bought around, in front of a firm that could not walk away — produced a
+foundation. Even here one Western brick remains: OceanBase's stored-procedure compiler
+is built on LLVM. Nobody pours every floor; the point is China pours most of it.
+</p>
+</div>
+#+end_export
 
-The ranking follows the test mechanically. The inference runtime (5) has the
-highest upside and the most open floor, but fails the second clause — it is not
-structurally Indian, and the US and China are already racing, so India would arrive
-late to a contested layer yet again. Earth observation (4) is genuinely
-uncontested but narrow. Confidential compute (3) has a real domestic forcing
-function in data-localisation law but no special Indian advantage. The top two are
-the only candidates that pass /both/ a real moat and a real forcing function.
+| Layer | Ant built | Because |
+|-------+-----------+---------|
+| Database | OceanBase | Oracle could not survive Singles' Day |
+| Messaging | RocketMQ | the alternatives lacked Taobao's guarantees |
+| Service mesh | MOSN | Envoy could not carry Ant's protocols |
+| Consensus | SOFAJRaft | latency, at a scale that punishes it |
+| Registry | Nacos | to replace Consul, etcd, and ZooKeeper at once |
 
-** The Winner: Indic-Language Computing Infrastructure
+Source: OceanBase VLDB paper and project repositories.[fn:oceanbase][fn:tpcc]
+
+Beyond Ant, the same pattern repeats across firms:
+
+- ByteDance built CloudWeGo (Go and Rust microservice frameworks) for TikTok-scale traffic.
+- Huawei shipped openEuler (a server OS) and openGauss (a database) when RHEL became a strategic risk.
+- PingCAP built TiDB, a distributed SQL database that implements the design in Google's Spanner paper as open source.
+
+Between 2015 and 2024, fourteen Chinese-origin infrastructure projects were donated to
+the Apache Software Foundation, and now run in production worldwide.[fn:apache]
+
+#+begin_export html
+<div class="story">
+<div class="story-label">The story of Gitee</div>
+<p>
+Not all of it came from giants under siege. Gitee began as a domestic Git-hosting
+forge and became China's answer to GitHub — today the state-backed default where a
+large share of Chinese open source lives, which is precisely why GitHub-based
+measures undercount China (§3). China did not only build its floor through
+state-mandated champions; it also repatriated the developer infrastructure itself.
+</p>
+</div>
+#+end_export
+
+* Products vs Services, and Who Contributes the Floor
 :PROPERTIES:
-:CUSTOM_ID: winner
+:CUSTOM_ID: products-vs-services
 :END:
 
-The bet is not "an Indian ChatGPT" — that is application software, the tenant's
-move. The bet is the /foundational layer beneath every Indic-language model/: the
-tokenizer, the morphological analyser, the script-shaping and font stack, the
-speech front-end, the evaluation harness. It passes the test on both clauses at
-once, which no other candidate does.
+At the platform layer — the software that runs private clouds and telecom cores — the
+difference is not capability but posture: China contributes to the source; India
+ships or buys the binaries.
 
-- /Being rewritten now./ The LLM era reset the entire language stack. Incumbency
-  is open because the incumbents barely showed up: Llama 3.1, Cohere Command R, and
-  Aya 23 each cover only Hindi among the Indic languages, and general-purpose
-  tokenizers over-fragment Indic scripts — a measured "token fertility" penalty
-  that makes every Indic model slower and costlier to run than its English
-  equivalent.[fn:32] The layer is being built from scratch right now, by whoever
-  builds it first.
-- /Structurally Indian, and un-poachable./ Twenty-two scheduled languages across
-  multiple script families, agglutinative morphology, a billion users — this is
-  [[#mechanisms][mechanism 5]] with a permanent moat. No US or Chinese firm will
-  ever build it properly, because the forcing function is not theirs; the cost of
-  bad Indic tokenisation lands on Indian users, not on Mountain View. That is the
-  rare combination the rest of the essay says India lacks: a foundational problem
-  that /only India is forced to solve./
+| Platform-software case | China | India |
+|------------------------+-------+-------|
+| Private cloud (OpenStack) | 99Cloud: top-10 global OpenStack contributor[fn:99cloud] | StackUp: OpenStack-based product; little upstream; few large deployments |
+| Telecom core (NFV / orchestration) | China Telecom: OpenStack-Powered cloud; co-founded Open-O → ONAP[fn:chinatelecom] | BSNL Bharat stack: indigenous 4G (C-DOT, Tejas, TCS), but closed and SI-delivered[fn:bsnl] |
 
-The raw material already exists but is fragmented and under-resourced — exactly the
-state §3 describes. AI4Bharat at IIT Madras has shipped IndicTrans2 (all 22
-scheduled languages, a 230M-pair parallel corpus), iNLTK, and the Indic LLM-Arena
-benchmark; Krutrim and others have published Indic-specific tokenizers
-(IndicSuperTokenizer) that beat the general-purpose ones on fertility.[fn:33] The
-pieces are scattered across labs and startups, none owning the whole floor. The
-ten-year move is consolidation, not invention: take the [[#clusters][cluster
-model]] from §10.2 — polytechnics and language departments as the domain experts,
-a real billion-user forcing function, open-by-default because no proprietary vendor
-will serve a fragmented low-margin market — and aim it at a single, governed,
-permissively licensed Indic-language /infrastructure/ layer that every downstream
-model is forced to depend on. Whoever owns that tokenizer owns a floor under the
-entire Indian AI economy. It is the one foundational layer India is structurally
-advantaged to win, and the one no one will hand it.
+Both countries built a sovereign telecom stack — so the difference is isolated to
+openness. China Telecom turned its telco-cloud work into an upstream standard
+(Open-O merged into ONAP); India's Bharat stack is a closed national-champion project
+promoted for export.[fn:bsnl] Indian banks, meanwhile, consume open source only
+through Red Hat's commercial distributions, and are publicly branded for "open-source
+excellence" while owning none of it.[fn:redhatbanks]
 
-* Close
+#+begin_export html
+<div class="story">
+<div class="story-label">Author judgement: why the floor stays foreign in India</div>
+<p>
+My read, from the field. India's most software-influential sector is banking, and its
+biggest buyers — public and private banks under RBI oversight — take a no-risk posture
+even in pilots. They consume open source only through commercial, supported
+distributions: RHEL not upstream Linux, OpenShift not upstream Kubernetes, never
+Nomad, never StackUp. SBI, Indian Bank, Central Bank and others are publicly branded
+for "open-source excellence" while running exclusively Red Hat's paid, de-risked
+wrapper of that open source. China's policy
+excludes foreign platforms and creates captive demand; India's local-content rules
+reward badging and are defeated at the point of purchase by risk aversion.
+</p>
+<p>
+And OSS contribution is itself a trust signal — a public proof of competence. 99Cloud
+in OpenStack's top-10, China Telecom co-authoring ONAP: both advertise source-level
+mastery no sales deck can fake. StackUp contributes little upstream, so a risk-averse
+buyer has no such proof and defaults to the vendor that spent a decade advertising it.
+</p>
+<p>
+[Hypothesis] If StackUp contributed materially to OpenStack, Indian buyers would take
+it more seriously — not because the code would be better, but because the credential
+would exist. The absence is self-reinforcing: no contribution, no credibility, no
+sales, no resources to contribute.
+</p>
+</div>
+#+end_export
+
+* How Foundations Get Built
 :PROPERTIES:
-:CUSTOM_ID: close
+:CUSTOM_ID: mechanism
 :END:
 
-India's software success is real, and it is the success of a tenant. Forty years
-of services and arbitrage produced wealth and reputation — and not the capacity to
-build the floor, because arbitrage and foundations are made by opposite conditions
-and India built only the first set. China proves the second set can be assembled;
-the [[#fifteen][fifteen cases]] show what assembles it; the [[#india-list][short
-Indian list]] shows how rarely the same engine fires at home.
+Across the most load-bearing pieces of systems software, five development patterns
+recur. Stated first, then evidenced against fifteen canonical projects.
 
-India does not lack people — it has supplied the world's foundational software with
-its people for decades. It lacks the /conditions/ under which those people do that
-work /at home/. Jugaad — the celebrated knack for the workaround — is the antonym
-of the disposition that builds floors, which begins instead with the refusal to
-patch. The institution India trusts most is the one least suited to the task. The
-capacity is a choice about conditions, not a fact about talent — and the choice is
-still open.
+| # | Pattern | China instance | India instance |
+|---+---------+----------------+----------------|
+| 1 | Lone obsessive rebuilds a tool judged wrong at the root | (rare; mostly firm-backed) | Goyal (Calibre, Kitty) — unaffiliated |
+| 2 | Mass community, no single owner | growing (Gitee ecosystem) | thin |
+| 3 | Target-bound backing: an institution commissions a named deliverable for a real user | delete-IOE mandate → OceanBase | mis-aimed at services export and defence hardware |
+| 4 | Cross-domain carry: a specialist builds the tool their field lacks | present | rare |
+| 5 | Forcing function: a scale problem that refuses the workaround | Alipay scale → OceanBase, RocketMQ | present, but buyers rent around it |
 
-/(See also an earlier treatment:
-[[https://gagan-p.github.io/articles-gp/articles/software_oss_Ind_Chn.html][Renting
-vs. Owning the Stack]].)/
+The fifteen projects each project traces to one or more of these patterns; none traces
+to an elite teaching institution or a state programme aimed at a captive in-house user
+— the two sources India has leaned on hardest.
 
-#+begin_quote
-Editor's note. A contested thesis, with its interpretive leaps marked.
-Quantitative claims are sourced and current to mid-2026; market values move daily
-and the premium argument is built to hold at the order-of-magnitude level. Scores
-in §5 are judgements. Corrections welcome.
-#+end_quote
+| Software | How it began | Pattern |
+|----------+--------------+---------|
+| SQLite | one engineer, a Navy contract, then public domain | 1 |
+| Linux | a student's hobby a community adopted | 1 → 2 |
+| Git | Torvalds, two weeks, when a licence was pulled | 1 + 5 |
+| Nginx | one engineer against one company's traffic wall | 1 + 5 |
+| Redis | one founder, when his database could not keep up | 1 + 5 |
+| PostgreSQL | a Berkeley research project handed to a community | 3 → 2 |
+| Apache httpd | a group patching a server nobody maintained | 2 |
+| Kubernetes | Google externalising how it already ran things | 3 → 2 |
+| LLVM | a university project that became Apple's compiler | 3 + 1 |
+| TCP/IP, BSD | Berkeley, under a DARPA contract with a real user | 3 |
+| The Web | one physicist at CERN who needed to share papers | 4 |
+| R | statisticians building the tool their field lacked | 4 |
+| OpenSSL | two people, then everyone | 1 → 2 |
+| OceanBase | Ant, when Oracle could not survive its scale | 5 + 3 |
+| Hadoop | two engineers on Google's papers, then Yahoo's backing | 5 + 3 |
 
-* Footnotes
+Source: project histories; pattern classification is the author's.[fn:histories]
 
-[fn:1] Patent counts: TCS ~2,560 granted globally as of 2022 (TCS press release,
-National IP Award 2021–22; ~857 granted at the USPTO per GreyB Insights), the
-majority in process/methodology rather than systems-software classes; IBM ~150,000
-and Microsoft ~37,000 granted at the USPTO (GreyB Insights, 2025–26). Cross-company
-comparisons are approximate; patent classes are not uniform.
+* China's Leap, Plainly
+:PROPERTIES:
+:CUSTOM_ID: leap
+:END:
 
-[fn:2] GitHub Octoverse 2024 (GitHub Blog, 29 Oct 2024): India reported at >17M
-developers, ~28% YoY growth, second globally.
+The TPC-C world record is one factual, dated line through the divergence: China does
+not hold it once, but twice, with two home-grown engines.
 
-[fn:3] MOSIP: ~26 country engagements and ~130M IDs generated as of 2025 (MOSIP
-figures; Biometric Update, 2025). MOSIP runs predominantly on AWS.
+#+begin_export markdown
+```{ojs}
+//| label: fig-tpcc
+//| fig-cap: "TPC-C world record, tpmC (log scale). Oracle's last record, then two Chinese databases. Sources: TPC / VLDB."
 
-[fn:4] PhonePe technical blog, "Virtual machine provisioning and management"
-(tech.phonepe.com): PPeC agent manages ~350K cores / 3PB, ~7s average VM creation;
-Drove at github.com/PhonePe/drove-orchestrator.
+rec = [
+ {year:2010, tpmC:30.25e6, who:"Oracle (last record)"},
+ {year:2019, tpmC:60.88e6, who:"OceanBase"},
+ {year:2020, tpmC:707e6, who:"OceanBase"},
+ {year:2025, tpmC:2055e6, who:"Alibaba PolarDB"}
+]
 
-[fn:5] 863 and Torch Programmes: Brookings, "Becoming a Techno-Industrial Power";
-China Quarterly on the 863 Programme. IOE-replacement documented in Chinese IT
-self-sufficiency white papers (2012–2015). Note: the 863 Programme did not fund
-OceanBase directly; the Chinese OSS emerged from firms under commercial pressure,
-on the substrate these programmes built.
+Plot.plot({
+  marginLeft: 60, marginRight: 120, height: 300,
+  x: {label:null, tickFormat:"d"},
+  y: {type:"log", label:"tpmC (log) →", grid:true},
+  marks: [
+    Plot.line(rec, {x:"year", y:"tpmC", stroke:"#7f2704", strokeWidth:2, curve:"step-after"}),
+    Plot.dot(rec, {x:"year", y:"tpmC", fill:"#7f2704", r:5}),
+    Plot.text(rec, {x:"year", y:"tpmC", text:d=>d.who, dx:8, textAnchor:"start", fontSize:10})
+  ]
+})
+```
+#+end_export
 
-[fn:6] Foundational-15 origins verified against primary project histories: SQLite
-(sqlite.org); the Linux and Git archives; Nginx (Sysoev/Rambler, C10K); Redis
-(Sanfilippo/LLOOGG); OpenSSL; Apache httpd; PostgreSQL (Berkeley); Kubernetes
-(Google Borg paper); LLVM (Lattner, 2002); BSD/TCP-IP (DARPA); the Web (CERN); R
-(Auckland); OceanBase (Ant); Hadoop (Cutting/Cafarella, then Yahoo).
+Source: TPC published results; OceanBase VLDB 2022.[fn:tpcc][fn:oceanbase]
 
-[fn:7] OceanBase TPC-C: Oracle 30.25M tpmC (2010); OceanBase 60.88M (Oct 2019) and
-707M (May 2020). Source: TPC.org historical results.
+Oracle's record stood from 2010. A Chinese database took it in 2019, multiplied it
+×11 in 2020, and a second Chinese database tripled that in 2025. Nothing in India's
+input metrics (§1) predicts this line, because it was never about inputs.
 
-[fn:8] Apache RocketMQ: built ~2012 after ActiveMQ's IO limits and Kafka's
-many-partition degradation; donated to the Apache Incubator (2016), Top-Level
-Project (2017); 80%+ of contributions from outside Alibaba (ASF records).
+* What a Foundational Move Requires
+:PROPERTIES:
+:CUSTOM_ID: ecosystem
+:END:
 
-[fn:9] Frappe: frappe.io; first released GPL on Google Code, 2009.
+The origins in §9 name four conditions. They travel together.
 
-[fn:10] Zerodha: zerodha.com; FLOSS/fund (floss.fund), US$1M/yr from Oct 2024, first
-round including US$100K to the OpenSSL Foundation; FOSS United (fossunited.org).
+| Condition | Meaning | China | India |
+|-----------+---------+-------+-------|
+| Forcing function | a real need that refuses the workaround | delete-IOE + platform scale | present, but buyers rent around it |
+| Patient builders | people not on a fast exit from the problem | firms retained talent at home | elite graduates exit, or re-domicile |
+| Neutral governance | a trusted home so a project outlives its author | Apache / CNCF at scale | almost none domestically |
+| Community | many hands past the first commit | large, increasingly global | thin |
 
-[fn:11] Market caps, mid-2026, approximate and daily-variable: NVIDIA ~$4.85–4.95T
-(CompaniesMarketCap, StockAnalysis, Capital.com, 22–24 Jun 2026); Apple, Microsoft,
-Alphabet, Meta, TSMC, Alibaba per CompaniesMarketCap, Jun 2026.
+[Author judgement] India's failures here are of aim, not capacity: it built forcing
+functions and pointed them at services export; built institutions and pointed them at
+defence hardware. The conditions existed. They were aimed elsewhere.
 
-[fn:12] Employee counts: NVIDIA 42,000 (Macrotrends, FY2026); Apple 166,000;
-Microsoft ~228,000; Alphabet ~190,820; Meta ~78,865; TSMC ~83,825; Alibaba
-~123,711 (company filings / Macrotrends, 2025–26).
+* India's Handful
+:PROPERTIES:
+:CUSTOM_ID: india-cases
+:END:
 
-[fn:13] Indian IT market caps, mid-2026: TCS ~₹7.6–8.2 lakh crore (~US$88–95B;
-Tickertape/StockAnalysis, May–Jun 2026); Infosys ~US$47B; Wipro ~US$20B. Through
-2026 TCS/Infosys/Wipro shed a combined ~₹8.5 lakh crore as AI pressured the
-services model (Groww/ETMarkets, 2026).
+Where the conditions did line up, India produced real foundational software. There is
+a handful of it, and the scarcity is the evidence. Scale here is adoption — the reach
+that separates a floor from a private tool.
 
-[fn:14] Indian IT headcounts: TCS 584,519 (Q4 FY2026); Infosys 323,788 (FY2025);
-Wipro 233,232 (9MFY26); HCLTech ~223,000; Tech Mahindra ~148,000 (company filings,
-2025–26).
+| Project | What it does | Adoption |
+|---------+--------------+----------|
+| MOSIP[fn:mosip] | modular open-source digital-identity platform — the foundation a country builds its own Aadhaar-equivalent on | 10+ national deployments, ~130mn IDs issued |
+| Frappe / ERPNext[fn:frappe] | metadata-driven web framework (Python, MariaDB): define an object's metadata and its UI, API, and permissions generate from it; ERPNext (700+ object types) is built on it | 22,000+ community; runs Zerodha's back office; among the most-forked open ERPs |
+| Drove[fn:drove] | bare-metal container orchestrator PhonePe built when Kubernetes and Nomad did not fit its scale | ~350k cores, 3 PB at PhonePe — almost no adoption beyond it |
 
-[fn:15] NVIDIA: CUDA (2006), GPU architectures through Blackwell. NVIDIA history,
-SEC filings.
+#+begin_export html
+<div class="story">
+<div class="story-label">FLOSS/fund — India funds the floor it did not build</div>
+<p>
+FLOSS/fund is not a product but a funding mechanism: Zerodha commits US$1mn a year to
+critical open-source projects worldwide. The 2025 grantees include OpenSSL, FFmpeg,
+Blender, OpenStreetMap, Krita, and Weblate, alongside US$500k to the GitHub Secure
+Open Source Fund and ~US$100k to FOSS United.<sup>[fn:flossfund]</sup> CTO Kailash Nadh
+frames it as a sovereign FOSS fund of "strategic national importance."
+</p>
+<p>
+[Author judgement] The grantee list is the point. India's most significant open-source
+institutional act funds foundations built elsewhere — OpenSSL, FFmpeg, Blender — rather
+than any built at home. It is a tenant paying to maintain the building, generously, and
+it is the clearest single illustration of the thesis.
+</p>
+</div>
+#+end_export
 
-[fn:16] Apple: Darwin/XNU (BSD/Mach-derived), Objective-C runtime, Swift (2014),
-Metal, A-/M-series silicon. opensource.apple.com.
+#+begin_export html
+<div class="story">
+<div class="story-label">The story of Drove</div>
+<p>
+[Inferred] PhonePe outgrew off-the-shelf orchestration and built Drove, a container
+orchestrator, running a bare-metal fleet of roughly 350,000 cores. It open-sourced it —
+the right instinct. But whether Drove is bottom-up systems work or an assembly of
+existing components is not established from the outside, so it should not be over-claimed
+as a new primitive. Either way it has spread almost nowhere beyond PhonePe, because the
+fourth condition — neutral governance and a community — was missing. China donated its
+infrastructure to Apache and watched the world adopt it; India's best equivalents sit,
+excellent and alone, in one firm's repositories.
+</p>
+</div>
+#+end_export
 
-[fn:17] Microsoft: Windows NT kernel (Cutler, 1993), the .NET CLR, TypeScript
-(2012). Microsoft Research.
+MOSIP is the one that reached the world — because its forcing function came with a real
+external user, a government with no identity system, that pulled it into the open. That
+is the condition Drove lacked. India can build the floor. It has not built the machine
+that makes floors spread.
 
-[fn:18] Google: PageRank (1998), MapReduce (2004), Bigtable (2006), Kubernetes
-(2014), Go (2009), TensorFlow (2015). Google research / ACM.
+* The Turn
+:PROPERTIES:
+:CUSTOM_ID: turn
+:END:
 
-[fn:19] Meta: React (2013), Cassandra (originally Facebook, 2008), GraphQL (2015),
-HHVM. Meta Engineering.
+** The Elite-Industry Model Is Ending
+:PROPERTIES:
+:CUSTOM_ID: elite
+:END:
 
-[fn:20] LinkedIn: Apache Kafka (Kreps, Narkhede, Rao, 2011, originally at LinkedIn).
+[Author judgement] India's theory of progress — concentrate the ablest in a few elite
+institutions, expect breakthroughs — is aimed against the mechanism that produces
+foundations. Elite institutions optimise for individual exit: the graduate who could
+build a database has the best exit options in the country, and the trajectory points
+outward or up to the application layer, never toward the patient, unpaid work of a
+floor built at home. And the services firms meant to anchor the industry are precisely
+what AI now marks down. The top-down model is losing both its engines at once.
 
-[fn:21] Alibaba/Ant: OceanBase (TPC-C record 2019–2020), RocketMQ (Apache 2016),
-SOFARPC, MOSN. Ant technical publications; ASF.
+** Knowledge Is Democratised; the Opening Is Bottom-Up
+:PROPERTIES:
+:CUSTOM_ID: msme
+:END:
 
-[fn:22] ByteDance: CloudWeGo (Kitex RPC, Hertz HTTP, 2021), Monoio. github.com/cloudwego.
-ByteDance is privately held.
+The knowledge to build foundational software — papers, reference implementations,
+weights, tooling — is now largely open. The gate the elite institutions held has
+fallen. The decisive question is no longer /who has the knowledge/ but /who faces a
+real problem with no budget to evade it/ — the forcing function itself.
 
-[fn:23] TCS FY2026 revenue ~US$30B (TCS press release, Apr 2026).
+| Model | Forcing function | Builders | Governance | Community |
+|-------+------------------+----------+------------+-----------|
+| Elite institute + large firm | weak (no real wall) | exit-bound | grant-based | insular |
+| MSME cluster + local polytechnic | strong (real problem, no budget) | locally rooted | open by default | shared in-cluster |
 
-[fn:24] Infosys FY2025 revenue ~₹1.63 lakh crore total income (~US$19.5B; Infosys
-Annual Report 2024–25).
+Kerala did a version of this by accident (§6): free software in schools for lack of
+money produced a disproportionate contributor base. The forcing function was poverty.
 
-[fn:25] Wipro FY2025 gross revenue ~₹890.9B (~US$10.4B; Wipro press release, Apr
-2025).
+** The One Problem That Is India's Alone
+:PROPERTIES:
+:CUSTOM_ID: language
+:END:
 
-[fn:26] HCLTech revenue >US$13B (company disclosures; Forbes India, 2025).
+[Author judgement] The sharpest target is the problem being rewritten by AI /and/
+structurally India's to solve: language. Twenty-two official languages, a dozen
+scripts, a billion people the current models serve badly. Leading open models handle
+Hindi and little else; general tokenisers fragment Indic scripts so inefficiently that
+every Indian model runs slower and costs more.[fn:sarvam] No American or Chinese firm
+will fix this properly, because the pain is not theirs. The forcing function is real,
+domestic, and un-outsourceable — the exact condition that, everywhere else here,
+produced a foundation. The pieces exist, scattered across AI4Bharat, Sarvam, and
+Bhashini; what is missing is the decision to consolidate them into the layer beneath
+every Indian model.
 
-[fn:27] Tech Mahindra revenue >US$6B (company disclosures; Forbes India, 2025).
+* Foundational Targets, Mapped to MSME Clusters
+:PROPERTIES:
+:CUSTOM_ID: msme-map
+:END:
 
-[fn:28] Indian IT revenue per employee ~US$50,000, stable across FY2020–FY2024
-(ICRA Research, 2025; sample of TCS, Infosys, HCL, Wipro, Tech Mahindra).
+[Author judgement] A foundation gets built when three things meet: a real problem, no
+budget to buy your way around it, and builders who are not on their way out of the
+country. India's lesser-known industrial clusters supply all three. Each is a town or
+region that makes one thing at national scale, sits next to an ordinary engineering
+college, and runs into a software wall no foreign vendor will bother to fix.
 
-[fn:29] Foundational-OSS contribution shares: author's estimate from the GitHub
-Innovation Graph (Q3 2024) and OpenDigger global analysis (Apr 2025). India active
-open-source developers ~570K vs USA ~1.11M. The 2% figure is a judgement, not a
-survey finding.
+| Foundational target | MSME cluster |
+|---------------------+--------------|
+| Indic-language OCR, voice, tokenisation | anchor near AI4Bharat, Chennai |
+| Agri commodity price and quality data | Guntur — chilli |
+| Kiln and furnace energy optimisation | Morbi — ceramics; Coimbatore — foundries |
+| Offline, mixed-script logistics routing | Tiruppur — knitwear; Ludhiana — hosiery |
+| Real-time machine-tool (CNC) control | Rajkot, Coimbatore |
+| Supply-chain traceability for exports | Moradabad — brass; Kanpur — leather |
 
-[fn:31] Alibaba rose ~70–84% in 2025, re-rated as an AI-and-cloud infrastructure
-company on the strength of Alibaba Cloud (>30% YoY growth) and the Qwen models;
-the broader Chinese tech complex (Alibaba, Tencent) outperformed on the same AI
-wave (Barchart/Yahoo Finance; The Motley Fool, Dec 2025). The stock's ~20–27%
-pullback in 2026 is a deliberate consequence of a US$52–56B AI-infrastructure capex
-commitment that turned free cash flow negative on purpose, not a reversal of the
-re-rating (CNBC; Barchart, 2026) — the opposite of India's decline: investing
-deeper into the floor rather than being displaced from it.
+The captive problem behind each, in plain terms:
 
-[fn:32] Indic LLM coverage and tokenisation: Llama 3.1 supports Hindi as its only
-Indic language; Cohere Command R and Aya 23 likewise cover only Hindi among Indic
-languages ("Analysis of Indic Language Capabilities in LLMs," arXiv:2501.13912,
-2025). General-purpose tokenizers over-fragment Indic scripts, raising "token
-fertility" (sub-words per word) and with it inference cost ("Multilingual
-Tokenization through the Lens of Indian Languages," arXiv:2506.17789, 2025).
+- *Indic language.* A billion people speak languages today's software still reads,
+  hears, and types badly. The piece that breaks text into units for a model — the
+  tokeniser — chops Indian scripts so clumsily that every Indian model runs slower and
+  costs more. No American or Chinese firm will fix this, because the pain is not theirs.
 
-[fn:33] Indic-language infrastructure: AI4Bharat (IIT Madras) — IndicTrans2 across
-all 22 scheduled languages with a 230M-pair Bharat Parallel Corpus (Gala et al.,
-2023), iNLTK (Arora, 2020), Indic LLM-Arena (2025); Krutrim's tokenizer
-(arXiv:2407.12481) and IndicSuperTokenizer (2025) report state-of-the-art fertility
-on Indic scripts. The work is real but fragmented across labs and startups.
+- *Guntur chilli.* Guntur runs one of Asia's largest chilli markets. A farmer arriving
+  with a truckload has no reliable way to know the fair price that day or to prove his
+  crop's quality — how red, how pungent, how dry — so middlemen set both. There is no
+  cheap tool that measures quality objectively and shows real market prices.
+
+- *Morbi kilns.* Morbi makes most of India's ceramic tiles, fired in gas kilns where
+  fuel is the single largest cost. Shaving a few percent off energy by tuning
+  temperature and airflow would decide who stays profitable — but no affordable software
+  does that optimisation for a small tile unit.
+
+- *Tiruppur logistics.* In a dense knitwear town, thousands of tiny units ship to each
+  other and outward, with addresses written in mixed Tamil, Hindi, and English and an
+  internet connection that keeps dropping. Delivery software built for clean English
+  addresses and always-on data simply fails here.
+
+- *Rajkot CNC.* Rajkot's workshops cut metal on CNC machines whose control software —
+  the program that tells the tool exactly how to move — is imported and expensive. A
+  small unit cannot afford it, and no cheap Indian alternative exists.
+
+- *Moradabad and Kanpur exports.* To sell brassware or leather abroad, a maker must
+  prove the product is free of banned chemicals and trace every material back through
+  its supply chain (Europe's REACH rules, US import checks). The traceability software
+  to do this is priced for large exporters, so small ones are locked out.
+
+Each wall sits beside a local polytechnic or NIT whose students need real problems and
+are not bound for San Francisco. The problem cannot be bought around at the cluster's
+price point — that is the forcing function. The builders are local and not exit-bound —
+those are the patient hands. And because no market is large enough to tempt a
+proprietary vendor, whatever gets built is open by default — that supplies the
+governance and community. Four conditions, assembled where the elite model never looks.
+
+* Conclusion
+:PROPERTIES:
+:CUSTOM_ID: conclusion
+:END:
+
+The chart that circulates every few months is not wrong about the numbers; it is wrong
+about what they mean. India is a large, capable, application-layer software economy
+that sells discounted labour and is, this year, watching that model meet its automator.
+China is the deeper success — not because it has more engineers or better ones, but
+because it chose to own the floor, manufactured the walls that force foundations into
+existence, and did it until it had a stack.
+
+The difference was never talent; India has supplied the world's foundational software
+with its people for decades, just not at home. It was direction, and direction is a
+choice, which means it remains available. The floor is being poured again this decade,
+on the AI and language layers, and India stands on the one problem the rest of the
+world has no reason to solve for it. The correction is to stop measuring success by how
+many people work on someone else's foundation, and to go build one.
+
+* Notes
+:PROPERTIES:
+:CUSTOM_ID: notes
+:END:
+
+[fn:octoverse] GitHub Octoverse 2025, "A new developer joins GitHub every second as AI leads TypeScript to #1" (US ~12.8M/31.8% contributions, India ~5M/12.5%, India leads distinct repos 405k vs 342k; public activity only, 81.5% of contributions private). https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/
+
+[fn:nasscom] NASSCOM, Technology Sector in India: Strategic Review 2025 (revenue US$283bn +5.1%, exports US$224bn, domestic US$58.2bn, employees 5.80mn). https://nasscom.in/knowledge-center/publications/technology-sector-india-strategic-review-2025
+
+[fn:ibef] IBEF, Indian IT & BPM Industry (FY25 export destinations: US 50.33%, Europe 31.40%, UK 15.50%; ~55% global sourcing share). https://www.ibef.org/industry/information-technology-india
+
+[fn:itmarket] Grand View Research, India IT Services Market Outlook (India ~5.5% of the global IT-services market, 2025). https://www.grandviewresearch.com/horizon/outlook/it-services-market/india
+
+[fn:devcost1] Gini Talent, Global Software Engineer Salary Guide 2025 (mid-level US $98,679–$111,000; UK avg $55,275; Germany $52,275–$64,000; India mid-level to $35k+). https://ginitalent.com/global-software-engineer-salary-guide-2025/
+
+[fn:devcost2] WhatIsTheSalary, Software Engineer Salary by Country 2025–2026 (US base $130–150k; India mid-level $15,000–$35,000). https://whatisthesalary.com/it-salaries/software-engineer-salary-by-country/
+
+
+
+
+
+
+[fn:zoho] Zoho Corporation FY25 results (revenue ₹12,313 cr; bootstrapped; US largest market, Asia second; India not separately disclosed). https://entrackr.com/fintrackr/zoho-reports-rs-12313-cr-revenue-and-rs-3191-cr-profit-in-fy25-11701761
+
+[fn:frsh] Freshworks Inc. FY2024 10-K (revenue by region: North America 46%, EMEA 38%, rest of world 16%; India within rest-of-world). https://www.stocktitan.net/sec-filings/FRSH/10-k-freshworks-inc-files-annual-report-f1bf4e77f427.html
+
+[fn:wps] Kingsoft WPS Office (China office-suite leader; ~90% domestic share pre-Microsoft). https://www.wps.com/about-us/
+
+[fn:yonyou] Yonyou, China's No.1 ERP/management-software vendor (81.96% of customers in China; only Chinese vendor in the global ERP-SaaS Top 10). https://en.wikipedia.org/wiki/Yonyou
+
+[fn:dingtalk] DingTalk (Alibaba), enterprise-collaboration SaaS built for the Chinese domestic market. https://www.dingtalk.com/en
+
+[fn:tmax] TmaxSoft Tibero, first commercial Korean RDBMS (2003); Oracle-compatible alternative, 9,300+ deployments across Korean conglomerates, financial institutions, and public agencies. https://www.tmaxsoft.com/products/tibero/
+
+[fn:idc] IDC, Worldwide Software Taxonomy 2025 (commercial software = applications; application development and deployment; systems infrastructure software). https://my.idc.com/getdoc.jsp?containerId=US53306525
+
+[fn:kingdee] Kingdee, China's No.2 ERP vendor (~20% share; No.1 for 21 consecutive years in China's growth-enterprise-application segment; positioned for domestic substitution, SOE/Fortune-500-China customers). https://investor.kingdee.com/en/understand/profile/
+
+[fn:baidu] Baidu — revenue is predominantly online marketing/advertising, classifying it as internet services rather than a software vendor. https://en.wikipedia.org/wiki/Baidu
+
+[fn:alibaba] Alibaba (Taobao/Tmall) — revenue is retail commerce and commissions, not software licensing. https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001577552&type=6-K
+
+[fn:alipay] Alipay / Ant Group — revenue is payment and financial-services fees, not software licensing. https://en.wikipedia.org/wiki/Ant_Group
+
+[fn:didi] Didi Global — revenue is ride-hailing/transport commissions, not software licensing. https://en.wikipedia.org/wiki/DiDi
+
+[fn:naver] Naver — revenue predominantly search advertising and platform commerce; internet-services business, not a software vendor. https://en.wikipedia.org/wiki/Naver
+
+[fn:kakao] Kakao — revenue from advertising, payments, and content; internet-services business, not a software vendor. https://en.wikipedia.org/wiki/Kakao
+
+[fn:signal] Signal Protocol, end-to-end encryption standard, also used by WhatsApp and Google RCS. https://signal.org/docs/
+
+[fn:mtproto] Telegram MTProto, own transport and cryptographic protocol; MTProto 2.0 formally verified (University of Udine, 2020). https://core.telegram.org/mtproto
+
+[fn:hike] Hike Messenger (India) shut down its messaging app in January 2021. https://en.wikipedia.org/wiki/Hike_Messenger
+
+[fn:whatsapp] WhatsApp engineering: Erlang/BEAM on FreeBSD, ~2mn TCP connections per server, ~50 engineers at ~900mn users; end-to-end encryption uses the Signal Protocol. https://highscalability.com/how-whatsapp-grew-to-nearly-500-million-users-11000-cores-an/
+
+[fn:koo] Koo (India), the Twitter/X alternative, shut down in 2024. https://en.wikipedia.org/wiki/Koo_(social_network)
+
+[fn:arattai] Arattai (Zoho), self-hosted Indian messenger; 100× download surge on government endorsement in Sept 2025, lost ranking by late October; mandatory end-to-end encryption added Nov 2025 on a conventional scheme. https://en.wikipedia.org/wiki/Arattai
+
+
+[fn:japan] https://disfold.com/japan/industry/software-application/companies/
+
+[fn:caps] Market capitalisations from companiesmarketcap.com and headcounts from company filings (approximate, as on the date of publishing): NVIDIA ~$4tn/~36k; Alphabet ~$4.6tn/~183k; Microsoft ~$3.1tn/~228k; Oracle ~$552bn/~159k; Alibaba ~$300bn/~200k; Salesforce ~$150bn/~83k; SAP ~$185bn/~108k; Accenture ~$177bn/~784k; Infosys ~$75bn/~340k; TCS ~$120bn/~600k; Wipro ~$35bn/~234k; Cognizant ~$25bn/~350k. https://companiesmarketcap.com
+
+[fn:calibre] https://github.com/kovidgoyal/calibre
+
+[fn:kitty] https://github.com/kovidgoyal/kitty
+
+[fn:hasura] https://github.com/hasura/graphql-engine
+
+[fn:zerodha] Zerodha Tech, kaf-relay — Kafka-to-Kafka replication tool (open-sourced). https://github.com/zerodha/kaf-relay
+
+[fn:dungbeetle] Zerodha Tech, DungBeetle (formerly SQL Jobber) — async SQL job/report server. https://github.com/zerodha/dungbeetle
+
+[fn:flossfund] FLOSS/fund (Zerodha), US$1mn/year for open-source projects; 2025 grantees include OpenSSL, FFmpeg, Blender, OpenStreetMap, Krita, Weblate, plus US$500k to the GitHub Secure Open Source Fund and ~US$100k to FOSS United. https://zerodha.com/open-source/2025-report/
+
+[fn:zepto] https://blog.zepto.com/clickhouse-ingestion-at-scale-an-open-source-zepto-engineering-story-7f57309e2175
+
+[fn:unicorns] https://www.inc42.com/features/indian-unicorn-tracker/
+
+[fn:eugit] https://digital-strategy.ec.europa.eu/en/library/study-open-source-software-europe
+
+[fn:lwn] https://lwn.net/Articles/995159/
+
+[fn:wachs] https://doi.org/10.1016/j.techfore.2021.121478
+
+[fn:sarvam] https://huggingface.co/sarvamai
+
+[fn:krutrim] https://www.olakrutrim.com/krutrim-ai-labs
+
+[fn:deepseek] https://github.com/deepseek-ai
+
+[fn:upi] https://www.npci.org.in/what-we-do/upi/product-statistics
+
+[fn:aadhaar] https://uidai.gov.in/en/about-uidai/unique-identification-authority-of-india.html
+
+[fn:mosip] https://mosip.io/
+
+[fn:bhashini] https://bhashini.gov.in/
+
+[fn:oceanbase] https://www.vldb.org/pvldb/vol15/p3385-xu.pdf
+
+[fn:tpcc] https://en.wikipedia.org/wiki/TPC-C
+
+[fn:apache] Apache Software Foundation. https://www.apache.org/
+
+[fn:asf] List of Apache Software Foundation projects (Chinese-origin top-level projects: RocketMQ, Dubbo, APISIX, ShenYu, ShardingSphere, SkyWalking, Kylin, Doris, ECharts, EventMesh). https://en.wikipedia.org/wiki/List_of_Apache_Software_Foundation_projects
+
+[fn:cncf] Cloud Native Computing Foundation graduated/incubating projects (Chinese-origin: TiKV, Harbor, Dragonfly graduated; KubeEdge, Volcano); openHarmony donated to the OpenAtom Foundation. https://www.cncf.io/projects/
+
+[fn:99cloud] https://www.openstack.org/community/supporting-organizations/
+
+[fn:chinatelecom] https://www.openstack.org/marketplace/distros/distribution/china-telecom/ct-cloud-platform
+
+[fn:bsnl] https://www.lightreading.com/wireless/india-s-homegrown-telecom-stack-faces-global-test
+
+[fn:redhatbanks] https://www.business-standard.com/content/press-releases-ani/red-hat-celebrates-indian-leaders-in-open-source-at-the-apac-innovation-awards-2025-125110401474_1.html
+
+[fn:frappe] https://frappe.io/framework
+
+[fn:drove] https://github.com/PhonePe/drove-orchestrator
+
+[fn:histories] https://en.wikipedia.org/wiki/History_of_free_and_open-source_software
 
 # Local Variables:
 # fill-column: 72
