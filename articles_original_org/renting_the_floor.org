@@ -9,7 +9,11 @@
 #+HTML_HEAD: <link rel="stylesheet" href="renting-the-floor.css" />
 
 #+begin_quote
-A note on method. Figures are drawn from public sources and current as on the date of publishing; each is cited in the notes. Market capitalisations are approximate and move daily. Where a claim is the author's judgement rather than a sourced figure, it is marked inline with a slate-blue /[Author judgement]/ tag (CSS classes .ajmark for inline use, .aj-block for paragraph use, defined in the linked stylesheet). Section numbers in the form /§n/ are clickable cross-references.
+A note on method. 
+a. Figures are drawn from public sources and current as on the date of publishing; each is cited in the notes. 
+b. Market capitalisations are approximate and move daily. 
+c. Where a claim is the author's judgement rather than a sourced figure, it is marked inline with a slate-blue /[Author judgement]/ tag.
+d. Section numbers in the form /§n/ are clickable cross-references.
 #+end_quote
 
 * Executive Summary
@@ -21,16 +25,24 @@ A note on method. Figures are drawn from public sources and current as on the da
 <div class="executive">
 <div class="executive-label">Executive Summary — Renting the Floor</div>
 <ul>
-<li>India runs the world's largest developer base and its top open-source contributor headcount, yet almost none of that work produces foundational software the world depends upon.</li>
-<li>By market value per employee, firms that own the foundational floor are worth one hundred to one thousand times the Indian services giants, and Accenture — the premium Western integrator — sits in the same band as Infosys, TCS, and Wipro.</li>
-<li>India supplies ~55% of global outsourced IT delivery but only ~5.5% of the total IT services market; it is the market's supplier, not the market.</li>
-<li>The floor beneath India's software — operating systems, databases, message brokers, runtimes, cryptography, kernel contributions — is overwhelmingly foreign; the middle of the value chain captures value, and India does not own it.</li>
-<li>China, from a comparable starting point in 2000, chose to manufacture forcing functions (delete-IOE, sanctions, domestic scale) and built OceanBase, RocketMQ, TiDB, Dubbo, and the rest; Germany chose procurement-preference and *Stiftung* governance; Russia chose organic invention and ran into the limits of geopolitics.</li>
-<li>The TPC-C database record was held by Oracle from 2010; it was taken by OceanBase in 2019, then multiplied roughly twenty-three times by OceanBase in 2020, then nearly tripled by Alibaba's PolarDB in 2025 — twice, with two home-grown engines.</li>
-<li>India's rare foundational work is one of three shapes: a lone individual (Calibre and Kitty by Kovid Goyal), a company that re-domiciled to the United States to scale (Hasura, acquired by Pulumi January 2024; MinIO, founded by an Annamalai University graduate in Palo Alto), or a tool trapped inside one firm (Drove at PhonePe, kaf-relay and DungBeetle at Zerodha).</li>
-<li>The PSU-bank and RBI audit-pressure band consumes open source only through commercial distributions (RHEL, OpenShift) rather than upstream; the dominant private banks — ICICI in particular — disclose substantially in-house middlewares under their FY24–FY25 annual reports.</li>
-<li>The bottom-up forcing function that already exists in India is industrial-cluster forcing functions: Morbi kilns, Tiruppur logistics, Guntur chilli, Rajkot CNC, the company-town economics of small manufacturers and their local polytechnics.</li>
-<li>The correction is a deliberate choice of direction: a sovereign Postgres fork for BFSI audit, the Indic-language layer from AI4Bharat through Sarvam to Bhashini, and the *Stiftung*-style governance form that lets a foundation outlive its founder — Germany's version, not China's.</li>
+<ol type="i">
+  <li>India runs the world's largest developer base, however systems software at the foundational layers bothe open source and proprietary are non existent. </li>
+  <li>The Chinese story is remarkably different - with contributions in the compute,storage, network, Message queues, databases with many of these opensourced and donated to Apache and other foundations.</li>
+  <li>India supplies ~55% of global outsourced IT delivery but only ~5.5% of the total IT services market; it is the market's supplier, not the market.</li>
+  <li>The floor beneath India's software — operating systems, databases, message brokers, runtimes, cryptography, kernel contributions — is overwhelmingly foreign.</li>
+  <li>China, from a comparable starting point in 2000, chose to manufacture forcing functions (delete-IOE, sanctions, domestic scale) and built OceanBase, RocketMQ, TiDB, Dubbo, and the rest</li>
+  <li>Germany chose procurement-preference and <em>Stiftung</em> governance</li>
+  <li>Russia chose organic invention and ran into the limits of geopolitics.</li>
+  <li>SWe believe foundational/systemsoftware gets deveoloped when a wall blocks you and developments are mostly works of passion. India somehow does not provide the ecosystem</li>
+  <li>India's rare foundational work is one of three shapes: 
+    <li>- a lone individual (Calibre and Kitty by Kovid Goyal)</li> 
+    <li>- a company that re-domiciled to the United States to scale (Hasura, acquired by Pulumi January 2024; MinIO, founded by an Annamalai University graduate in Palo Alto), or</li>
+    <li>- a tool trapped inside one firm (Drove at PhonePe, kaf-relay and DungBeetle at Zerodha).</li></li>
+  <li>The most demanding enterprise software consumers in India are in the Finance sector, which has volume and demand latency and atmocity on alrage scale which must have forced innovation, but in practice we see risk avoidance, even in the projects under "Regulatory Sandbox of RBI". I do find the PSU banks as curprits who stick to enterise software, even when software success comes from within the biggest brokerage and biggest payments app in India.</li>
+  <li>The Indian policy based on association of Elite Academic/Institution association with Government and Corporates have some how not created great foundational software , neither adoption ,nor it has fostered openness. CDAC / CDOT has softwares hardly used outside of </li>
+  <li>The bottom-up forcing function that already exists in India is industrial-cluster forcing functions: Morbi kilns, Tiruppur logistics, Guntur chilli, Rajkot CNC, the company-town economics of small manufacturers and their local polytechnics. If Thes eforcing functions are chnelled towards a Root Cause rather than an application layer solution we may have a a breakthrough.I believe a > 15 year target may work, I say 15 because I have seen what has happened to the smart cities of 2014 </li>
+  <li>The correction is a deliberate choice of direction: a sovereign Postgres fork for BFSI audit, the Indic-language layer from AI4Bharat through Sarvam to Bhashini, and the <em>Stiftung</em>-style governance form that lets a foundation outlive its founder — Germany's version, not China's.</li>
+</ol>
 </ul>
 </div>
 #+end_export
