@@ -10,10 +10,10 @@
 
 #+begin_quote
 A note on method. 
-- a. Figures are drawn from public sources and current as on the date of publishing; each is cited in the notes. 
-- b. Market capitalisations are approximate and move daily. 
-- c. Where a claim is the author's judgement rather than a sourced figure, it is marked inline with a slate-blue /[Author judgement]/ tag.
-- d. Section numbers in the form /§n/ are clickable cross-references.
+- Figures are drawn from public sources and current as on the date of publishing; each is cited in the notes. 
+- Market capitalisations are approximate and move daily. 
+- Where a claim is the author's judgement rather than a sourced figure, it is marked inline with a slate-blue /[Author judgement]/ tag.
+- Section numbers in the form /§n/ are clickable cross-references.
 #+end_quote
 
 * Executive Summary
