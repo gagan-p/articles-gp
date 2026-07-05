@@ -9,7 +9,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="renting-the-floor.css" />
 
 #+begin_quote
-A note on method. 
+A note on method
 - Figures are drawn from public sources and current as on the date of publishing; each is cited in the notes. 
 - Market capitalisations are approximate and move daily. 
 - Where a claim is the author's judgement rather than a sourced figure, it is marked inline with a slate-blue /[Author judgement]/ tag.
