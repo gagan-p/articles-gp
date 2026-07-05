@@ -1,24 +1,173 @@
-/* Renting the Floor — story boxes. Tables, quotes, footnotes use the site theme. */
+
+/* ──────────────────────────────────────────────────────────────────
+   renting-the-floor.css
+   Linked stylesheet for renting-the-floor.org (manual export) or
+   for any HTML render that respects the <link> in the Org front matter.
+   Designed for screen / ePub / dark-mode simultaneously.
+   All rules are organisation-agnostic: rename a class and they
+   re-apply.
+   ────────────────────────────────────────────────────────────────── */
+
+/* Story boxes — sidebar-style bounded callouts */
 .story {
-  background: #f6f4ef;
-  border: 1px solid #d9d2c4;
-  border-left: 5px solid #7f2704;
-  border-radius: 6px;
-  padding: 1rem 1.3rem;
-  margin: 1.5rem 0;
-  line-height: 1.62;
+  background:#f6f4ef;
+  border:1px solid #d9d2c4;
+  border-left:5px solid #7f2704;
+  border-radius:6px;
+  padding:1rem 1.3rem;
+  margin:1.5rem 0;
+  line-height:1.62;
 }
-.story p { margin: 0 0 0.7rem 0; }
-.story p:last-child { margin-bottom: 0; }
+.story p {margin:0 0 .7rem 0}
+.story p:last-child {margin-bottom:0}
 .story-label {
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #7f2704;
-  margin-bottom: 0.6rem;
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:#7f2704;
+  margin-bottom:.6rem;
 }
-@media (prefers-color-scheme: dark) {
-  .story { background: #201c17; border-color: #3a3226; border-left-color: #c0571f; }
-  .story-label { color: #d9843f; }
+
+/* Executive-summary box — dark, bordered, top-of-file */
+.executive {
+  background:#1f1d18;
+  color:#f6f4ef;
+  border:2px solid #7f2704;
+  border-radius:8px;
+  padding:1.4rem 1.7rem;
+  margin:2rem 0;
+  line-height:1.6;
+}
+.executive-label {
+  font-weight:800;
+  font-size:1.05rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#c5570d;
+  margin-bottom:.8rem;
+  display:block;
+  border-bottom:1px solid #7f2704;
+  padding-bottom:.5rem;
+}
+.executive ul {margin:.4rem 0 0 1.2rem; padding:0; list-style:square}
+.executive li {margin:.5rem 0; color:#e8dcc4}
+
+/* Call-to-action box — warm, bordered, rounded */
+.callout {
+  background:#f7eddc;
+  border:2px solid #c5570d;
+  border-radius:8px;
+  padding:1.2rem 1.5rem;
+  margin:1.8rem 0;
+  line-height:1.55;
+  font-family:Georgia, serif;
+}
+.callout-label {
+  font-weight:800;
+  font-size:1rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#7f2704;
+  margin-bottom:.7rem;
+  display:block;
+}
+.callout ol {margin:.4rem 0 .4rem 1.4rem; padding:0}
+.callout li {margin:.3rem 0}
+
+/* Suggested-timeline box — dashed diagonal-stripe, italic-sarcastic voice */
+.sarcastic {
+  background-image:repeating-linear-gradient(45deg,#2a2410,#2a2410 8px,#3d3520 8px,#3d3520 16px);
+  border:2px dashed #d9843f;
+  border-radius:6px;
+  padding:1.3rem 1.6rem;
+  margin:1.8rem 0;
+  line-height:1.6;
+  color:#f6d896;
+  font-style:italic;
+}
+.sarcastic-label {
+  font-weight:800;
+  font-size:1rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#d9843f;
+  margin-bottom:.8rem;
+  display:block;
+  font-style:normal;
+  font-family:Georgia, serif;
+}
+.sarcastic-sig {
+  text-align:right;
+  font-size:.82rem;
+  color:#b89432;
+  font-style:normal;
+  margin-top:.8rem;
+  letter-spacing:.04em;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Author-judgement marks — inline pill (ajmark) and labelled block
+   (aj-block). The block variant fronts a labelled [Author judgement]
+   header via ::before; the inline variant just shows the bracket.
+   ────────────────────────────────────────────────────────────────── */
+.ajmark {
+  display:inline-block;
+  background:#e8eef6;
+  border-left:3px solid #4a6fa5;
+  color:#2c4a6e;
+  padding:.08rem .45rem;
+  margin:0 .15rem;
+  border-radius:2px;
+  font-style:italic;
+  font-size:.88rem;
+  font-weight:500;
+  letter-spacing:.01em;
+  white-space:nowrap;
+}
+.aj-block {
+  display:block;
+  background:#eef3f8;
+  border-left:4px solid #4a6fa5;
+  color:#2c4a6e;
+  padding:.55rem .8rem;
+  margin:.8rem 0;
+  border-radius:3px;
+  font-style:italic;
+  font-size:.92rem;
+  line-height:1.55;
+}
+.aj-block::before {
+  content:"[Author judgement]";
+  font-weight:700;
+  font-style:normal;
+  letter-spacing:.04em;
+  font-size:.82rem;
+  display:block;
+  margin-bottom:.25rem;
+  color:#1f3a5f;
+}
+
+/* Dark-mode override — boxes that read clearly at night */
+@media (prefers-color-scheme:dark) {
+  .story     {background:#201c17; border-color:#3a3226; border-left-color:#c0571f}
+  .story-label {color:#d9843f}
+  .executive {background:#0d0c0a; border-color:#c5570d}
+  .executive-label {color:#d9843f; border-color:#d9843f}
+  .executive li {color:#c9bfa9}
+  .callout   {background:#2a1f10; border-color:#c5570d}
+  .ajmark    {background:#1f2a3a; border-left-color:#8aa7c9; color:#a8c1d8}
+  .aj-block  {background:#1a2535; border-left-color:#8aa7c9; color:#a8c1d8}
+  .aj-block::before {color:#c6d8e9}
+}
+
+/* Print-mode: keep the boxes recognisable but flat-colour */
+@media print {
+  .executive, .callout, .story, .sarcastic, .aj-block {
+    border-radius:0;
+    page-break-inside:avoid;
+  }
+  .sarcastic {background-image:none; background:#fff8e8; color:#3b2a10}
+  .executive {background:#fff; color:#000}
+  .executive li {color:#000}
 }
