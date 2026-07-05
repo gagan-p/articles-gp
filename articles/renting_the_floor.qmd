@@ -12,7 +12,7 @@ title: Renting the Floor
 
 `<link rel="stylesheet" href="renting-the-floor.css" />`{=html}
 
-> A note on method.
+> A note on method
 >
 > -   Figures are drawn from public sources and current as on the date
 >     of publishing; each is cited in the notes.
