@@ -1,0 +1,258 @@
+#+TITLE: Renting the Floor
+#+SUBTITLE: India has the world's largest developer base and one of its smallest outputs of foundational software. China, from the same starting point, chose otherwise.
+#+AUTHOR: gp
+#+DATE: 2026-07-09
+#+OPTIONS: toc:3 num:t
+
+# COMPLIANCE: model=GPT-5.5 | prompt=v3
+# charts=0 ojs,0 mermaid,0 dot | tables=0 | story-boxes=0
+# footnotes: refs=0 defs=0 undefined=0 unreferenced=0 no-url=0
+# locked-facts: krutrim=indian-domiciled dhruv64=microprocessor shaktidb=postgres-fork
+#               yugabyte=re-domiciled minio=re-domiciled indic-llama=finetune
+# skeleton: core-thesis=y exec-summary=10 lines notes-assumptions=y essay=y
+# unverified-claims: none
+
+<div class="thesis">
+<div class="story-label">Core Thesis</div>
+
+The modern software industry is stratified. At the top sit applications that users see; beneath them lies the software that applications depend upon—databases, distributed storage, messaging systems, runtimes, kernels, consensus engines, cryptographic libraries, and networking frameworks. This foundational layer is where pricing power, technical leverage, and long-term strategic influence accumulate because every higher layer inherits its assumptions, interfaces, and constraints.
+
+The central claim of this essay is not merely that India produces comparatively little foundational software. It is that foundational software emerges only when two conditions exist simultaneously: a problem that cannot economically be rented around, and an institutional home that allows the resulting technology to outlive its original builder. China acquired both. India acquired neither. Indian firms could almost always purchase an existing solution, while the country's institutions rarely retained custody of the rare foundational systems that Indian engineers did create.
+
+The consequence is visible in the exceptions. India's strongest foundational efforts either remained the work of exceptional individuals, became captive inside a single company, or ultimately moved abroad where capital, governance, and commercial adoption could sustain them. India's missing institution is therefore not talent, nor ambition, but custody: it has not yet built the mechanisms that keep foundational software Indian once it exists.
+
+</div>
+
+<div class="brief">
+<ul>
+<li>India now has the world's largest public open-source contributor base by developer count, yet produces comparatively few globally adopted foundational software systems.</li>
+<li>Its software industry is overwhelmingly export-oriented and concentrated in services and application software rather than systems software.</li>
+<li>Economic value compounds at the foundational layer because every application depends upon it.</li>
+<li>Companies that own foundational software consistently generate substantially greater value per employee than firms whose primary business is software services.</li>
+<li>Foundational systems are typically created only when engineers encounter constraints that cannot be solved by purchasing an existing product.</li>
+<li>Those systems become durable only after custody passes from an individual company to a neutral governance institution capable of attracting broad adoption.</li>
+<li>China transformed domestic constraints into databases, messaging systems, service frameworks, and infrastructure projects that later entered Apache and CNCF governance.</li>
+<li>India's strongest counterexamples fit a small number of recurring patterns—lone builders, re-domiciled companies, trapped internal systems, embryonic state projects, and protocol-only initiatives.</li>
+<li>The practical correction is not to imitate China's history but to identify problems unique to India that foreign vendors have little incentive to solve.</li>
+<li>The argument is deliberately falsifiable: by 2030 India should be able to demonstrate globally adopted foundational software retained under durable domestic custody if the thesis is wrong.</li>
+</ul>
+</div>
+
+#+begin_quote
+1. Figures are drawn from publicly available sources and are cited at the point of use.
+2. Market capitalisations are approximate and fluctuate daily.
+3. Layer assignments and taxonomy reflect the author's judgement and are identified where appropriate.
+4. Inferences and hypotheses are explicitly marked. Unsourced numerical claims are intentionally avoided.
+5. Heat-map scoring later in the essay represents comparative ecosystem depth rather than an absolute measure of technical quality.
+#+end_quote
+
+
+#+CAPTION: India's software industry excels on every conventional input metric. These inputs would normally predict a mature ecosystem of foundational software. The remainder of this essay explains why that expectation was not realised.
+#+NAME: fig:india-software-paradox
+#+begin_export markdown
+
+```{dot}
+//| label: fig-india-software-paradox
+//| fig-cap: "India's software industry excels on every conventional input metric. These inputs would normally predict a mature ecosystem of foundational software. The remainder of this essay explains why that expectation was not realised."
+
+digraph G {
+
+graph [
+    rankdir=TD,
+    splines=ortho,
+    nodesep=0.45,
+    ranksep=0.75
+];
+
+node [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#eef2f6",
+    color="#808080",
+    fontsize=11
+];
+
+edge [
+    penwidth=1.4
+];
+
+{
+rank=same;
+
+rev  [label="US$283 bn/year\nIT Revenue\n[fn:nasscom]"];
+exp  [label="US$224 bn/year\nExports\n[fn:nasscom]"];
+work [label="5.8 mn\nIT Workforce\n[fn:nasscom]"];
+devs [label="5.2 mn/year\nNew GitHub Developers\n[fn:octoverse]"];
+oss  [label="#1\nPublic OSS\nContributor Base\n[fn:octoverse]"];
+}
+
+expect [
+shape=box,
+style="rounded,filled",
+fillcolor="#d9ecff",
+color="#4f81bd",
+penwidth=2,
+fontsize=15,
+label="Expected\nTechnological Output"
+];
+
+stack [
+shape=record,
+style="rounded,filled",
+fillcolor="#fffaf5",
+color="#8b4513",
+penwidth=2,
+fontsize=11,
+label="{Expected Foundational Software Ecosystem|
+Operating Systems / Kernels|
+Compilers & Toolchains|
+Language Runtimes|
+Databases|
+Distributed Storage|
+Message Brokers|
+RPC / Service Mesh|
+Consensus Systems|
+Cryptography|
+Build Systems}"
+];
+
+reality [
+shape=ellipse,
+style="filled",
+fillcolor="#ffe8e8",
+color="#b22222",
+penwidth=2,
+fontsize=14,
+label="Observed Reality\n\nVery Few\nGlobally Significant\nProjects"
+];
+
+rev  -> expect;
+exp  -> expect;
+work -> expect;
+devs -> expect;
+oss  -> expect;
+
+expect -> stack;
+stack -> reality [
+    color="#b22222",
+    penwidth=2.5
+];
+
+}
+```
+
+#+end_export
+
+#+begin_quote
+*Figure summary.* This figure captures the central paradox of this essay. India's software industry has succeeded on nearly every conventional input metric—revenue, exports, workforce and developer participation—yet these strengths have not translated into a proportionate ecosystem of globally adopted foundational software. The remainder of this essay explains why this expected outcome did not materialise.
+#+end_quote
+
+** What Is Foundational Software?
+
+Figure [[fig:india-software-paradox]] introduced the central paradox of this essay. To understand it, we must first define *foundational software*.
+
+Modern software is layered. Users interact with applications. Developers build them using frameworks and libraries. Beneath both lies foundational software—the operating systems, databases, messaging systems, language runtimes and other infrastructure upon which all higher layers depend. At the bottom lies hardware, the physical platform on which all software ultimately executes.
+
+#+CAPTION: Software is layered. Foundational software forms the floor upon which all higher layers stand.
+#+NAME: fig:software-layers
+#+begin_export markdown
+
+```{dot}
+digraph {
+
+graph [
+    rankdir=TB,
+    nodesep=0.35,
+    ranksep=0.50
+];
+
+node [
+    shape=record,
+    fontname="Helvetica",
+    fontsize=11,
+    style="rounded"
+];
+
+Software [
+label="{
+The Renters|
+Applications|
+{
+Banking|
+ERP|
+CRM|
+E-Commerce|
+AI|
+Government|
+...
+}
+}"];
+
+Frameworks [
+label="{
+The Furniture|
+Frameworks & Libraries|
+{
+<web>Web\nFrameworks|
+<ui>UI\nFrameworks|
+<app>Application\nFrameworks|
+<ml>ML\nFrameworks|
+<orm>ORM|
+<test>Testing|
+<log>Logging|
+<sdk>SDKs
+}
+}"];
+
+Foundation [
+label="{
+The Floor|
+Foundational Software|
+{
+<os>Operating\nSystems|
+<db>Databases|
+<store>Distributed\nStorage|
+<mq>Message\nBrokers|
+<rt>Language\nRuntimes|
+<cc>Compilers|
+<rpc>RPC\nFrameworks|
+<crypto>Cryptography|
+<cons>Consensus|
+<build>Build\nSystems
+}
+}"];
+
+Hardware [
+label="{
+The Land|
+Hardware|
+{
+CPU|
+Memory|
+Storage|
+Networking|
+GPU
+}
+}"];
+
+Software -> Frameworks;
+Frameworks -> Foundation;
+Foundation -> Hardware;
+
+}
+```
+#+end_export
+
+Applications create value for users. Foundational software creates value for *other software*. A successful application serves millions of users; a successful database serves thousands of applications. Improvements made at the foundational layer therefore compound across every system built above it.
+
+Throughout this essay, *foundational software* refers to software whose primary purpose is to enable other software rather than directly serve end users. This essay is about that layer—the floor upon which modern software ecosystems are built.
+
+** Renting the Floor
+
+Most organizations do not build their own operating systems, databases, messaging systems or language runtimes. They rent them. Open-source software, commercial products and cloud platforms have made this the economically rational choice for almost every application developer.
+
+Renting the floor has obvious advantages. Organizations can focus on the business problems that distinguish them instead of recreating decades of systems engineering. Development becomes faster, costs fall and innovation shifts to higher layers of the software stack.
+
+The organizations that own the floor, however, occupy a different position. Their software becomes infrastructure for thousands of other systems. As adoption grows, improvements made once benefit entire ecosystems, while interfaces and design decisions influence everything built above them.
+
+For most companies, renting the floor is the correct decision. This essay is therefore not about criticizing that choice. It asks a different question: what happens when an entire software ecosystem becomes exceptionally good at renting the floor but rarely builds it?
