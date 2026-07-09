@@ -441,6 +441,156 @@ Projects of this kind are rarely visible outside their parent organisations, mak
 </div>
 #+end_export
 
+** The Economics of Owning the Floor
+
+Foundational software is difficult to build, expensive to maintain and often takes years before it generates commercial returns. When successful, however, it creates a form of economic leverage that differs fundamentally from software services.
+
+A software services company primarily scales by employing more engineers. An application company scales by acquiring more customers. A successful foundational software company scales by becoming infrastructure upon which thousands of other organisations build their own software.
+
+Although no single metric captures this distinction completely, two normalised measures provide useful proxies.
+
+- Revenue generated per employee.
+- Market capitalisation per employee.
+
+Table [[tab:economics]] compares representative software companies occupying different parts of the software stack.
+
+#+NAME: tab:economics
+#+CAPTION: Representative software companies. Revenue and employee counts are approximate FY2025 values. Market capitalisations are indicative.
+
+| Company     | Category            | Revenue (US$B) | Employees | Revenue / Employee | Market Cap (US$B) | Market Cap / Employee |
+|--------------+---------------------+---------------:+----------:+-------------------:+------------------:+----------------------:|
+| Microsoft    | Platform            | 281.7 | 228,000 | 1.24 M | 3,800 | 16.7 M |
+| Oracle       | Database            | 57.4  | 162,000 | 354 K  | 650   | 4.0 M |
+| Cloudflare   | Infrastructure      | 1.67  | 4,300   | 388 K  | 70    | 16.3 M |
+| Snowflake    | Data Platform       | 3.63  | 7,800   | 465 K  | 70    | 9.0 M |
+| Salesforce   | SaaS                | 37.9  | 76,400  | 496 K  | 260   | 3.4 M |
+| Adobe        | SaaS                | 21.5  | 30,700  | 700 K  | 180   | 5.9 M |
+| SAP          | Enterprise Software | 37.4  |109,000  | 343 K  | 330   | 3.0 M |
+| TCS          | Services            | 30.2  |607,979  | 49.6 K | 170   | 279 K |
+| Infosys      | Services            | 19.3  |323,578  | 59.6 K |  76   | 235 K |
+| HCLTech      | Services            | 13.8  |223,420  | 61.9 K |  55   | 246 K |
+| Wipro        | Services            | 10.7  |234,054  | 45.7 K |  35   | 150 K |
+
+#+CAPTION: Revenue generated per employee.
+#+begin_export markdown
+
+```{ojs}
+Plot.plot({
+  width:850,
+  marginLeft:140,
+  x:{label:"Revenue per Employee (US$)",grid:true},
+  y:{label:null},
+  color:{legend:true},
+  marks:[
+    Plot.barX(companies,{
+      x:"revenuePerEmployee",
+      y:"company",
+      fill:"category",
+      sort:{y:"-x"}
+    }),
+    Plot.text(companies,{
+      x:"revenuePerEmployee",
+      y:"company",
+      text:d=>"$"+d3.format(",")(d.revenuePerEmployee),
+      dx:5,
+      textAnchor:"start"
+    })
+  ]
+})
+```
+
+#+end_export
+
+#+CAPTION: Market capitalisation per employee.
+#+begin_export markdown
+
+```{ojs}
+Plot.plot({
+  width:850,
+  marginLeft:140,
+  x:{label:"Market Capitalisation per Employee (US$)",grid:true},
+  y:{label:null},
+  color:{legend:true},
+  marks:[
+    Plot.barX(companies,{
+      x:"marketCapPerEmployee",
+      y:"company",
+      fill:"category",
+      sort:{y:"-x"}
+    }),
+    Plot.text(companies,{
+      x:"marketCapPerEmployee",
+      y:"company",
+      text:d=>"$"+d3.format(".2s")(d.marketCapPerEmployee),
+      dx:5,
+      textAnchor:"start"
+    })
+  ]
+})
+```
+
+#+end_export
+
+** How Is Foundational Software Built?
+
+The previous sections examined representative Indian foundational software projects. Rather than explaining India's experience immediately, it is useful to first examine how successful foundational software has emerged elsewhere.
+
+This section considers representative projects spanning operating systems, databases, distributed systems, cloud infrastructure and developer platforms. The projects were selected because they are widely recognised, technically influential and well documented.
+
+The objective is not to compare technical merit. Instead, it is to ask a simple question:
+
+#+begin_quote
+How did these projects come into existence?
+#+end_quote
+
+#+NAME: tab:foundation-projects
+#+CAPTION: Representative foundational software projects and their origin stories.
+
+| Project        | Layer              | Built By              | Why It Was Built                     | Current Status |
+|----------------+--------------------+-----------------------+--------------------------------------+----------------|
+| Linux          | Operating System   | Linus Torvalds        | Personal Unix-like OS                | Global ecosystem |
+| PostgreSQL     | Database           | UC Berkeley           | Research database                    | Global OSS |
+| MySQL          | Database           | MySQL AB              | Lightweight SQL                      | Commercial / OSS |
+| Hadoop         | Distributed Data   | Yahoo                 | Web indexing at scale                | Apache |
+| Bigtable       | Distributed DB     | Google                | Planet-scale storage                 | Internal platform |
+| Dynamo         | Distributed DB     | Amazon                | Highly available commerce            | Inspired DynamoDB |
+| Kafka          | Streaming          | LinkedIn              | Activity log processing              | Apache |
+| Kubernetes     | Orchestration      | Google                | Container scheduling                 | CNCF |
+| etcd           | Coordination       | CoreOS                | Cluster configuration                | CNCF |
+| Envoy          | Service Proxy      | Lyft                  | Microservice networking              | CNCF |
+| RocketMQ       | Message Broker     | Alibaba               | Double-11 messaging                  | Apache |
+| Dubbo          | RPC Framework      | Alibaba               | Large-scale Java services            | Apache |
+| OceanBase      | Database           | Ant Group             | Alipay transaction scale             | Open source |
+| TiDB           | Distributed SQL    | PingCAP               | Distributed MySQL-compatible SQL     | Global OSS |
+| ClickHouse     | OLAP Database      | Yandex                | Web-scale analytics                  | Global OSS |
+
+Viewed individually, these projects appear unrelated. Some originated in universities, some inside startups, and others within large technology companies. Some became commercial products, while others evolved into open-source communities.
+
+Taken together, however, they reveal a surprisingly small number of recurring origin stories.
+
+After reviewing the projects above, five recurring patterns emerge.
+
+#+NAME: tab:five-patterns
+#+CAPTION: Five recurring patterns observed among successful foundational software projects.
+
+| Pattern | Typical Origin | Representative Examples |
+|----------+----------------+-------------------------|
+| Personal Need | A developer solves a problem they personally experience. | Linux, Git, Kitty |
+| Research Prototype | A university or research laboratory develops a new system that later escapes into industry. | PostgreSQL, BSD, LLVM |
+| Internal Infrastructure | A company develops software to solve an operational problem before releasing it publicly. | Kubernetes, Kafka, RocketMQ, Dubbo, OceanBase, Dynamo |
+| Commercial Platform | A company intentionally builds reusable infrastructure as its primary product. | TiDB, Snowflake, MongoDB, CockroachDB |
+| Sovereign / National Infrastructure | Governments or public institutions build software for strategic or national capability. | OpenHarmony, BOSS, PARAS, ShaktiDB |
+
+These patterns differ in their origins, governance and funding, yet they share one common characteristic.
+
+None of these projects began with the objective of becoming globally important software.
+
+Instead, each began with a sufficiently important problem that existing software was unable—or economically unsuitable—to solve.
+
+This observation provides the first clue towards understanding why some ecosystems repeatedly produce foundational software while others rarely do.
+
+The next section develops this idea further.
+
 
 
 [fn:boss] BOSS Linux, “About Us,” C-DAC GNU/Linux distribution for India: https://bosslinux.in/aboutus
