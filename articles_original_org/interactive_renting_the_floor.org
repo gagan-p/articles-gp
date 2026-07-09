@@ -249,10 +249,76 @@ Throughout this essay, *foundational software* refers to software whose primary 
 
 ** Renting the Floor
 
-Most organizations do not build their own operating systems, databases, messaging systems or language runtimes. They rent them. Open-source software, commercial products and cloud platforms have made this the economically rational choice for almost every application developer.
+Most organizations do not build their own operating systems, databases, messaging systems or language runtimes. They rent them. Renting the floor has obvious advantages. Organizations can focus on the business problems that distinguish them instead of recreating decades of systems engineering.
 
-Renting the floor has obvious advantages. Organizations can focus on the business problems that distinguish them instead of recreating decades of systems engineering. Development becomes faster, costs fall and innovation shifts to higher layers of the software stack.
+For an individual organization, renting the floor is almost always the rational decision. Building foundational software is expensive, risky and rarely provides sufficient competitive advantage to justify the investment.
 
-The organizations that own the floor, however, occupy a different position. Their software becomes infrastructure for thousands of other systems. As adoption grows, improvements made once benefit entire ecosystems, while interfaces and design decisions influence everything built above them.
+The question becomes more interesting when viewed collectively. What happens when an entire software ecosystem becomes exceptionally good at renting the floor but rarely builds it? What happens when a nation produces millions of software engineers and thousands of successful applications, yet remains largely dependent on foundational software developed elsewhere?
 
-For most companies, renting the floor is the correct decision. This essay is therefore not about criticizing that choice. It asks a different question: what happens when an entire software ecosystem becomes exceptionally good at renting the floor but rarely builds it?
+This essay is not a criticism of renting. It is an examination of what happens when everybody rents.
+
+** India's Software Story
+
+India built one of the world's largest software industries. Its strengths lie in software services, enterprise applications, consulting and digital public infrastructure. Foundational software followed a different path. India has capable systems work, but fewer Indian-origin projects became broad software foundations.
+
+China's ecosystem evolved differently. Chinese firms repeatedly turned domestic scale problems into databases, messaging systems, service frameworks, storage systems and cloud-native infrastructure.
+
+Table [[tab:india-china-foundation]] shows the contrast.
+
+#+NAME: tab:india-china-foundation
+#+CAPTION: Representative foundational software efforts in India and China. Illustrative, not exhaustive.
+#+ATTR_HTML: :style table-layout:fixed;width:100%;
+| <24>                     | <28>                         | <34>                          | <72> |
+| Layer                    | India                        | China                         | Origin / notes |
+|--------------------------+------------------------------+-------------------------------+------|
+| Operating system         | BOSS                         | OpenHarmony                   | BOSS is a C-DAC GNU/Linux distribution for Indian public-sector and language needs.[fn:boss] OpenHarmony came from Huawei code donated into the OpenAtom Foundation ecosystem.[fn:openharmony] |
+| Database                 | ShaktiDB                     | OceanBase, TiDB               | ShaktiDB is built over community PostgreSQL 17.4.[fn:shaktidb] OceanBase is a distributed database developed by Ant Group; TiDB is PingCAP's distributed SQL database.[fn:oceanbase][fn:tidb] |
+| Distributed KV store     | —                            | TiKV                          | TiKV was created by PingCAP as the storage layer beneath TiDB and later graduated in CNCF.[fn:tikv] |
+| Distributed storage      | —                            | CubeFS, JuiceFS               | CubeFS was founded at JD.com and graduated in CNCF; JuiceFS is Juicedata's cloud-native POSIX filesystem.[fn:cubefs][fn:juicefs] |
+| Message broker           | —                            | RocketMQ                      | RocketMQ originated at Alibaba for Double 11 scale and became an Apache Top-Level Project.[fn:rocketmq] |
+| RPC / service framework  | —                            | Dubbo, bRPC                   | Dubbo was developed at Alibaba for distributed Java services and became an Apache Top-Level Project.[fn:dubbo] |
+| Service registry         | —                            | Nacos                         | Nacos is Alibaba's service discovery, configuration and service-management platform.[fn:nacos] |
+| API gateway              | —                            | APISIX, ShenYu                | APISIX was created by API7.ai and donated to Apache; ShenYu is another Apache API gateway project.[fn:apisix] |
+| Distributed transaction  | —                            | Seata                         | Seata's internal version was Alibaba middleware for data consistency before becoming open source.[fn:seata] |
+| Database sharding        | —                            | ShardingSphere                | ShardingSphere entered Apache as distributed database middleware from China's e-commerce ecosystem.[fn:shardingsphere] |
+| Consensus library        | —                            | SOFAJRaft                     | SOFAJRaft is a production-grade Java implementation of Raft from the SOFAStack ecosystem.[fn:sofa-jraft] |
+| Java runtime             | —                            | Dragonwell                    | Dragonwell is Alibaba's downstream OpenJDK distribution, optimized for Alibaba-scale workloads.[fn:dragonwell] |
+| Compiler                 | —                            | OpenArkCompiler               | OpenArkCompiler is Huawei's compiler project associated with its operating-system ecosystem.[fn:openark] |
+| Container registry       | —                            | Harbor                        | Harbor was created at VMware China and later graduated in CNCF.[fn:harbor] |
+| Container distribution   | —                            | Dragonfly                     | Dragonfly is a CNCF project for image and file distribution at cloud scale.[fn:dragonfly] |
+| SDN / networking         | —                            | Kube-OVN                      | Kube-OVN is a CNCF-hosted Kubernetes networking project originating from China's cloud-native ecosystem.[fn:kubeovn] |
+| Observability            | —                            | Apache SkyWalking             | SkyWalking was launched in China by Wu Sheng in 2015 and later became an Apache project.[fn:skywalking] |
+| OLAP database            | —                            | Apache Doris, Apache Kylin    | Doris and Kylin are analytical database projects; Kylin was designed and developed in eBay's Shanghai engineering centre.[fn:kylin] |
+| Cryptography             | —                            | GmSSL                         | GmSSL supports Chinese national cryptographic algorithms such as SM2, SM3 and SM4.[fn:gmssl] |
+
+Several points matter more than the row count. BOSS is real systems work, but it is a Linux distribution: localisation and deployment of an existing foundation, not a new operating-system architecture. PARAS belongs in the same discussion as an Indian national systems-software effort to track, but not yet a broad global ecosystem.
+
+OpenHarmony also needs precision. It should not be reduced to "China wrote a new Linux." The point is that Huawei-origin code moved into a domestic open-source foundation and became the centre of a Chinese operating-system ecosystem.
+
+The database contrast is sharper. ShaktiDB is PostgreSQL-derived. OceanBase and TiDB are new distributed database systems built for scale problems. This difference—adaptation versus new system design—recurs across the table.
+
+India's sparse column is not proof of weak engineers. It is evidence of where the country's software capability accumulated: mostly above the floor, while China's accumulated across much more of the floor itself.
+
+[fn:boss] BOSS Linux, “About Us,” C-DAC GNU/Linux distribution for India: https://bosslinux.in/aboutus
+[fn:openharmony] Huawei Open Source, donation of OpenHarmony to OpenAtom Foundation: https://www.huawei.com/en/open-source
+[fn:shaktidb] NIC Tamil Nadu, “ShaktiDB: An Indigenous Database Ecosystem,” built over community PostgreSQL 17.4: https://cdnbbsr.s3waas.gov.in/s3b5f1e8fb36cd7fbeb7988e8639ac79e9/uploads/2025/08/2025111764.pdf
+[fn:oceanbase] OceanBase GitHub, distributed relational database developed by Ant Group: https://github.com/oceanbase/oceanbase
+[fn:tidb] PingCAP, TiDB as open-source distributed SQL database: https://www.pingcap.com/about-us/
+[fn:tikv] CNCF, TiKV case study and PingCAP origin: https://www.cncf.io/blog/2019/11/26/case-study-tikv-in-jd-cloud/
+[fn:cubefs] CNCF, CubeFS graduation and JD.com origin: https://www.cncf.io/announcements/2025/01/21/cloud-native-computing-foundation-announces-cubefs-graduation/
+[fn:juicefs] Juicedata, JuiceFS distributed filesystem: https://juicefs.com/en/about-us
+[fn:rocketmq] ASF, RocketMQ originated at Alibaba and became Apache TLP: https://news.apache.org/foundation/entry/the-apache-software-foundation-announces18
+[fn:dubbo] ASF, Dubbo originally developed at Alibaba: https://news.apache.org/foundation/entry/the-apache-software-foundation-announces52
+[fn:nacos] Nacos documentation, service discovery and configuration platform: https://nacos.io/en-us/docs/what-is-nacos.html
+[fn:apisix] API7.ai, APISIX created and donated by API7.ai: https://api7.ai/apisix-vs-enterprise
+[fn:seata] Apache Seata, Alibaba internal middleware origin: https://seata.apache.org/
+[fn:shardingsphere] ShardingSphere, Apache Incubator entry: https://shardingsphere.medium.com/shardingsphere-enters-the-apache-incubator-as-the-first-distributed-database-middleware-project-b1bda7f7f34e
+[fn:sofa-jraft] SOFAJRaft overview: https://www.sofastack.tech/en/projects/sofa-jraft/overview/
+[fn:dragonwell] Alibaba Dragonwell, downstream OpenJDK distribution: https://dragonwell-jdk.io/
+[fn:openark] OpenArkCompiler repository: https://gitee.com/openarkcompiler/OpenArkCompiler
+[fn:harbor] CNCF Harbor Project Journey Report: https://www.cncf.io/reports/harbor-project-journey-report/
+[fn:dragonfly] CNCF Dragonfly project: https://www.cncf.io/projects/dragonfly/
+[fn:kubeovn] CNCF Kube-OVN project: https://www.cncf.io/projects/kube-ovn/
+[fn:skywalking] Apache SkyWalking history: https://skywalking.apache.org/blog/2018-12-12-skywalking-service-mesh-ready/
+[fn:kylin] Kyligence, Apache Kylin designed and developed in eBay Shanghai: https://kyligence.io/blog/apache-kylin-through-the-eyes-of-the-founders-episode-three/
+[fn:gmssl] GmSSL, Chinese national cryptographic algorithms: https://gmssl.org/english.html
