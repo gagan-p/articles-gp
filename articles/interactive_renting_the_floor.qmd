@@ -445,6 +445,155 @@ India\'s sparse column is not proof of weak engineers. It is evidence of
 where the country\'s software capability accumulated: mostly above the
 floor, while China\'s accumulated across much more of the floor itself.
 
+## A Tale of Two Ecosystems
+
+The previous sections established two observations.
+
+1.  India built one of the world\'s largest software industries.
+2.  China built a broader ecosystem of foundational software.
+
+Neither observation explains **why**.
+
+This essay proposes that foundational software emerges only when two
+conditions exist simultaneously:
+
+-   **Forcing Function** --- a problem that cannot economically be
+    solved by renting existing software.
+-   **Custody** --- an institution capable of sustaining the resulting
+    software beyond its original creator.
+
+Possessing only one condition produces isolated projects. Possessing
+both repeatedly produces foundational software ecosystems.
+
+The remainder of this essay develops this argument.
+
+## The Exceptions
+
+The previous section showed that India\'s contribution to globally
+adopted foundational software is comparatively small. That observation,
+however, should not be interpreted as the absence of systems
+engineering.
+
+India has repeatedly produced foundational software, somehow they seem
+to have lost midway. We list few of these. Rather than study each
+project independently, this essay groups representative Indian
+foundational software efforts into recurring patterns. Those patterns
+form the basis of the explanatory model developed in the following
+sections.
+
+```{=org}
+#+NAME: tab:india-foundational-projects
+```
+```{=org}
+#+CAPTION: Representative Indian foundational software projects discussed in this essay. The table is illustrative rather than exhaustive.
+```
+  Project       Layer                      Description
+  ------------- -------------------------- --------------------------------------------------------------------------------------------------------------
+  BOSS          Operating System           Debian/Linux distribution developed by C-DAC for Indian government, education and public-sector deployments.
+  PARAS         Operating System           Indigenous operating-system initiative focused on sovereign computing.
+  ShaktiDB      Database                   PostgreSQL-derived sovereign relational database developed under MeitY.
+  UPI           Payments Infrastructure    National payment protocol enabling interoperable real-time digital payments.
+  Aadhaar       Digital Identity           National digital identity platform providing authentication and identity services.
+  ONDC          Commerce Protocol          Open protocol enabling interoperable digital commerce.
+  OCEN          Credit Infrastructure      Open protocol for interoperable digital lending.
+  Beckn         Protocol Framework         Open protocol enabling decentralized digital networks.
+  MinIO         Object Storage             High-performance S3-compatible object storage created by Indian founders.
+  YugabyteDB    Distributed Database       Distributed SQL database created by Indian founders.
+  Hasura        Data API Platform          GraphQL engine exposing databases through declarative APIs.
+  Kitty         Developer Infrastructure   GPU-accelerated terminal emulator.
+  Calibre       Developer Platform         Cross-platform e-book management system and framework.
+  BharatNet\*   Network Infrastructure     National broadband infrastructure (supporting infrastructure rather than software).
+
+## Representative Indian Foundational Software
+
+The preceding sections compared software ecosystems at a national level.
+Such comparisons, however, hide important individual achievements. India
+has produced a number of technically significant software systems
+spanning operating systems, databases, developer infrastructure,
+reusable frameworks and national protocols.
+
+The projects presented here are illustrative rather than exhaustive.
+They are not ranked by commercial success or technical merit. Instead,
+they represent different approaches to building software below---or
+immediately adjacent to---the application layer.
+
+<div class="story">
+<div class="story-label">Kitty — Modern Developer Infrastructure</div>
+
+Kitty is a modern GPU-accelerated terminal emulator created by Kovid Goyal. Unlike traditional terminal emulators that rely primarily on the CPU for rendering text, Kitty uses the graphics processor to deliver significantly higher rendering performance while supporting advanced features such as ligatures, graphics, multiple layouts and remote control.
+
+Terminal emulators form part of the daily infrastructure used by software developers, system administrators and DevOps engineers. Although largely invisible to end users, they are fundamental tools upon which software development itself depends.
+
+Kitty demonstrates that individual Indian developers are capable of producing world-class developer infrastructure adopted by engineers across the world.
+
+</div>
+
+<div class="story">
+<div class="story-label">Frappe — A Reusable Application Platform</div>
+
+Frappe is an open-source full-stack application framework developed by Frappe Technologies. At its core is the DocType abstraction, through which developers describe business entities once and automatically obtain data models, forms, permissions, APIs, reports and administrative interfaces.
+
+Rather than building a single application, Frappe provides a reusable platform upon which many applications—including ERPNext—are constructed. It therefore occupies an intermediate position between application software and foundational infrastructure.
+
+Frappe illustrates India's strength in creating reusable software platforms that substantially reduce the effort required to build enterprise applications.
+
+</div>
+
+<div class="story">
+<div class="story-label">UPI — Infrastructure Through Protocols</div>
+
+The Unified Payments Interface (UPI), developed under the National Payments Corporation of India (NPCI), is not an application but an interoperable payments protocol. Banks, fintech companies and payment applications communicate through a common set of interfaces while remaining independently implemented.
+
+UPI transformed digital payments in India by defining shared rules rather than prescribing a single software implementation. Hundreds of payment applications coexist because they implement the same protocol.
+
+UPI illustrates an alternative approach to building national infrastructure: standardising interfaces instead of building a monolithic software platform.
+
+</div>
+
+<div class="story">
+<div class="story-label">PARAS — Sovereign Operating System Initiative</div>
+
+PARAS is an indigenous operating-system initiative intended to strengthen India's sovereign computing capabilities. Like earlier efforts such as BOSS, it addresses requirements arising from government, defence and strategic sectors where long-term control over software platforms is considered important.
+
+Unlike commercial operating systems that evolve primarily through market competition, PARAS is driven by national capability and software sovereignty objectives.
+
+It represents India's continuing investment in systems software and operating-system technologies.
+
+</div>
+
+<div class="story">
+<div class="story-label">ShaktiDB — Building on PostgreSQL</div>
+
+ShaktiDB is an indigenous relational database initiative developed under the Ministry of Electronics and Information Technology (MeitY). Rather than creating an entirely new database engine, it extends PostgreSQL to satisfy Indian requirements relating to sovereignty, deployment and public-sector adoption.
+
+The project demonstrates substantial systems engineering while simultaneously illustrating a recurring approach within India's software ecosystem: adapting and extending mature open-source foundations rather than replacing them.
+
+ShaktiDB represents an important step towards sovereign database infrastructure.
+
+</div>
+
+<div class="story">
+<div class="story-label">MinIO, YugabyteDB and Hasura — Success Beyond India</div>
+
+Several globally respected infrastructure software companies originated with Indian founders. MinIO developed one of the world's fastest S3-compatible object storage systems. YugabyteDB created a distributed SQL database combining PostgreSQL compatibility with horizontal scalability. Hasura built a high-performance GraphQL engine that automatically exposes databases through modern APIs.
+
+All three compete internationally in markets traditionally dominated by large infrastructure vendors. Yet all three eventually established their corporate headquarters and commercial ecosystems outside India while retaining significant engineering operations in India.
+
+Their stories demonstrate that India can produce globally competitive foundational software companies. They also raise an important question explored later in this essay: why does long-term commercial stewardship of these projects so often migrate beyond India's borders?
+
+</div>
+
+<div class="story">
+<div class="story-label">DungBeetle — Software That Never Leaves the Organisation</div>
+
+Not all foundational software becomes an open-source project or commercial product. Large enterprises routinely develop sophisticated internal infrastructure to solve problems unique to their own operations.
+
+DungBeetle represents this class of software. Designed to address specific enterprise requirements, it embodies substantial systems engineering but remains tightly coupled to the organisation that created it. Such software often delivers significant internal value yet never develops an external developer community or ecosystem.
+
+Projects of this kind are rarely visible outside their parent organisations, making them an often-overlooked component of a nation's software capability.
+
+</div>
+
 [^1]: BOSS Linux, "About Us," C-DAC GNU/Linux distribution for India:
     <https://bosslinux.in/aboutus>
 
