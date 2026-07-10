@@ -166,45 +166,24 @@ infrastructure upon which other software depends.
 #+begin_export markdown
 ```{dot}
 //| label: fig-software-stack
-//| fig-cap: "A dependency-oriented view of the software stack."
-//| label: fig-software-stack
-//| fig-cap: "A dependency-oriented view of the software stack."
+//| fig-cap: "Each layer depends on the one below it."
 digraph G {
     graph [rankdir=TB,splines=ortho,nodesep=0.5];
     node [shape=record,];
     app [label="{The Renters|Apps|{ERP|CRM|Core \nBanking|Trading \nApps|Others ...}}"];
-    middleware [label="{The Enabalers = Vendors/EPC Contractors| Middleware & Run Times|{API \nGateways | Message \nBrokers | Service \nMeshes | RPC | Caches | Language \nFrameworks | Runtimes|Others ...}}"];
-    foundation [label="{The Land Owners |Foundational Software|{OS|DB|Distributed \nStorage|RDMA|Compilers|Cryptography|Consensus|Build \nSystems}}"];
+    middleware [label="{The Enablers|Middleware & Run Times|{API \nGateways|Caches|Language \nFrameworks|Runtimes|SDKs|Others ...}}"];
+    foundation [label="{The Land Owners|Foundational Software|{OS|DB|Message \nBrokers|Service \nMeshes|RPC|Consensus|Registries|Distributed \nStorage|Compilers|Cryptography|Build \nSystems}}"];
     app -> middleware;
     middleware -> foundation
 }
 ```
 #+end_export
 
-#+CAPTION: Representative software by architectural layer.
-| Layer | Representative Components | Representative Projects |
-|--------+---------------------------+--------------------------|
-| Application | ERP, CRM, IDE, Browser | SAP, Salesforce, VS Code |
-| Middleware | Message Broker, RPC, Service Mesh | Kafka, Dubbo, Envoy |
-| Foundational | Operating System, Database, Runtime | Linux, PostgreSQL, LLVM |
-
 #+begin_export html
-
 <div class="definition">
-
-<b>Definition.</b>
-
-Software is considered <i>foundational</i> if its primary purpose is to
-provide reusable capabilities to other software systems rather than to
-end users directly.
-
-A successful foundational project is reused by thousands of downstream systems. An application typically serves one domain. 
-The economic leverage therefore comes not from complexity but from position in the dependency graph.
-
-</div> #+end_export
-
-The definition is not rigid, we imply <i>software that other softwares need</i> as foundational , in that sense the 
-Middleware and Foundational differ in the scale of their dependency. 
+<b>Definition.</b> Software is <i>foundational</i> when its removal forces a rewrite of everything built on it.
+</div>
+#+end_export
 
 * Renting the Floor
 
