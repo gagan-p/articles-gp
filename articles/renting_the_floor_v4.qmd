@@ -162,6 +162,7 @@ digraph G {
     app -> middleware;
     middleware -> foundation
 }
+```
 
   Layer          Representative Components             Representative Projects
   -------------- ------------------------------------- --------------------------
@@ -187,5 +188,80 @@ The economic leverage therefore comes not from complexity but from position in t
 The definition is not rigid, we imply <i>software that other softwares need</i> as foundational , in that sense the 
 Middleware and Foundational differ in the scale of their dependency. 
 
+* Renting the Floor
+
 #+begin_export html
+<div class="observation">
+<div class="story-title">The Rational Choice</div>
+For an individual organization, renting foundational software is almost always the correct decision. Building is expensive, risky, and rarely justifies the investment.
+</div>
+
+## The Decision Algorithm
+
+```{pikchr}
+#| fig-cap: "Build vs. Rent Decision Algorithm"
+Ask: diamond "Need" "capability?" fit
+arrow from Ask.e right .5 then down .2 "Y"
+Avail_y: diamond "Build" "or" "Rent" fit
+arrow from Avail_y.w left then down .3 "N"
+Cheaper: diamond "Cheaper" "to" "Build" fit
+arrow from Cheaper.e right .25 "Y"
+Build: circle "Build"
+arrow color red from Cheaper.s down .6 then right .2 "N"
+Strategic: diamond color red "Need" "Longterm" "Strategic" "Independence" fit
+arrow color red from Strategic.e right 0.2 then up (Build.y - Strategic.y) then left to Build.e "Y"
+arrow color red from Strategic.s down .2 then left .82 "N" 
+Rent: circle "Rent"
+arrow from Cheaper.s down to Rent.n 
+line from Ask.w left .2 "N"
+arrow from last.w then down (Ask.y - Rent.y) then right to Rent.w
+```
+
+The choice to be a renter or not ? is not just a economic decission,
+there is a \"Strategic Independence\" decision in the loop, the logical
+flow is not disturbed even if you ignore the \"Red\" bordered items of
+the \"Decission Algorithim\". I do belive this has happened in case of
+India and combined with the \"The Collective Problem\" I theorize below,
+we are in an unique situation.
+
+## The Collective Problem
+
+When everyone follows the rational algorithm, the collective outcome is
+capability atrophy.
+
+```{pikchr}
+#| fig-cap: "The Renting Cascade"
+Renters: box "Everyone" "Rents" fit
+arrow from last box.s down .25 then right .75
+NoBuild: box "No One" "Learns to Build" fit
+arrow from last box.s down .25 then right .75
+LostSkill: box "Capability" "atrophies" fit
+arrow from last box.s down .25 then right .75
+DependAlways: box "Permanent" "Dependency" fit
+```
+
+## The Crucial Difference
+
+The algorithm is the same everywhere. The inputs differ.
+
+  Condition                       China                          India
+  ------------------------------- ------------------------------ -------------------------
+  Can you buy/rent it?            No (sanctions, delete-IOE)     Yes (open market)
+  Is it core?                     Yes (state banks, platforms)   No (services firms)
+  Does it differentiate?          Yes (Singles\' Day scale)      No
+  Is building cheaper?            Yes (no alternative)           No (renting is cheaper)
+  Strategic independence asked?   Yes (state policy)             No (market logic)
+
+****Result:**** China built. India rented. The remainder of this essay
+explains why this matters.
+
+<div class="observation">
+<div class="story-title">The Puzzle</div>
+India has every input required to build foundational software—scale, talent, capital, and a large domestic market. Yet the output is near zero. The remainder of this essay explains why.
+</div>
+
+\`\`\`
+
+------------------------------------------------------------------------
+
 <a id="fn-revenue"></a>
