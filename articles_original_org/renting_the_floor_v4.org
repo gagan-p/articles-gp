@@ -197,8 +197,8 @@ Software is considered <i>foundational</i> if its primary purpose is to
 provide reusable capabilities to other software systems rather than to
 end users directly.
 
-Typical examples include operating systems, compilers, databases, distributed storage systems, cryptographic
-libraries, consensus engines and messaging infrastructure. I
+A successful foundational project is reused by thousands of downstream systems. An application typically serves one domain. 
+The economic leverage therefore comes not from complexity but from position in the dependency graph.
 
 </div> #+end_export
 
