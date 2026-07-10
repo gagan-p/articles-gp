@@ -1,0 +1,183 @@
+#+TITLE: Renting the Floor
+#+SUBTITLE: Why India Built One of the World's Largest Software Industries but Comparatively Little Foundational Software
+#+AUTHOR: gp
+#+DATE: 2026-07-10
+#+OPTIONS: toc:3 num:t
+#+LANGUAGE: en
+
+#==============================================================================
+# Document Metadata
+#==============================================================================
+
+# STATUS          : Draft
+# VERSION         : 0.1
+# LICENSE         :
+# LAST UPDATED    : 2026-07-10
+
+# Figures, tables and references are independently verified.
+# AI-assisted drafting is used only as a writing aid.
+# Every factual statement must be supported by a primary or authoritative reference before publication.
+
+#==============================================================================
+# CSS
+#==============================================================================
+
+#+begin_export html
+<style>
+body{line-height:1.55;}
+.paragraph{max-width:72ch; text-align:justify; margin-top:0.8em; margin-bottom:0.8em;}
+.thesis{background:#eef6ff; border-left:6px solid #2f5597; padding:1.2em; margin:1.5em 0;}
+.thesis-title{font-weight:bold; font-size:1.1em; margin-bottom:0.7em;}
+.summary{background:#fafafa; border-left:6px solid #666; padding:1.2em; margin:1.5em 0;}
+.summary-title{font-weight:bold; font-size:1.1em; margin-bottom:0.7em;}
+.notes{background:#fffdf4; border-left:6px solid #b8860b; padding:1.2em; margin:1.5em 0;}
+.notes-title{font-weight:bold; font-size:1.1em; margin-bottom:0.7em;}
+.story{background:#f7fbff; border-left:6px solid steelblue; padding:1.2em; margin:1.5em 0;}
+.story-title{font-weight:bold; font-size:1.05em; margin-bottom:0.6em;}
+.observation{background:#f9f9f9; border-left:6px solid #888; padding:1em; margin:1.5em 0;}
+.definition{background:#eefaf0; border-left:6px solid #3d8b40; padding:1em; margin:1.5em 0;}
+table{font-size:0.95em;}
+</style>
+#+end_export
+
+* Core Thesis
+
+#+begin_export html
+<div class="thesis">
+<div class="thesis-title">
+Core Thesis
+</div>
+<div class="paragraph">
+Applications are rented. Foundations are owned.
+
+Operating systems, databases, distributed storage, messaging systems, language runtimes and compilers form 
+the foundation upon which modern software is built.
+
+India built one of the world's largest software industries but has only a limited presence in globally adopted
+foundational software. This essay argues that this imbalance is strategically significant and that India must 
+increasingly own, rather than rent, the software floor.
+</div>
+</div>
+#+end_export
+
+* Executive Summary
+
+#+begin_export html
+<div class="summary">
+<div class="summary-title">
+Executive Summary
+</div>
+<ol>
+<li>India has one of the world's largest software industries.</li>
+<li>Its presence in globally adopted foundational software is comparatively small.</li>
+<li>Foundational software enables other software and compounds value across the software ecosystem.</li>
+<li>This essay compares India with representative global and Chinese projects.</li>
+<li>It studies how successful foundational software originates and how it evolves.</li>
+<li>It distinguishes a project's origin from its eventual outcome.</li>
+<li>It proposes that engineering constraints create foundational software, while institutional custody determines whether it survives.</li>
+<li>The resulting framework is applied to India and China.</li>
+<li>The framework makes predictions that can be tested against future projects.</li>
+</ol>
+</div>
+#+end_export
+
+* Notes and Assumptions
+
+#+begin_export html
+<div class="notes">
+<div class="notes-title">
+Notes and Assumptions
+</div>
+<ul>
+<li>Every factual statement is independently verified.</li>
+<li>References are cited at the point of use.</li>
+<li>Project classifications represent the author's taxonomy unless otherwise stated.</li>
+<li>Figures and tables are original unless explicitly attributed.</li>
+<li>Market values are point-in-time observations used only for comparison.</li>
+</ul>
+</div>
+#+end_export
+
+* The Paradox
+
+India's software inputs predict a mature foundational ecosystem. The observed output does not match.
+
+#+begin_export markdown
+```{dot}
+//| label: fig-india-software-paradox
+//| fig-cap: "India's software inputs and the missing foundational output."
+digraph G {
+    graph [rankdir=TB, splines=ortho];
+
+    {
+        rank=same;
+
+        rev [
+            shape=plaintext,
+            label=<<B>US$283 bn/yr</B><SUP>{revenue}</SUP><BR/>IT Revenue>
+        ];
+
+        dev_pool [
+            shape=plaintext,
+            label=<<B>21.9 mn</B><SUP>{total_devs}</SUP><BR/>GitHub Developers>
+        ];
+
+        new_dev [
+            shape=plaintext,
+            label=<<B>5.2 mn/yr</B><SUP>{new_yrly_devs}</SUP><BR/>New Developers>
+        ];
+
+        oss_contri [
+            shape=plaintext,
+            label=<<B>#1</B><SUP>{oss_contri_rank}</SUP><BR/>Public OSS Contributors>
+        ];
+    }
+
+    expect [
+        shape=box,
+        label="Expected\nTechnological\nOutput"
+    ];
+
+    stack [
+        shape=record,
+        label="{Expected Foundational Software|{Operating \nSystems|DB|Distributed \nStorage|Message \nBrokers|Language \nRuntimes|Compilers|Cryptography|Consensus|Build \nSystems}}"
+    ];
+
+    reality [
+        shape=diamond,
+        label="Observed Reality ???\nFew Globally Adopted Projects"
+    ];
+
+    rev -> expect;
+    dev_pool -> expect;
+    new_dev -> expect;
+    oss_contri -> expect;
+    expect -> stack;
+    stack -> reality [color="#b22222"];
+}
+```
+#+end_export
+
+#+begin_export html
+<a id="fn-revenue"></a>
+#+end_export
+
+[fn:revenue] https://nasscom.in/knowledge-center/publications/technology-sector-india-strategic-review-2025
+
+#+begin_export html
+<a id="fn-dev-pool"></a>
+#+end_export
+
+[fn:dev-pool] https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/
+
+#+begin_export html
+<a id="fn-new-dev"></a>
+#+end_export
+
+[fn:new-dev] https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/
+
+#+begin_export html
+<a id="fn-oss-contributors"></a>
+#+end_export
+
+[fn:oss-contributors] https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/
