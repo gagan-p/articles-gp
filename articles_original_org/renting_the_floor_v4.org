@@ -158,6 +158,53 @@ digraph G {
 ```
 #+end_export
 
+* What Is Foundational Software?
+
+Foundational software provides execution environments or shared
+infrastructure upon which other software depends. 
+
+#+begin_export markdown
+```{dot}
+//| label: fig-software-stack
+//| fig-cap: "A dependency-oriented view of the software stack."
+//| label: fig-software-stack
+//| fig-cap: "A dependency-oriented view of the software stack."
+digraph G {
+    graph [rankdir=TB,splines=ortho,nodesep=0.5];
+    node [shape=record,];
+    app [label="{The Renters|Apps|{ERP|CRM|Core \nBanking|Trading \nApps|Others ...}}"];
+    middleware [label="{The Enabalers = Vendors/EPC Contractors| Middleware & Run Times|{API \nGateways | Message \nBrokers | Service \nMeshes | RPC | Caches | Language \nFrameworks | Runtimes|Others ...}}"];
+    foundation [label="{The Land Owners |Foundational Software|{OS|DB|Distributed \nStorage|RDMA|Compilers|Cryptography|Consensus|Build \nSystems}}"];
+    app -> middleware;
+    middleware -> foundation
+}
+#+end_export
+
+#+CAPTION: Representative software by architectural layer.
+| Layer | Representative Components | Representative Projects |
+|--------+---------------------------+--------------------------|
+| Application | ERP, CRM, IDE, Browser | SAP, Salesforce, VS Code |
+| Middleware | Message Broker, RPC, Service Mesh | Kafka, Dubbo, Envoy |
+| Foundational | Operating System, Database, Runtime | Linux, PostgreSQL, LLVM |
+
+#+begin_export html
+
+<div class="definition">
+
+<b>Definition.</b>
+
+Software is considered <i>foundational</i> if its primary purpose is to
+provide reusable capabilities to other software systems rather than to
+end users directly.
+
+Typical examples include operating systems, compilers, databases, distributed storage systems, cryptographic
+libraries, consensus engines and messaging infrastructure. I
+
+</div> #+end_export
+
+The definition is not rigid, we imply <i>software that other softwares need</i> as foundational , in that sense the 
+Middleware and Foundational differ in the scale of their dependency. 
+
 #+begin_export html
 <a id="fn-revenue"></a>
 #+end_export
