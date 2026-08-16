@@ -1,0 +1,925 @@
+---
+css: styles.css
+author: gp
+date: 2026-08-12
+title: Renting the Floor --- Governed TOC
+---
+
+```{=org}
+#+STARTUP: overview
+```
+# 0. Metadata {#sec-0 children="0.001_001.Text.Metadata"}
+
+## 0.001~001~.Text.Metadata {#0.001_001 type="Text" name="Metadata" status="completed" description="Title, author, date, options, naming convention, and note on the TOC."}
+
+-   Title: Renting the Floor --- Governed TOC
+-   Author: gp
+-   Date: 2026-08-12
+-   Options: toc:2 num:t
+-   Startup: overview
+-   Naming Convention:
+    \<HeadingPath\>.\<Seq\>\_\<TypeSeq\>.\<Type\>.\<Name\>
+-   Note on TOC: Narrative arc -- Discovery (1--3), India's Position
+    (4), Comparison (5), Why? (6), Conclusion (7). Executive Summary
+    written last.
+
+# 1. Executive Summary {#sec-1 children="1.001_001.Text.Executive_Summary"}
+
+## 1.001~001~.Text.Executive~Summary~ {#1.001_001 type="Text" name="Executive_Summary" status="not_started" description="Summarises the entire essay: inputs are real, the floor is rented, the deficit is custody not capability, and correction is institutional. Written after all other sections are complete."}
+
+> TODO: Write after all sections are complete.
+
+# 2. Notes and Assumptions {#sec-2 children="2.001_001.Text.Notes, 2.001_002.Text.Assumptions"}
+
+## 2.001~001~.Text.Notes {#2.001_001 type="Text" name="Notes" status="completed" description="Sources used, AI disclaimer, how to read this document (tables, figures, companion files)."}
+
+-   Sources: public data (company blogs, TPC-C, GitHub, iSPIRT,
+    Tigerfeathers, PDF attached in Ind~ChnOss002~).
+-   AI used for structuring and initial search; claims manually
+    verified.
+-   Each element is self-contained.
+-   Tables/figures referenced by ID appear inline or in annexures.
+-   Companion file links are placeholders.
+
+## 2.001~002~.Text.Assumptions {#2.001_002 type="Text" name="Assumptions" status="completed" description="Focus on foundational software; DPI treated as a parallel \"protocol floor\"; TPC-C as a proxy; \"renting\" metaphor; comparison metrics; author judgement tagged."}
+
+-   Focus: foundational software (OS, DB, middleware, compilers), not
+    application-layer tools.
+-   Indian DPI (UPI, ONDC, ABHA) treated as a parallel \"protocol
+    floor\", not as software engineering.
+-   TPC-C rankings used as a proxy for systems engineering capability.
+-   \"Renting\" metaphor assumes ownership of the floor provides
+    strategic advantage.
+-   Comparison metrics include: market cap per employee, salary, revenue
+    breakdown (services vs products vs foundational), and innovation hub
+    data (R&D/GDP, patents, publications, talent flow).
+-   Author judgements in figures are explicitly tagged as \[Author
+    judgement\].
+
+# 3. Discovery Story --- How I Decided to Explore This Area
+
+## 3.1. The CBDC Question
+
+### 3.1.001~001~.Text.CBDC~Anecdote~ {#3.1.001_001 type="Text" name="CBDC_Anecdote" status="completed" description="Personal anecdote: working on a CBDC app, asked \"what database from scratch?\" – led to TPC-C."}
+
+I was working on a CBDC (Central Bank Digital Currency) application.
+This was part of the CBDC pilot RBI was conducting, and early days.
+There were many issues and I asked a hypothetical question,
+
+> \"If I were to design the app at this point from scratch what database
+> will I chose?\"
+
+::: aside
+I actually had few interesting thoughts on the CBDC application as such.
+The current app is a two tier set up where the bank level recons and
+transactions are on a blockchain managed by NPCI for RBI. The actual
+consumer transactions are almost similar to UPI, a ledger level
+adjustment based on UTXO with limit of spent at two decimal places.
+
+I had imagined a git/fossil timeline where merges are inflows and
+branchings are outflows.where I may not need a DB, like git e.g. However
+I realized you will have something like a DB,
+:::
+
+A search for a database took me to the TPC-C benchmark results. What I
+found surprised me.
+
+### 3.1.003~001~.Tab+Text.TPC~Table~ {#3.1.003_001 type="Tab+Text" name="TPC_Table" status="completed" description="Full TPC-C results table (top 15+ entries) with system, tpmC, price, database, OS, and submission date."}
+
+  System                       tpmC     Database            Date
+  ---------------------------- -------- ------------------- ----------
+  Alibaba PolarDB Limitless    2,055M   PolarDB MySQL 8.0   Jan 2025
+  Tencent TDSQL (1650 nodes)   815M     TDSQL v10.3         Mar 2023
+  Alibaba OceanBase ECS #1     707M     OceanBase v2.2      May 2020
+  Alibaba OceanBase ECS #2     61M      OceanBase v2.2      Oct 2019
+  SPARC SuperCluster T3-4      30M      Oracle 11g R2 RAC   Dec 2010
+  IBM Power 780 (9179-MHB)     10M      IBM DB2 9.7         Aug 2010
+  SPARC T5-8 Server            8.5M     Oracle 11g R2       Mar 2013
+  Sun SPARC T5440 Cluster      7.6M     Oracle 11g RAC      Nov 2009
+  IBM Power 595 (9119-FHA)     6.0M     IBM DB2 9.5         Jun 2008
+  Bull Escala PL6460R          6.0M     IBM DB2 9.5         Jun 2008
+  Sun Server X2-8              5.0M     Oracle 11g R2       Mar 2012
+  Sun Fire X4800 M2            4.8M     Oracle 11g R2       Jan 2012
+  HP Integrity Superdome       4.0M     Oracle 10g R2       Feb 2007
+  IBM System p5 595 (#1)       4.0M     IBM DB2 9           Jan 2007
+  IBM System p5 595 (#2)       4.0M     IBM DB2 9           Jul 2006
+
+  : TPC-C Top Results (tpmC rounded to millions) {#Tab.TPC_Table}
+
+The complete list and other benchmarks are at
+[TPC-benchmarks](https://www.tpc.org/tpcc/results/tpcc_results5.asp?print=false&orderby=tpm&sortby=desc)
+
+### 3.1.004~003~.Text.TPC~Observations~ {#3.1.004_003 type="Text" name="TPC_Observations" status="completed" description="Three observations: Chinese DBs dominate, no Indian DB, no OSS DB at this level. These are full-system tests."}
+
+The top 4 results --- PolarDB Limitless (2,055M), TDSQL (815M),
+OceanBase #1 (707M), OceanBase #2 (61M) --- are all Chinese. Oracle, the
+industry standard I was using, sits at position 5 with 30M tpmC. No
+open-source database appears anywhere in the list.
+
+Two observations:
+
+-   These are system tests, not pure DB benchmarks. The #2 entry alone
+    is \"Tencent Database Dedicated Cluster (1650 Nodes)\" --- 1,650
+    servers.
+-   PolarDB and OceanBase were names I had never encountered. This
+    raised an obvious question: what are we building in India?
+
+## 3.2. Realization: Chinese DBs Are Ruling TPC {#sec-3-2 children="3.2.001_001.Text.TPC_Top3_Results, 3.2.002_001.Tab+Text.TPC_Top3_Results"}
+
+### 3.2.001~001~.Text.TPC~Top3Results~ {#3.2.001_001 type="Text" name="TPC_Top3_Results" status="completed" description="Observes that the top TPC-C results are Chinese (PolarDB Limitless, TDSQL, OceanBase). No Indian database appears."}
+
+1.  TPC-C measures the **system** --- Hardware + OS + DB together. These
+    are not standalone database tests; they measure a vertically
+    integrated stack.
+2.  Alibaba\'s #1 result is a fully sovereign stack --- every component
+    self-developed:
+    -   DB: PolarDB for MySQL 8.0
+    -   OS: Paladin (custom Linux)
+    -   CPU: Yitian 710 (5nm, 128 ARM cores)
+    -   Server: Panjiu
+    -   Network: ICN Switch
+3.  Tencent\'s DB, OS, and cluster management are all self-developed.
+4.  Open source is the **foundation**, not the product. OceanBase is
+    open- sourced (Mulan PL); Paladin, Aliyun Linux, tlinux all derive
+    from community Linux. But the cluster orchestration, hardware
+    integration, and software-hardware co-design are proprietary. The
+    Chinese companies are **extending and controlling** open source to
+    build a sovereign floor.
+
+### 3.2.002~001~.Tab+Text.TPC~Top3Results~ {#3.2.002_001 type="Tab+Text" name="TPC_Top3_Results" status="completed" description="Table of top 3 TPC-C results with full stack breakdown: Database, OS, Hardware, and a comment on open-source status and control plane."}
+
+  System                      tpmC     Self-Developed Components
+  --------------------------- -------- -----------------------------------------
+  Alibaba PolarDB Limitless   2,055M   DB + OS + CPU + Server + Network
+  Tencent TDSQL               815M     DB + OS + Cluster Management
+  Alibaba OceanBase           707M     DB + OS (DB open-sourced 2021, MulanPL)
+
+  : Top 3 TPC-C --- Self-Developed Stack Components
+  {#Tab.TPC_Top3_Results}
+
+**Source: TPC-C official results** [TPC-C
+Results](https://www.tpc.org/tpcc/results/tpcc_results5.asp?print=false&orderby=tpm&sortby=desc)
+
+## 3.3. Wonder: Open-Source DBs Are Not There {#sec-3-3 children="3.3.001_001.Text.OSS_DBs_Absent"}
+
+### 3.3.001~001~.Text.OSS~DBsAbsent~
+
+Open-source databases are absent because TPC-C submission is expensive:
+
+-   Hundreds of nodes of hardware investment.
+-   Engineering time to tune the full stack: OS, DB, networking,
+    storage.
+-   An independent audit, adding substantial fees.
+
+No community project has the commercial incentive to spend millions just
+to publish a number. This does not mean open-source databases are
+untested. The community uses:
+
+-   **HammerDB**: open-source TPROC-C/TPROC-H tool; supports PostgreSQL,
+    MySQL, Oracle, SQL Server, MariaDB.
+-   **Sysbench**: multi-threaded benchmark supporting MySQL and
+    PostgreSQL.
+-   **DBT-2 / DBT-5**: open-source implementations of TPC-C / TPC-E.
+
+Representative HammerDB TPROC-C on single-node AMD EPYC with NVMe:
+
+-   PostgreSQL 16: \~600,000 NOPM
+-   MySQL 8.0: \~400,000 NOPM
+
+> The gap is probbly not software capability --- it is investment in the
+> submission process. Open-source databases have reasonable performance.
+
+## 3.4. Appreciation: It's Not Just Software --- It's the System {#sec-3-4 children="3.4.001_001.Text.System_Level_TPC"}
+
+### 3.4.001~001~.Text.System~LevelTPC~ {#3.4.001_001 type="Text" name="System_Level_TPC" status="completed" description="Cross-reference to 3.2 for full stack analysis."}
+
+Covered in [Section 3.2](#sec-3-2): TPC-C measures a vertically
+integrated stack (hardware + OS + DB), not the database alone.
+
+## 3.5. Who Made PolarDB? What Other DBs Have They Made? {#sec-3-5 children="3.5.002_001.FigCode+Text.Ant_Database_Lineage"}
+
+### 3.5.002~001~.FigCode+Text.Ant~DatabaseLineage~
+
+Alibaba was a standard Oracle shop in 2007. Singles' Day (11.11) ---
+China's annual online shopping festival --- created a forcing function:
+transaction volumes spiked 100× in hours, exposing Oracle's vertical
+scaling limits. Ant Financial built OceanBase from scratch starting
+
+1.  By 2014, the entire Singles' Day peak load ran on OceanBase ---
+
+no Oracle; 85,000 TPS at peak. OceanBase was open-sourced in 2021 under
+the Mulan Public License. PolarDB launched in 2018 as a cloud- native
+MySQL/PostgreSQL-compatible engine. PolarDB Limitless set the TPC-C
+world record in January 2025.
+
+> The intent behind this 18-year programme was not to win a benchmark.
+> Ant now owns its most strategic infrastructure asset end to end ---
+> permanently. The database is not a vendor relationship; it is the
+> floor. The only remaining risk: a competitor that builds a better
+> database and anchors superior user experience from the tech side alone
+> --- a risk Ant can at least see coming, because they own the floor.
+
+```{ojs}
+//| label: fig-ant-db-lineage
+//| fig-cap: "Alibaba / Ant Group — Database evolution 2007–2025"
+ant_db = [
+  {year: 2007, label: "Oracle (rented)", event: "Oracle dependency", hi: 1},
+  {year: 2010, label: "OceanBase v1", event: "Self-built RDBMS", hi: -1},
+  {year: 2014, label: "OceanBase v1.x", event: "Singles’ Day: Oracle-free", hi: 1},
+  {year: 2017, label: "OceanBase v2.0", event: "MySQL-compat", hi: -1},
+  {year: 2018, label: "PolarDB v1", event: "Cloud-native launch", hi: 1},
+  {year: 2021, label: "OceanBase OSS", event: "Open-sourced (Mulan PL)", hi: -1},
+  {year: 2025, label: "PolarDB Limitless", event: "TPC-C record: 2,055M tpmC", hi: 1}
+]
+
+Plot.plot({
+  width: 680,
+  height: 260,
+  marginLeft: 20,
+  marginRight: 20,
+  marginTop: 80,
+  marginBottom: 80,
+  x: {
+    label: "Year",
+    tickFormat: "d",
+    ticks: [2007, 2010, 2014, 2017, 2018, 2021, 2025],
+    domain: [2005, 2027]
+  },
+  y: {axis: null, domain: [-1.5, 1.5]},
+  marks: [
+    Plot.ruleY([0], {stroke: "#ccc", strokeWidth: 2}),
+    Plot.ruleX(ant_db, {
+      x: "year", y1: 0, y2: d => d.hi * 0.45,
+      stroke: d => d.year === 2025 ? "#2196F3" : "#999"
+    }),
+    Plot.dot(ant_db, {
+      x: "year", y: 0,
+      r: d => d.year === 2025 ? 10 : 7,
+      fill: d => d.year === 2025 ? "#2196F3" : "#aaa",
+      stroke: "white", strokeWidth: 1.5
+    }),
+    Plot.text(ant_db, {
+      x: "year", y: d => d.hi * 0.6,
+      text: "label",
+      fontSize: 11,
+      fontWeight: d => d.year === 2025 ? "bold" : "normal",
+      lineAnchor: d => d.hi > 0 ? "bottom" : "top"
+    }),
+    Plot.text(ant_db, {
+      x: "year", y: d => d.hi * 0.85,
+      text: "event",
+      fontSize: 9,
+      fill: "#666",
+      lineAnchor: d => d.hi > 0 ? "bottom" : "top"
+    })
+  ]
+})
+```
+
+## 3.6. OceanBase Is Open-Sourced --- What Else Is Ant Building? {#sec-3-6 children="3.6.002_001.Tab+Text.Ant_Stack_Components"}
+
+### 3.6.002~001~.Tab+Text.Ant~StackComponents~
+
+Ant's stack is deliberately multi-language: each layer uses the language
+whose properties match its requirements. None of these components were
+built for external consumption --- they emerged from production
+necessity. Open-sourcing is a consequence, not the motivation.
+
+  Layer                      Language   Rationale
+  -------------------------- ---------- ------------------------------------
+  Application / middleware   Java       JVM tooling; ecosystem depth
+  Network proxy / sidecar    Go         Goroutines; single binary
+  Database internals         C++        Manual memory; no GC holding locks
+  Kernel / crypto / TEE      Rust       Memory safety without GC
+  Data / ML pipelines        Python     Ecosystem; not latency-critical
+
+  : Ant Group --- Language by Layer {#Tab.Ant_Lang_By_Layer}
+
+  Component    Primary Function                        Open-Source
+  ------------ --------------------------------------- ------------------
+  SOFABoot     Spring Boot base; class isolation       Yes (Apache 2.0)
+  SOFARPC      Inter-service RPC; Bolt over Netty      Yes (Apache 2.0)
+  SOFABolt     Binary RPC transport; custom framing    Yes (Apache 2.0)
+  SOFAJRaft    Raft consensus; used in OceanBase       Yes (Apache 2.0)
+  SOFAArk      Classloader isolation; version safety   Yes (Apache 2.0)
+  SOFATracer   Distributed tracing; traceId flow       Yes (Apache 2.0)
+  Seata        Distributed txn: AT / TCC / Saga        Yes (Apache TLP)
+  RocketMQ     Transactional message queue             Yes (Apache TLP)
+  Nacos        Service discovery and config            Yes (Apache TLP)
+  MOSN         Go sidecar proxy; xDS; vs Envoy         Yes (Apache 2.0)
+  Layotto      Dapr-compatible app runtime (Go)        Yes (Apache 2.0)
+  OceanBase    Distributed HTAP RDBMS; TPC-C #1        Yes (Mulan PL)
+  TuGraph      Graph DB; fraud detection (C++)         Yes
+  Asterinas    Rust OS kernel; Linux ABI               Yes
+  Occlum       Library OS for Intel SGX (Rust)         Yes
+  Tongsuo      OpenSSL fork; SM2/SM3/SM4 (C)           Yes
+  SecretFlow   Privacy-preserving ML; federated        Yes
+
+  : Ant Group Open-Source Infrastructure Stack
+  {#Tab.Ant_Stack_Components}
+
+Not open-sourced (the proprietary moat):
+
+-   LDC routing: how transactions are pinned to their zone
+-   Unit-based partitioning: user sharding across IDCs
+-   Production GC tuning configs at Singles' Day scale
+-   Internal risk and fraud model weights
+
+## 3.7. General Appreciation of Foundational Software Work in China
+
+### 3.7.001~001~.Text.China~FoundationalOverview~ {#3.7.001_001 type="Text" name="China_Foundational_Overview" status="completed" description="Broad overview of China’s foundational software ecosystem: databases, message queues, service meshes, kernels. Highlights scale of investment and OSS contributions."}
+
+The databases and middleware from Ant are one visible slice of a much
+broader pattern. Across China, technology companies have built and
+open-sourced foundational infrastructure at a scale that has no Indian
+equivalent.
+
+-   Tencent's TDSQL and TBase distributed engine,
+-   Alibaba's RocketMQ (now an Apache top-level project),
+-   Huawei's openGauss (PostgreSQL-compatible, open-sourced in 2020),
+-   ByteDance's ByteKV, and
+-   PingCAP's TiDB---each emerged from internal necessity and eventually
+
+became public infrastructure.
+
+Similarly
+
+-   Huawei's OpenHarmony is an attempt at a sovereign OS kernel.
+-   Alibaba's Anolis OS is an Opensource Linux, stress-tested at
+    hyperscale.
+
+These are not academic projects; they were hardened under production
+loads that dwarf most Western deployments.
+
+::: aside
+[Gitee](https://gitee.com) --- China\'s domestic code forge --- is a
+story for [Section 6.4](#sec-6-4). I loved the [learn-git-branching game
+on Gitee](https://help.gitee.com/learn-Git-Branching/) for its intuitive
+approach to branching. I am in the middle of another article on my
+experience playing it and learning the concepts behind git, fossil ,
+version control in general. Its striking that we do not even have an
+Indian code forge.
+:::
+
+The pattern is consistent:
+
+> Commercial Pressure ↳ Internal Build ↳ Open-Source Release ↳ Ecosystem
+> Adoption → next cycle
+>
+> China has built a flywheel for foundational software.
+
+This led to a set of questions:
+
+> 1.  Are we building databases from scratch in India?
+> 2.  Are we building anything of foundational nature in India as far as
+>     software is concerned?
+
+My first check was UPI --- India\'s most celebrated technology success.
+
+::: questions
+**Q1: What transaction volume in TPC-C terms would UPI handle?**
+
+UPI processed
+
+-   \~500 million transactions/day in 2024
+-   \~16 billion/month
+
+Peak reported throughput:
+
+-   \~4,700 transactions per second (TPS) during festivals (NPCI 2023).
+-   That is \~280,000 TPM at peak --- roughly comparable to a mid-tier
+    single-node TPC-C submission. PolarDB Limitless sustains \~34
+    million TPM --- a gap of roughly 120×. (TPC-C measures a weighted
+    multi-transaction mix, not single payments; the comparison is
+    approximate.)
+
+**Q2: What is the reported error volume in UPI?**
+
+NPCI reports a technical decline rate (system-side failures, not user
+errors like wrong PIN) of \~0.3--0.5%. Total decline rate including user
+errors is \~5--8% depending on the bank. NPCI publishes monthly
+dashboards with bank-wise success rates; most PSPs exceed 96% success.
+
+**Q3: What database does UPI use?**
+
+NPCI has not publicly disclosed the database backing the UPI switch.
+Industry sources indicate Oracle on IBM infrastructure for the core
+clearing system. Participating banks (\~300+) use their own core banking
+databases --- Oracle, SQL Server, and various CBS vendors. There is no
+publicly available evidence of an Indian-built database underpinning
+UPI.
+
+**Q4: Where does the UPI transaction load live --- central clearance or
+participating nodes?**
+
+UPI load is distributed across the network:
+
+-   Authentication (MPIN/UPI PIN): at the PSP bank\'s servers
+-   Fund validation and debit/credit: at remitter and beneficiary bank
+    core banking systems (\~300+ bank nodes)
+-   Routing, clearing, and settlement: at NPCI\'s central UPI switch
+
+NPCI central handles routing of all 500M+ daily transactions but the
+heavy database operations (account lookup, debit, credit) happen at
+individual bank nodes. The central switch is stateless for most flows.
+:::
+
+NPCI\'s DB requirement is structurally different from Ant\'s. The heavy
+operations --- balance lookup, debit, credit --- sit at the \~300
+participating bank nodes. NPCI central routes and settles but does not
+own the transaction record. Ant owns every transaction end-to-end on its
+own infrastructure; NPCI does not.
+
+Even so, the NPCI switch routes 500M+ transactions daily; the
+concurrency at that layer is not trivial. I expected architectural
+cleverness at the switch --- something with a stated roadmap toward zero
+foreign-tech dependency. Looking deeper, one reference surfaced:
+YugabyteDB at NPCI.
+
+The closest reference found: Mindgate Solutions, UPI\'s largest Payment
+Service Provider (PSP), runs on YugabyteDB --- reported at 9 billion
+transactions per month
+[source](https://www.yugabyte.com/success-stories/mindgate-solutions/).
+Whether that figure covers one cluster or aggregates across Mindgate\'s
+network is not publicly disclosed.
+
+Our search for \"What India is building ?\" did not yield much but we
+did observe
+
+NPCI has begun open-sourcing. Two known contributions:
+
+-   Falcon: Helm-chart templates for Hyperledger Fabric (HLF) on
+    Kubernetes. Deployment automation; no core Fabric logic changed.
+-   Drunix: Architectural fork of HLF --- new peer roles, plugs in
+    YugabyteDB as distributed storage backend. More foundational.
+
+We do have references to YugabyteDB , which is near foundational work
+when compared to likes of the Chinese DB\'s mentioned in
+[*Section 3.2*]{.spurious-link target="Section 3.2"}
+
+YugabyteDB --- the database doing the actual UPI-scale work --- is
+Indian-origin, redomiciled to the United States. That pattern has a name
+and its own section: [Section 6.4.4.1](#sec-6-4-4-1).
+
+### 3.7.002~001~.Story.YugabyteDB~PolarDB~
+
+::: story
+The problem every database faces at scale:
+
+-   One machine holds all the data.
+-   One machine fails, all data is unavailable.
+-   One machine fills up, the system is stuck.
+
+The solution is distribution. Distribution requires consensus: agreement
+on what was written and in what order. Where that agreement happens is
+the architectural choice.
+
+**Sharding:** divide the dataset across machines by a key --- hash or
+range. Each machine owns one subset. Route reads and writes to the right
+machine. Replicate each subset for resilience.
+
+Family 1 --- Filesystem-level (PolarDB, Aurora, AlloyDB):
+
+-   Data stored as pages (B-tree blocks, 8 KB) on a distributed
+    filesystem.
+-   All compute nodes share one storage pool.
+-   Consensus at the page level --- which page, which order.
+-   One node writes (primary). Multiple nodes read (replicas).
+-   PolarDB Limitless stacked a sharding coordinator on top to break the
+    single-writer ceiling --- two architectures combined.
+
+Family 2 --- Tablet-level (YugabyteDB, CockroachDB):
+
+-   Data sharded into tablets, each replicated across nodes.
+-   Rows encoded as key-value pairs in RocksDB --- a sorted
+    log-structured store with no query engine of its own.
+-   Consensus via Raft: every write confirmed by quorum before
+    acknowledgement to the client.
+-   Both reads and writes scale horizontally.
+
+YugabyteDB\'s specific choice:
+
+-   SQL query layer: PostgreSQL --- parser, planner, executor ---
+    untouched.
+-   Storage layer: PostgreSQL heap replaced with RocksDB + Raft.
+-   The engineering work: encoding PostgreSQL rows, types, and indexes
+    into RocksDB key-value format.
+-   Done before PostgreSQL 12\'s Table Access Method (TAM) API existed
+    --- required patching PostgreSQL internals directly.
+-   TAM solves storage abstraction on one node; it does not solve
+    distribution.
+
+CockroachDB followed the same family but went further: rewrote the SQL
+engine in Go, wrote its own storage engine (Pebble). More original work;
+same core insight --- leave the solved layer, attack the gap.
+:::
+
+### 3.7.003~002~.Text.India~Transition~
+
+The closest India has come to a database claim in this space is ShaktiDB
+--- a PostgreSQL 17.4 fork from IITM Pravartak and C-DAC (Centre for
+Development of Advanced Computing), under MeitY (Ministry of Electronics
+and Information Technology) funding, released June 2025. It adds RBI,
+Cert-In, and SEBI compliance wrappers on top of community PostgreSQL. It
+is not a new storage engine or a new consensus layer. It is a hardened,
+compliance-configured fork, deployed by a systems integrator into
+captive government demand. ShaktiDB is examined in [Section
+6.4.3](#sec-6-4-3).
+
+It appears despite all the talk about Indian Software Industry, there is
+hardly any solution at a foundational layer. Lets explore this bit more
+and see are we not building anything deep in Software??
+
+## 3.8. The Paradox {#sec-3-8 children="3.8.001_001.Text.Paradox_Transition, 3.8.002_001.FigCode.India_Software_Paradox"}
+
+### 3.8.001~001~.Text.Paradox~Transition~ {#3.8.001_001 type="Text" name="Paradox_Transition" status="not_started" description="Transition from discovery to thesis: if China built this from comparable starting points, where is India’s column? The inputs converge on an empty box."}
+
+> TODO: Write content for Paradox~Transition~.
+
+### 3.8.002~001~.FigCode.India~SoftwareParadox~ {#3.8.002_001 type="FigCode" name="India_Software_Paradox" status="not_started" description="Pikchr diagram: four input boxes (revenue, developers, new devs, OSS rank) converge on an expected floor, then drop to an observed reality of approximately zero."}
+
+> TODO: Create Pikchr diagram.
+
+# 4. What Type of Work Do We Do in India?
+
+## 4.1. India's Software Story Is a Success {#sec-4-1 children="4.1.001_001.Text.India_Scale_Metrics, 4.1.002_001.FigCode.India_Software_Scale"}
+
+### 4.1.001~001~.Text.India~ScaleMetrics~ {#4.1.001_001 type="Text" name="India_Scale_Metrics" status="not_started" description="Presents headline metrics: $283bn revenue, 5.8M employees, 5.1% growth, largest developer base globally."}
+
+> TODO: Write content for India~ScaleMetrics~.
+
+### 4.1.002~001~.FigCode.India~SoftwareScale~ {#4.1.002_001 type="FigCode" name="India_Software_Scale" status="not_started" description="OJS chart showing India’s software industry revenue, employment, and growth rate over the last decade."}
+
+> TODO: Create OJS chart.
+
+## 4.2. Success Is at the Application and Application Support Layer {#sec-4-2 children="4.2.001_001.Text.App_Support_Layer, 4.2.002_001.Tab.India_Revenue_Breakdown"}
+
+### 4.2.001~001~.Text.App~SupportLayer~ {#4.2.001_001 type="Text" name="App_Support_Layer" status="not_started" description="Argues that India’s success is in building *on top* of existing foundational software (libraries, protocols, infrastructure), not in building the foundation itself."}
+
+> TODO: Write content for App~SupportLayer~.
+
+### 4.2.002~001~.Tab.India~RevenueBreakdown~ {#4.2.002_001 type="Tab" name="India_Revenue_Breakdown" status="not_started" description="Table showing India’s IT revenue split by segment: services, products, and foundational software."}
+
+> TODO: Create table.
+
+## 4.3. The Mental Model: Raw Material → Plumbing → Floor → Building → Interior {#sec-4-3 children="4.3.001_001.Text.Mental_Model_Intro, 4.3.002_001.FigCode.Mental_Model_Stack"}
+
+### 4.3.001~001~.Text.Mental~ModelIntro~ {#4.3.001_001 type="Text" name="Mental_Model_Intro" status="not_started" description="Introduces the layered metaphor: Raw Material (languages, kernels) → Plumbing (protocols, frameworks) → Floor (OS, DB, message brokers) → Building (applications) → Interior (support/maintenance)."}
+
+> TODO: Write content for Mental~ModelIntro~.
+
+### 4.3.002~001~.FigCode.Mental~ModelStack~ {#4.3.002_001 type="FigCode" name="Mental_Model_Stack" status="not_started" description="Graphviz diagram visualising the five-layer metaphor with examples at each level."}
+
+> TODO: Create Graphviz diagram.
+
+## 4.4. Hypothesis Refined: Based on Resource-Based View (RBV) {#sec-4-4 children="4.4.001_001.Text.RBV_Intro, 4.4.002_001.FigCode.RBV_Diagram"}
+
+### 4.4.001~001~.Text.RBV~Intro~ {#4.4.001_001 type="Text" name="RBV_Intro" status="not_started" description="Introduces Jay Barney’s VRIN criteria (Valuable, Rare, Inimitable, Non-substitutable). Argues that foundational software is a strategic asset. India lacks this asset – it “rents the floor”."}
+
+> TODO: Write content for RBV~Intro~.
+
+### 4.4.002~001~.FigCode.RBV~Diagram~ {#4.4.002_001 type="FigCode" name="RBV_Diagram" status="not_started" description="Graphviz diagram applying RBV criteria to each software layer, showing which layers are strategic vs. commoditised."}
+
+> TODO: Create Graphviz diagram.
+
+## 4.5. What We Are Building, and for Which Markets {#sec-4-5 children="4.5.001_001.Text.What_We_Build_Markets"}
+
+### 4.5.001~001~.Text.What~WeBuildMarkets~ {#4.5.001_001 type="Text" name="What_We_Build_Markets" status="not_started" description="Summarises that India builds application-layer software primarily for export markets (US, Europe). Foundational software is not being built for domestic or global consumption."}
+
+> TODO: Write content for What~WeBuildMarkets~.
+
+## 4.6. DPI: The Protocol & Mandate Floor (India's Parallel Path)
+
+### 4.6.001~001~.Text.DPI~SharpDistinction~ {#4.6.001_001 type="Text" name="DPI_Sharp_Distinction" status="not_started" description="Contrasts China’s software-engineering floor with India’s protocol/mandate floor. India builds APIs, data standards, and identity layers – not kernels, compilers, or databases. References Tigerfeathers and iSPIRT."}
+
+> TODO: Write content for DPI~SharpDistinction~.
+
+### 4.6.002~002~.Text.UPI~ONDC~ {#4.6.002_002 type="Text" name="UPI_ONDC" status="not_started" description="Describes UPI and ONDC as public digital infrastructure that defines transaction protocols, not software implementations."}
+
+> TODO: Write content for UPI~ONDC~.
+
+### 4.6.003~003~.Text.ABHA~HealthID~ {#4.6.003_003 type="Text" name="ABHA_Health_ID" status="not_started" description="Explains ABHA: a free, voluntary 14-digit unique health identifier for storing and sharing medical records."}
+
+> TODO: Write content for ABHA~HealthID~.
+
+### 4.6.004~004~.Text.References~TigerfeathersiSPIRT~ {#4.6.004_004 type="Text" name="References_Tigerfeathers_iSPIRT" status="not_started" description="Lists key references: Tigerfeathers.in article “The Internet Country” and iSPIRT research papers on India’s DPI strategy."}
+
+> TODO: Write content for References~TigerfeathersiSPIRT~.
+
+# 5. The Comparison: Data and Evidence
+
+## 5.1. Compare at Each Layer --- What Tools Have Come from India? {#sec-5-1 children="5.1.001_001.Text.Layer_Comparison_Intro, 5.1.002_001.FigCode.India_China_Depth, 5.1.003_001.Tab.Layer_Comparison"}
+
+### 5.1.001~001~.Text.Layer~ComparisonIntro~ {#5.1.001_001 type="Text" name="Layer_Comparison_Intro" status="not_started" description="Introduces a layer-by-layer comparison (Raw Material → Plumbing → Floor → Building) between India and China."}
+
+> TODO: Write content for Layer~ComparisonIntro~.
+
+### 5.1.002~001~.FigCode.India~ChinaDepth~ {#5.1.002_001 type="FigCode" name="India_China_Depth" status="not_started" description="OJS heatmap showing the depth of foundational software projects in India vs. China across each layer. (Author judgement.)"}
+
+> TODO: Create OJS heatmap.
+
+### 5.1.003~001~.Tab.Layer~Comparison~ {#5.1.003_001 type="Tab" name="Layer_Comparison" status="not_started" description="Table listing representative projects from India and China at each layer (e.g. OS, DB, messaging, compilers)."}
+
+> TODO: Create table.
+
+## 5.2. Establish: There Is Not Much Foundational Software from India
+
+### 5.2.1. Dig Deeper --- Is It Really the Case? {#sec-5-2-1 children="5.2.1.001_001.Text.Dig_Deeper_Intro, 5.2.1.002_001.Tab.Indian_Foundational_List"}
+
+1.  5.2.1.001~001~.Text.Dig~DeeperIntro~
+
+    > TODO: Write content for Dig~DeeperIntro~.
+
+2.  5.2.1.002~001~.Tab.Indian~FoundationalList~
+
+    > TODO: Create table.
+
+### 5.2.2. The Exceptions --- Zoho/AdventNet Story {#sec-5-2-2 children="5.2.2.001_001.Text.Zoho_Origin, 5.2.2.002_001.Tab.AdventNet_Timeline, 5.2.2.003_002.Text.Zoho_Pivot"}
+
+1.  5.2.2.001~001~.Text.Zoho~Origin~
+
+    > TODO: Write content for Zoho~Origin~.
+
+2.  5.2.2.002~001~.Tab.AdventNet~Timeline~
+
+    > TODO: Create timeline table.
+
+3.  5.2.2.003~002~.Text.Zoho~Pivot~
+
+    > TODO: Write content for Zoho~Pivot~.
+
+## 5.3. What Indian Companies Are Actually Building? What Are Other Asian Economies Building? {#sec-5-3 children="5.3.001_001.Text.Asian_Product_Comparison_Intro, 5.3.002_001.Tab.Asian_Product_Comparison"}
+
+### 5.3.001~001~.Text.Asian~ProductComparisonIntro~ {#5.3.001_001 type="Text" name="Asian_Product_Comparison_Intro" status="not_started" description="Compares India’s product companies (Zoho, Freshworks, Postman, BrowserStack) with those from China, Japan, and Korea. Notes that Indian products are export-first; East Asian products are domestic-first."}
+
+> TODO: Write content for Asian~ProductComparisonIntro~.
+
+### 5.3.002~001~.Tab.Asian~ProductComparison~ {#5.3.002_001 type="Tab" name="Asian_Product_Comparison" status="not_started" description="Table with columns: Country, representative product companies, domestic revenue share, primary market."}
+
+> TODO: Create table.
+
+## 5.4. Consumer Applications --- Messaging and Others
+
+### 5.4.1. What Is Excluded, and Why {#sec-5-4-1 children="5.4.1.001_001.Text.Excluded_Firms_Rationale, 5.4.1.002_001.Tab.Excluded_Firms"}
+
+1.  5.4.1.001~001~.Text.Excluded~FirmsRationale~
+
+    > TODO: Write content for Excluded~FirmsRationale~.
+
+2.  5.4.1.002~001~.Tab.Excluded~Firms~
+
+    > TODO: Create table.
+
+### 5.4.2. The Theory: How Consumer Apps Become Successful
+
+1.  5.4.2.1. Examples (Beyond Messengers)
+
+    1.  5.4.2.1.001~001~.Text.Consumer~AppSuccessRoutes~
+
+        > TODO: Write content for Consumer~AppSuccessRoutes~.
+
+    2.  5.4.2.1.002~001~.Tab.Consumer~AppRoutes~
+
+        > TODO: Create table.
+
+    3.  5.4.2.1.003~001~.Story.Indian~UnicornFailure~
+
+        > TODO: Write story.
+
+2.  5.4.2.2. Map Applications --- A Deeper Comparison
+
+    1.  5.4.2.2.001~001~.Text.Map~AppsComparison~
+
+        > TODO: Write content for Map~AppsComparison~.
+
+    2.  5.4.2.2.002~001~.Tab.Map~AppComparison~
+
+        > TODO: Create table.
+
+## 5.5. Innovation Hub Data (from the attached PDF) {#sec-5-5 children="5.5.001_001.Text.Innovation_Hub_Intro, 5.5.002_001.FigCode.Innovation_Hub_Chart, 5.5.003_001.Tab.Innovation_Hub_Data"}
+
+### 5.5.001~001~.Text.Innovation~HubIntro~ {#5.5.001_001 type="Text" name="Innovation_Hub_Intro" status="not_started" description="Introduces data from the PDF attached in the Ind_Chn_Oss_002 chat. Covers R&D spending, patents, publications, and talent flow."}
+
+> TODO: Write content for Innovation~HubIntro~.
+
+### 5.5.002~001~.FigCode.Innovation~HubChart~ {#5.5.002_001 type="FigCode" name="Innovation_Hub_Chart" status="not_started" description="OJS chart visualising R&D intensity, patent output, and publication citations for India vs. China (and other benchmarks)."}
+
+> TODO: Create OJS chart.
+
+### 5.5.003~001~.Tab.Innovation~HubData~ {#5.5.003_001 type="Tab" name="Innovation_Hub_Data" status="not_started" description="Table with quantitative metrics: R&D/GDP, patents per capita, publications per capita, number of returnee researchers."}
+
+> TODO: Create table.
+
+# 6. Why?
+
+## 6.1. The Forcing Condition --- The Wall {#sec-6-1 children="6.1.001_001.Text.Forcing_Condition_Intro, 6.1.002_001.FigCode.Forcing_Function"}
+
+### 6.1.001~001~.Text.Forcing~ConditionIntro~ {#6.1.001_001 type="Text" name="Forcing_Condition_Intro" status="not_started" description="Argues that foundational software is built only when a “wall” cannot be rented around – i.e. when external dependencies become too costly, legally restricted, or technically inadequate. India had no such wall."}
+
+> TODO: Write content for Forcing~ConditionIntro~.
+
+### 6.1.002~001~.FigCode.Forcing~Function~ {#6.1.002_001 type="FigCode" name="Forcing_Function" status="not_started" description="Mermaid diagram showing the forcing-function loop: Dependency → Crisis → Build Alternative → Ownership."}
+
+> TODO: Create Mermaid diagram.
+
+## 6.2. The Patterns: How Foundational Software Gets Built
+
+### 6.2.1. List Important Open-Source Projects {#sec-6-2-1 children="6.2.1.001_001.Text.Canonical_Projects_Intro, 6.2.1.002_001.Tab.15_Canonical_Projects"}
+
+1.  6.2.1.001~001~.Text.Canonical~ProjectsIntro~
+
+    > TODO: Write content for Canonical~ProjectsIntro~.
+
+2.  6.2.1.002~001~.Tab.15~CanonicalProjects~
+
+    > TODO: Create table.
+
+### 6.2.2. Analyze a Few {#sec-6-2-2 children="6.2.2.001_001.Story.SQLite, 6.2.2.002_002.Story.PostgreSQL"}
+
+1.  6.2.2.001~001~.Story.SQLite
+
+    > TODO: Write story.
+
+2.  6.2.2.002~002~.Story.PostgreSQL
+
+    > TODO: Write story.
+
+### 6.2.3. Theorize: Five Recurring Patterns {#sec-6-2-3 children="6.2.3.001_001.Text.Five_Patterns_Intro, 6.2.3.002_001.Tab.Five_Patterns_Table"}
+
+1.  6.2.3.001~001~.Text.Five~PatternsIntro~
+
+    > TODO: Write content for Five~PatternsIntro~.
+
+2.  6.2.3.002~001~.Tab.Five~PatternsTable~
+
+    > TODO: Create table.
+
+### 6.2.4. Story Box: Kubernetes & OceanBase --- The Institutional Commission {#sec-6-2-4 children="6.2.4.001_001.Story.Kubernetes_OceanBase"}
+
+1.  6.2.4.001~001~.Story.Kubernetes~OceanBase~
+
+    > TODO: Write story.
+
+## 6.3. Revisit India and China List --- Add the Five Patterns {#sec-6-3 children="6.3.001_001.Tab.India_China_Pattern_Mapping"}
+
+### 6.3.001~001~.Tab.India~ChinaPatternMapping~ {#6.3.001_001 type="Tab" name="India_China_Pattern_Mapping" status="not_started" description="Table with patterns as rows, China and India as columns. Each cell lists projects from that country that match the pattern. Shows that China has entries in all patterns; India has entries only in “mass community” and weak “institutional commission”."}
+
+> TODO: Create table.
+
+## 6.4. The Story of Gitee
+
+### 6.4.001~001~.Text.Gitee~Intro~ {#6.4.001_001 type="Text" name="Gitee_Intro" status="not_started" description="Introduces Gitee as China’s domestic Git forge, state-backed and where much Chinese OSS actually lives (not GitHub). Explains why GitHub-based measures undercount China. Includes link to Gitee’s interactive Git learning game."}
+
+> TODO: Write content for Gitee~Intro~.
+
+### 6.4.002~001~.Story.Gitee~ChinaForge~ {#6.4.002_001 type="Story" name="Gitee_China_Forge" status="not_started" description="Story box describing Gitee’s founding, its state affiliation, and its role in China’s OSS ecosystem."}
+
+> TODO: Write story.
+
+### 6.4.1. Why Don't We Have an Indian Code Hosting Platform? {#sec-6-4-1 children="6.4.1.001_001.Text.No_Indian_Forge"}
+
+1.  6.4.1.001~001~.Text.No~IndianForge~
+
+    > TODO: Write content for No~IndianForge~.
+
+### 6.4.2. Is This Because of the Hyped Jugaad Culture? {#sec-6-4-2 children="6.4.2.001_001.Text.Jugaad_Discussion, 6.4.2.002_001.FigCode.Strategic_Loss, 6.4.2.003_001.Story.CDAC_Network_Stack_Missed"}
+
+1.  6.4.2.001~001~.Text.Jugaad~Discussion~
+
+    > TODO: Write content for Jugaad~Discussion~.
+
+2.  6.4.2.002~001~.FigCode.Strategic~Loss~
+
+    > TODO: Create diagram.
+
+3.  6.4.2.003~001~.Story.CDAC~NetworkStackMissed~
+
+    > TODO: Write story.
+
+### 6.4.3. Explore Indian Exceptions --- The List from 5.2.1 {#sec-6-4-3 children="6.4.3.001_001.Text.Exceptions_Intro, 6.4.3.002_001.FigCode.Five_Shapes_Indian_Work, 6.4.3.003_001.Story.Kitty_Goyal"}
+
+1.  6.4.3.001~001~.Text.Exceptions~Intro~
+
+    > TODO: Write content for Exceptions~Intro~.
+
+2.  6.4.3.002~001~.FigCode.Five~ShapesIndianWork~
+
+    > TODO: Create Pikchr diagram.
+
+3.  6.4.3.003~001~.Story.Kitty~Goyal~
+
+    > TODO: Write story.
+
+### 6.4.4. Identify Problems with Adoption and Other Issues
+
+1.  6.4.4.1. Funding-Based Re-Domiciliation
+
+    1.  6.4.4.1.001~001~.Text.ReDomiciliation
+
+        > TODO: Write content for ReDomiciliation.
+
+2.  6.4.4.2. Trapped Inside One Organization
+
+    1.  6.4.4.2.001~001~.Text.Trapped~WebNMSProprietary~
+
+        > TODO: Write content for Trapped~WebNMSProprietary~.
+
+    2.  6.4.4.2.002~002~.Text.Trapped~DrovekafrelayDungBeetle~
+
+        > TODO: Write content for Trapped~DrovekafrelayDungBeetle~.
+
+3.  6.4.4.3. The Institution-Led Pattern Is Failing
+
+    1.  6.4.4.3.001~001~.Text.CDAC~CDOTFailure~
+
+        > TODO: Write content for CDAC~CDOTFailure~.
+
+## 6.5. Why China Is Successful {#sec-6-5 children="6.5.001_001.Text.China_Success_Factors"}
+
+### 6.5.001~001~.Text.China~SuccessFactors~ {#6.5.001_001 type="Text" name="China_Success_Factors" status="not_started" description="Summarises China’s success factors: domestic-market forcing function (Singles’ Day), state policy (IOE replacement), scale, and neutral governance (Apache/CNCF) that enabled global adoption."}
+
+> TODO: Write content for China~SuccessFactors~.
+
+## 6.6. Models in Other Countries {#sec-6-6 children="6.6.001_001.Text.Country_Models_Intro, 6.6.002_001.Tab.Country_Models"}
+
+### 6.6.001~001~.Text.Country~ModelsIntro~ {#6.6.001_001 type="Text" name="Country_Models_Intro" status="not_started" description="Compares three other models: China (state-mandated deletion of IOE), Russia (organic invention then geopolitics), Germany (sovereignty procurement through Stiftung)."}
+
+> TODO: Write content for Country~ModelsIntro~.
+
+### 6.6.002~001~.Tab.Country~Models~ {#6.6.002_001 type="Tab" name="Country_Models" status="not_started" description="Table with columns: Country, model type, key institutions, examples."}
+
+> TODO: Create table.
+
+## 6.7. Story Box: PhonePe Drove {#sec-6-7 children="6.7.001_001.Story.PhonePe_Drove"}
+
+### 6.7.001~001~.Story.PhonePe~Drove~ {#6.7.001_001 type="Story" name="PhonePe_Drove" status="not_started" description="Story box on PhonePe’s Drove orchestrator. Links to GitHub. Discusses its internal use at scale and the gap between internal success and external adoption."}
+
+> TODO: Write story.
+
+## 6.8. Today: CDAC and IITM Database and OS Attempts {#sec-6-8 children="6.8.001_001.Text.CDAC_IITM_Wrappers, 6.8.002_001.Story.Zepto_PR_Upstream"}
+
+### 6.8.001~001~.Text.CDAC~IITMWrappers~ {#6.8.001_001 type="Text" name="CDAC_IITM_Wrappers" status="not_started" description="Notes that current CDAC and IITM database/OS efforts are essentially wrappers on existing open-source (e.g. PostgreSQL, Linux). Argues it is time to start from scratch on a real problem."}
+
+> TODO: Write content for CDAC~IITMWrappers~.
+
+### 6.8.002~001~.Story.Zepto~PRUpstream~ {#6.8.002_001 type="Story" name="Zepto_PR_Upstream" status="not_started" description="Story box: Zepto – instead of building a new database, they filed a PR upstream. This is the perfect anti-pattern of “renting” – efficient in the short term, but does not build strategic assets."}
+
+> TODO: Write story.
+
+# 7. Conclusion
+
+## 7.1. Our Innovation Ecosystem Is Not Working {#sec-7-1 children="7.1.001_001.Text.Ecosystem_Failure"}
+
+### 7.1.001~001~.Text.Ecosystem~Failure~ {#7.1.001_001 type="Text" name="Ecosystem_Failure" status="not_started" description="Argues that the triad (government institutes + elite academic institutes + industry) is misaligned. Innovations target big-industry problems with short-term horizons and no end-to-end planning."}
+
+> TODO: Write content for Ecosystem~Failure~.
+
+## 7.2. Suggest: SME-Driven and Local Academic-Driven Goals {#sec-7-2 children="7.2.1.001_001.Text.SME_Case, 7.2.2.001_001.Text.Govt_LongTerm"}
+
+### 7.2.1. Case for SME Medium-Term {#sec-7-2-1 children="7.2.1.001_001.Text.SME_Case"}
+
+1.  7.2.1.001~001~.Text.SME~Case~
+
+    > TODO: Write content for SME~Case~.
+
+### 7.2.2. Case for Government-Supported Very Long-Term {#sec-7-2-2 children="7.2.2.001_001.Text.Govt_LongTerm"}
+
+1.  7.2.2.001~001~.Text.Govt~LongTerm~
+
+    > TODO: Write content for Govt~LongTerm~.
+
+## 7.3. Go Back to Zoho's Case {#sec-7-3 children="7.3.001_001.Text.Zoho_Strategic_Advantage, 7.3.002_002.Text.Hasura_Neutral_Custody"}
+
+### 7.3.001~001~.Text.Zoho~StrategicAdvantage~ {#7.3.001_001 type="Text" name="Zoho_Strategic_Advantage" status="not_started" description="Revisits Zoho/AdventNet – owning the plumbing (WebNMS, ManageEngine) provided strategic advantage and survival through multiple market cycles."}
+
+> TODO: Write content for Zoho~StrategicAdvantage~.
+
+### 7.3.002~002~.Text.Hasura~NeutralCustody~ {#7.3.002_002 type="Text" name="Hasura_Neutral_Custody" status="not_started" description="Comments on Hasura’s re-domicile – a neutral custody institution (like a sovereign foundation) could have kept it Indian while allowing global scaling."}
+
+> TODO: Write content for Hasura~NeutralCustody~.
+
+## 7.4. Establish: We Failed Not Because of Talent, But Because of Governance {#sec-7-4 children="7.4.001_001.Text.Talent_Exists_Governance_Fails"}
+
+### 7.4.001~001~.Text.Talent~ExistsGovernanceFails~ {#7.4.001_001 type="Text" name="Talent_Exists_Governance_Fails" status="not_started" description="Indian engineers built Kafka, LLVM, and have contributed to the Linux kernel. The talent exists. The failure is governance – lack of custodial institutions, long-term funding, and strategic patience."}
+
+> TODO: Write content for Talent~ExistsGovernanceFails~.
+
+## 7.5. Future Suggested Action Items {#sec-7-5 children="7.5.001_001.Tab.Future_Action_Items"}
+
+### 7.5.001~001~.Tab.Future~ActionItems~ {#7.5.001_001 type="Tab" name="Future_Action_Items" status="not_started" description="Table with columns: Action item, timeline (short/medium/long), evaluation criteria, responsible stakeholders."}
+
+> TODO: Create table.
+
+# 8. Footnotes {#sec-8 children="8.001_001.Text.Footnotes"}
+
+## 8.001~001~.Text.Footnotes {#8.001_001 type="Text" name="Footnotes" status="not_started" description="All [fn:*] definitions with full citations (document name + deep link)."}
+
+> TODO: Write footnotes.
+
+# 9. Annexures (If Any) {#sec-9 children="9.001_001.Text.Annexures"}
+
+## 9.001~001~.Text.Annexures {#9.001_001 type="Text" name="Annexures" status="not_started" description="Placeholder for any supplementary material – e.g. full TPC-C result listings, detailed project metadata, or interview transcripts."}
+
+> TODO: Add supplementary material.
+
+# 10. Local Variables
