@@ -674,6 +674,13 @@ India writes and operates software that other firms own, priced below
 what those owners would pay to build it at home. What India sells is
 the cost gap, not the software. (NASSCOM FY25)
 
+What India does not build is foundational software for domestic or
+global consumption. There is no Indian-owned operating system that
+powers a significant share of the world's servers, no Indian-owned
+database in the TPC-C rankings, no Indian-owned message broker,
+compiler, or consensus engine that the rest of the world depends
+upon. The floor is rented, and the wallpaper is sold.
+
 #+NAME: FigCode.India_Revenue_Breakdown
 #+caption: India IT Revenue by Segment — FY25 [Author judgement]
 #+begin_export markdown
@@ -941,29 +948,9 @@ flowchart TD
 ```
 #+end_export
 
-** DONE 4.5. What We Are Building, and for Which Markets
+** DONE 4.5. DPI: The Protocol & Mandate Floor (India’s Parallel Path)
 :PROPERTIES:
 :CUSTOM_ID: 4.5
-:END:
-
-India builds application-layer software primarily for export markets in
-the United States and Europe. The successful product companies — Zoho,
-Freshworks, Postman, BrowserStack — were built for foreign customers
-from the first line of code because the domestic market does not pay
-enough for Indian software. East Asia inverted that sequence: its
-champions were built for a captive home market and only later exported.
-
-What India does not build is foundational software for domestic or
-global consumption. There is no Indian-owned operating system that
-powers a significant share of the world's servers. There is no
-Indian-owned database that appears in the Transaction Processing
-Performance Council (TPC-C) rankings. There is no Indian-owned message
-broker, compiler, or consensus engine that the rest of the world
-depends upon. The floor is rented, and the wallpaper is sold.
-
-** DONE 4.6. DPI: The Protocol & Mandate Floor (India’s Parallel Path)
-:PROPERTIES:
-:CUSTOM_ID: 4.6
 :END:
 
 An honest objection first: India has built world-class digital
@@ -1165,8 +1152,8 @@ The comparison table has "None" in several India cells. India's
 foundational work is less visible — not in TPC rankings, not in global
 foundations. The known exceptions:
 
-*PhonePe Drove:* Internal Kubernetes orchestrator, open-sourced but
-with low external contribution.
+*PhonePe Drove:* Container orchestrator built to replace Mesos, open-sourced
+but with low external contribution ([[#6.7][Section 6.7]]).
 
 *kaf-relay:* Kafka relay tool from Zerodha, open-sourced but with few
 PRs.
@@ -2097,13 +2084,10 @@ Ant's OceanBase took the other path: open-sourced under MulanPubL-2.0,
 relicensed Apache-2.0 (March 2026) under the OpenAtom Foundation — not Apache.
 A moat versus a commons.
 
-PhonePe's Drove and Zerodha's kaf-relay and DungBeetle are open-sourced.
-They are production-grade tools that solve real problems. They have been
-dog-fooded at scale.
-
-But they have low external contribution. PR counts are low. The
-community is small. The projects are not governed by a foundation. They
-are not part of a broader ecosystem.
+Zerodha's kaf-relay and DungBeetle, and PhonePe's Drove (its own story
+in [[#6.7][Section 6.7]]), are open-sourced and dog-fooded at scale. All three
+share the same profile: low external PRs, a small community, no
+foundation, no broader ecosystem.
 
 The pattern is consistent: open-sourcing without community-building.
 Code is released; governance, documentation, and outreach are not.
@@ -2179,25 +2163,44 @@ Other countries have taken different paths to foundational software ownership. I
 :END:
 
 #+begin_story
-*PhonePe Drove: Internal Success, External Silence*
+*PhonePe Drove: Foundational Work, External Silence*
 
 PhonePe processes billions of transactions a year. When Apache Mesos
-could no longer run its clusters, PhonePe built Drove — a distributed
-container orchestrator (NUMA-aware scheduling, leader election, executors,
-gateway) that replaces Mesos/Kubernetes at that scale. It is production-grade, hardened at scale, and
-open-sourced on GitHub.
+could no longer run its clusters, PhonePe built Drove — a container
+orchestrator written from scratch for that scale. This is not an
+application. This is foundational work: a NUMA-aware scheduler that pins
+containers to cores so they stop stepping on each other, controller
+leader-election, automatic zombie-container detection (which Mesos left
+to the SRE team to kill by hand), and a two-component design — controller
+and executor — small enough that a small team can run the whole cluster.
 
-Drove has a GitHub repository, documentation, and a permissive license.
-But it has low external adoption. PRs from outside PhonePe are rare.
-The community is small. The project is not part of a larger ecosystem.
+Kubernetes keeps the truth of its cluster state in etcd. Drove keeps its
+truth in Apache ZooKeeper — state persistence, leader election, and the
+store for every application and task specification. An application in
+Drove is a real state machine (=INIT= → =MONITORING= → =RUNNING= →
+=OUTAGE_DETECTED= → … → =DESTROYED=), not a pile of YAML reconciled by hope.
 
-Drove is an example of the "open-sourced but under-maintained" pattern.
-The code is available, but the governance, the documentation, the
-marketing, and the outreach are not sustained. The project is trapped
-inside the organisation in the sense that it does not become a community
-project.
+Look closer at what Drove does /not/ do, and the gap between
+"foundational" and "finished" shows:
 
-India’s companies are good at building code. They are not yet good at
+- No auto-scaling — PhonePe runs a proprietary external auto-scaler.
+- No network policy — traffic control happens at the VRF level.
+- No multi-DC cluster — the docs admit one was never tested.
+- No end-to-end configuration management — config is maintained outside
+  the cluster, under PhonePe's own approval workflows.
+- Observability is a real-time event stream plus raw metrics on admin
+  ports; you assemble the stack yourself from Telegraf, a modified
+  OpenTSDB, and Grafana.
+
+The point is not that Drove is weak. The point is that this is exactly
+the kind of foundational work India is told it cannot do — built by a
+payments company in the margins of its core business, released under
+Apache 2.0, and then left to coast. Low external adoption, few outside
+PRs, no foundation, no ecosystem. Open-sourced, not community-built.
+(Drove's internals deserve a dedicated note; this essay only needs the
+lesson.)
+
+India's companies are good at building code. They are not yet good at
 building communities.
 #+end_story
 
@@ -2476,7 +2479,7 @@ companies, funded by American institutions.
 
 The governance failure is specific:
 
-1. *No custodial institution* to hold IP and maintain neutrality.
+1. *No custodial institution* to hold IP and maintain neutrality ([[#7.3][Section 7.3]]).
 2. *No long-term funding mechanism* (India has no DARPA equivalent for software).
 3. *No strategic patience* — government technology initiatives rarely survive
    a change of minister.
@@ -2683,8 +2686,11 @@ Plot.plot({
 ** Indian Projects and Exceptions
 
 22. PhonePe. Drove — container orchestration platform,
-    open-sourced.
+    open-sourced under Apache 2.0.
     [[https://github.com/PhonePe/drove][github.com/PhonePe/drove]].
+    Docs (cluster anatomy, application state machine,
+    observability, unsupported features):
+    [[https://phonepe.github.io/drove-orchestrator/][phonepe.github.io/drove-orchestrator]].
 
 23. Zerodha. kaf-relay — Kafka consumer group relay tool.
     [[https://github.com/zerodha/kaf-relay][github.com/zerodha/kaf-relay]].
