@@ -47,6 +47,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install jupyter matplotlib pandas numpy
 
+      - name: Install pikchr
+        run: |
+          curl -fsSL https://pikchr.org/home/raw/trunk/pikchr.c -o pikchr.c
+          gcc -o pikchr pikchr.c -lm
+          sudo mv pikchr /usr/local/bin/pikchr
+
+      - name: Install D2
+        run: curl -fsSL https://d2lang.com/install.sh | sh -s --
+
+      - name: Install Quarto extensions
+        run: |
+          quarto add --no-prompt quarto-ext/pikchr
+          quarto add --no-prompt mcanouil/quarto-d2
+
       # NOTE: Re-add the R setup step here ONLY if you explicitly use R code blocks (.Rmd / r code cells)
       # Otherwise, keeping it omitted cuts your build time down to under 60 seconds.
 

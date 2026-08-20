@@ -1,0 +1,152 @@
+{{primary sources|date=January 2022}}
+
+{{Short description|Transactional distributed SQL database}}
+{{Infobox software
+| title                  =
+| name                   = YugabyteDB
+| logo                   = YugabyteLogo.png
+| author                 = Kannan Muthukkaruppan, Karthik Ranganathan, Mikhail Bautin
+| developer              = Yugabyte, Inc.
+| released               = {{Start date and age|2016}}
+| latest release version = 2024.2 (Stable)<br> 2.23 (Preview)
+| latest release date    = {{Start date and age|2024|12|09}}<br> {{Start date and age|2024|09|13}}
+| programming language   = [[C++]]
+| operating system       = Alma Linux 8.x and derivatives, MacOS
+| platform               = [[Bare-metal server|Bare Metal]], [[Virtual Machine]], [[Docker (software)|Docker]], [[Kubernetes]] and various container management platforms
+| size                   =
+| language               = English
+| genre                  = [[Relational database management system|RDBMS]]
+| license                = [[Apache License|Apache]] 2.0
+| standard               =
+}}
+{{Infobox company
+| name                = Yugabyte, Inc.
+| logo                =
+| type                = [[Private company|Private]]
+| industry            = [[Database]]
+| founded             = {{start date and age|2016||02}}
+| founder             = Kannan Muthukkaruppan, Karthik Ranganathan, Mikhail Bautin
+| hq_location         = [[Sunnyvale]], [[California]], US
+| key_people          = Kannan Muthukkaruppan<br>(co-founder & president,<br> product development)<br> Karthik Ranganathan<br>(co-founder & CTO)<br> Mikhail Bautin<br>(co-founder &<br>software architect)<br>Bill Cook<br>(CEO)
+
+| services            = Commercial database management systems
+| website             = {{URL| yugabyte.com}}
+}}
+
+'''YugabyteDB''' is a high-performance [[Transaction processing|transactional]] [[distributed SQL]] [[database]] for [[Cloud native computing|cloud-native]] applications, developed by Yugabyte.<ref>{{cite web |url=https://db-engines.com/en/system/YugabyteDB |website=DB-Engines |title=YugabyteDB System Properties |access-date=30 December 2021}}</ref>
+
+==History==
+Yugabyte was founded by ex-[[Facebook]] engineers Kannan Muthukkaruppan, Karthik Ranganathan, and Mikhail Bautin. At Facebook, they were part of the team that built and operated [[Apache Cassandra|Cassandra]] and [[Apache HBase|HBase]]<ref>{{cite web |title=Karthik Ranganathan |url=https://www.dataversity.net/contributors/karthik-ranganathan/ |website=Dataversity |access-date=30 December 2021}}</ref><ref>{{cite book |url=https://dl.acm.org/doi/abs/10.1145/1989323.1989438 |website=Association For Computer Machinery |year=2011 |doi=10.1145/1989323.1989438 |access-date=15 January 2022|last1=Borthakur |first1=Dhruba |last2=Rash |first2=Samuel |last3=Schmidt |first3=Rodrigo |last4=Aiyer |first4=Amitanand |last5=Gray |first5=Jonathan |last6=Sarma |first6=Joydeep Sen |last7=Muthukkaruppan |first7=Kannan |last8=Spiegelberg |first8=Nicolas |last9=Kuang |first9=Hairong |last10=Ranganathan |first10=Karthik |last11=Molkov |first11=Dmytro |last12=Menon |first12=Aravind |title=Proceedings of the 2011 ACM SIGMOD International Conference on Management of data |chapter=Apache hadoop goes realtime at Facebook |page=1071 |isbn=9781450306614 |s2cid=207188340 }}</ref> for workloads such as Facebook [[Facebook Messenger|Messenger]] and Facebook's [[Operational Data Store]].<ref>{{cite web |title=YugaByte Raises $8M in Series A Funding |access-date=30 December 2021|url=https://www.finsmes.com/2017/11/yugabyte-raises-8m-in-series-a-funding.html |website=FINSMES|date=2 November 2017 }}</ref>
+
+The founders came together in February 2016 to build YugabyteDB.<ref>{{cite web |title=Yugabyte CTO outlines a PostgreSQL path to distributed cloud |url=https://venturebeat.com/2021/07/26/yugabyte-cto-outlines-a-postgresql-path-to-distributed-cloud/ |website=VentureBeat |date=26 July 2021 |access-date=31 December 2021}}</ref><ref>{{cite web |title=Yugabyte expands its fully managed enterprise cloud service with $188M |access-date=30 December 2021|url=https://venturebeat.com/2021/10/28/yugabyte-expands-its-fully-managed-enterprise-cloud-service-with-188m/ |website=VentureBeat|date=28 October 2021 }}</ref>
+
+YugabyteDB was initially available in two editions: community and enterprise. In July 2019, Yugabyte open-sourced previously commercial features and launched YugabyteDB as open-source under the [[Apache License|Apache]] 2.0 license.<ref>{{cite web |title=Yugabyte Expands Multi-Region Database Capabilities and Enterprise-Grade Security with YugabyteDB 2.5 |url=https://www.businesswire.com/news/home/20201112005160/en/Yugabyte-Expands-Multi-Region-Database-Capabilities-and-Enterprise-Grade-Security-with-YugabyteDB-2.5 |website=businesswire.com |date=12 November 2020 |access-date=30 November 2024}}</ref>
+
+=== Funding ===
+In October 2021, five years after the company's inception, Yugabyte closed a $188 Million Series C funding round to become a [[Unicorn (finance)|Unicorn]] start-up with a valuation of $1.3Bn<ref>{{cite web |title=Another cloud native SQL database unicorn: Yugabyte raises $188M Series C funding at $1.3B valuation |url=https://www.zdnet.com/article/another-globally-distributed-cloud-native-sql-database-unicorn-yugabyte-raises-188m-series-c-funding-at-1-3b-valuation/ |website=ZDNet |access-date=12 January 2022}}</ref>
+
+{| class="wikitable"
+|-
+|+ Funding Rounds
+|-
+! scope="col" | Series
+! scope="col" | Date Announced
+! scope="col" | Amount
+! scope="col" | Investors
+|-
+| A
+| 10 Feb 2016
+| $8M
+| [[Lightspeed Venture Partners]], Jeff Rothschild<ref>{{cite web |title=YugaByte Raises $8M in Series A Funding |url=http://www.finsmes.com/2017/11/yugabyte-raises-8m-in-series-a-funding.html |website=Finsmes|date=2 November 2017 }}</ref><ref>{{cite web |title=YugaByte Receives $8M Series A Round |url=http://www.vcnewsdaily.com/yugabyte/venture-capital-funding/rvcdzhbtxd |website=VC News Daily |access-date=12 January 2022}}</ref>
+|-
+| A
+| 12 Jun 2018
+| $16M
+| Lightspeed Venture Partners, Dell Technology Capital<ref>{{cite web |title=YugaByte raises $16 Million to combine SQL and NoSQL in a single database |url=https://technologies.org/yugabyte-raises-16-million-to-combine-sql-and-nosql-in-a-single-database/ |website=Technologies.org |access-date=12 January 2022}}</ref><ref>{{cite web |title=YugaByte's new database software rakes in $16 million so developers can move to any cloud |url=https://techcrunch.com/2018/06/12/yugabytes-new-database-software-rakes-in-16-million-so-developers-can-move-to-any-cloud/ |website=TechCrunch |date=12 June 2018 |access-date=12 January 2022}}</ref>
+|-
+| B
+| 09 Jun 2020
+| $30M
+| [[Wipro]] Ventures, Lightspeed Venture Partners. Dell Technology Capital. 8VC <ref>{{cite web |title=Another globally distributed cloud native SQL database on the rise: Yugabyte Raises $30 million in Series B Funding |url=https://zd.net/3dOJNIy |website=ZDNet |access-date=12 January 2022}}</ref><ref>{{cite web |title=Yugabyte raises $30M for its cloud-native distributed SQL database |url=https://siliconangle.com/2020/06/09/yugabyte-raises-30m-cloud-native-distributed-sql-database/ |website=SiliconAngle |date=9 June 2020 |access-date=12 January 2022}}</ref>
+|-
+| B
+| 03 Mar 2021
+| $48M
+| Wipro Ventures. Lightspeed Venture Partners. Greenspring Associates, Dell Technology Capital, 8VC<ref>{{cite web |title=Yugabyte raises $48M for open source SQL database alternative |url=https://venturebeat.com/2021/03/03/yugabyte-raises-48m-for-open-source-sql-database-alternative/ |website=VentureBeat |date=3 March 2021 |access-date=12 January 2022}}</ref><ref>{{cite web |title=Yugabyte Raises $48 Million Funding Round to Accelerate Distributed SQL Enterprise Adoption and Fuel Global Expansion |url=https://finance.yahoo.com/news/yugabyte-raises-48-million-funding-140000688.html |website=YahoonFinance |access-date=12 January 2022}}</ref> 
+|-
+| C
+| 28 Oct 2021
+| $188M
+| Wells Fargo Strategic Capital, [[Sapphire Ventures]], [[Meritech Capital Partners]], Lightspeed Venture Partners, Dell Technology Capital, 8VC<ref>{{cite web |title=Yugabyte's latest funding round values the distributed SQL system at $1.3bn |url=https://go.theregister.com/feed/www.theregister.com/2021/10/29/yugabyte_series_c/ |website=The Register |access-date=12 January 2022}}</ref><ref>{{cite web |title=Another cloud native SQL database unicorn: Yugabyte raises $188M Series C funding at $1.3B valuation |url=https://www.zdnet.com/article/another-globally-distributed-cloud-native-sql-database-unicorn-yugabyte-raises-188m-series-c-funding-at-1-3b-valuation/ |website=ZDNet |access-date=12 January 2022}}</ref><ref>{{cite web |title=High-performance database startup Yugabyte raises $188M in new funding round |url=https://siliconangle.com/2021/10/28/high-performance-database-startup-yugabyte-raises-188m-series-c-funding-round/ |website=Silicon Angle |date=28 October 2021 |access-date=12 January 2022}}</ref>
+|}
+
+== Architecture ==
+
+YugabyteDB is a distributed SQL database that aims to be strongly transactionally consistent across failure zones (i.e. [[ACID]] compliance).<ref>{{cite web |title=ACID Transactions |url=https://devopedia.org/acid-transactions |website=Devopedia |date=18 August 2019 |access-date=12 January 2022}}</ref><ref>{{cite web |title= ICT Solutions for local flexibility markets |url=https://www.conferenceie.ase.ro/wp-content/uploads/2020/06/ProceedingsIE2020/ict_solutions_for_local_flexibility_markets.pdf |website=Academia de Studii Economice din Bucuresti |publisher=Proceedings of the IE 2020 International Conference |access-date=15 January 2022}}</ref> In [[CAP Theorem]] terms YugabyteDB is a Consistent/Partition Tolerant (CP) database.<ref>{{cite web |title=YugaByteDB: A Distributed Cloud Native Database for a Highly Scalable Data Store |url=https://www.opensourceforu.com/2020/09/yugabytedb-a-distributed-cloud-native-database-for-a-highly-scalable-data-store/ |website=Open Source Foru |date=14 September 2020 |access-date=15 January 2022}}</ref><ref>{{cite web |title=Yugabyte Design Goals |url=https://docs.yugabyte.com/latest/architecture/design-goals/ |website=Yugabyte.com |access-date=15 January 2022}}</ref><ref>{{cite journal |title=A Generic and Extensible Core and Prototype of Consistent, Distributed, and Resilient LIS |year=2020 |doi=10.3390/ijgi9070437 |doi-access=free |last1=Galić |first1=Zdravko |last2=Vuzem |first2=Mario |journal=ISPRS International Journal of Geo-Information |volume=9 |issue=7 |page=437 |bibcode=2020IJGI....9..437G }}</ref> YugabyteDB has two layers,<ref>{{cite web |title=Yugabyte Layered Architecture |url=https://docs.yugabyte.com/latest/architecture/layered-architecture/ |website=Yugabyte |access-date=15 January 2022}}</ref> a storage engine known as DocDB and the Yugabyte Query Layer.<ref name="ntnu">{{cite web |last1=Hirsch |first1=Orhan Henrik |title=Scalability of NewSQL Databases in a Cloud Environment |url=https://ntnuopen.ntnu.no/ntnu-xmlui/bitstream/handle/11250/2777732/no.ntnu%3ainspera%3a57320302%3a31535683.pdf?sequence=1&isAllowed=y |website=Norwegian University of Science and Technology |publisher=NYNU Open |access-date=15 January 2022}}</ref>
+
+[[File:YugabyteDBArchitecture.png|thumb|alt=Architecture Block Diagram for YugabyteDB|YugabyteDB Architecture]]
+
+=== DocDB ===
+
+The storage engine consists of a customized [[RocksDB]]<ref name="ntnu" /><ref name="sisu" /> combined with sharding and load balancing algorithms for the data. In addition, the [[Raft (algorithm)|Raft consensus algorithm]] controls the replication of data between the nodes.<ref name="ntnu" /><ref name="sisu" /> There is also a [[Distributed transaction]] manager<ref name="ntnu" /><ref name="sisu" /> and  [[Multiversion concurrency control]] (MVCC)<ref name="ntnu" /><ref name="sisu" /> to support distributed transactions.<ref name="sisu">{{cite web |last1=Budholia |first1=Akash |title=NewSQL Monitoring System |url=https://scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=1996&context=etd_projects |website=San Jose State University Scholar Works |access-date=15 January 2022}}</ref>
+
+The engine also exploits a Hybrid Logical Clock<ref>{{cite web |title=Hybrid Clock |url=https://martinfowler.com/articles/patterns-of-distributed-systems/hybrid-clock.html |website=Martin Fowler |access-date=30 December 2021}}</ref><ref name="ntnu" /> that combines coarsely-synchronized physical clocks with [[Lamport timestamp|Lamport clocks]] to track causal relationships.<ref>{{cite web |title=Distributed Transactions without Atomic Clocks |url=https://www.yugabyte.com/wp-content/uploads/2021/05/Distributed-Transactions-Without-Atomic-Clocks.pdf |website=Yugabyte |access-date=15 January 2022}}</ref>
+
+The DocDB layer is not directly accessible by users.<ref name="ntnu" />
+
+=== YugabyteDB Query Layer ===
+
+Yugabyte has a pluggable query layer that abstracts the query layer from the storage layer below.<ref>{{cite web |title=Yugabyte DB 2.0 Ships Production-Ready Distributed SQL Database for Going Cloud Native |url=https://www.idevnews.com/stories/7298/Yugabyte-DB-20-Ships-Production-Ready-Distributed-SQL-Database-for-Going-Cloud-Native |website=Integration Developer News |access-date=15 January 2022}}</ref> There are currently two APIs that can access the database:<ref name="sisu" />
+
+'''YSQL'''<ref>{{cite web |title=Yugabyte Structured Query Language (YSQL) |url=https://docs.yugabyte.com/latest/api/ysql/ |website=Yugabyte |access-date=15 January 2022}}</ref> is a PostgreSQL code-compatible API<ref>{{cite web |title=Yugabyte Meets Developer Demand for Comprehensive PostgreSQL Compatibility with YugabyteDB 2.11 |url=https://www.businesswire.com/news/home/20211123005572/en/Yugabyte-Meets-Developer-Demand-for-Comprehensive-PostgreSQL-Compatibility-with-YugabyteDB-2.11 |website=BusinessWire |date=23 November 2021 |access-date=15 January 2022}}</ref><ref name="ysql">{{cite web |title=PostgreSQL Compatibility in YugabyteDB 2.0 |url=https://blog.yugabyte.com/postgresql-compatibility-in-yugabyte-db-2-0/ |website=Yugabyte|date=17 September 2019 }}</ref> based around v11.2. YSQL is accessed via standard PostgreSQL drivers using native protocols.<ref>{{cite web |title=Client Drivers for YSQL |url=https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/ |website=Yugabyte}}</ref> It exploits the native PostgreSQL code for the query layer<ref>{{cite web |title=Why We Built YugabyteDB by Reusing the PostgreSQL Query Layer |url=https://blog.yugabyte.com/why-we-built-yugabytedb-by-reusing-the-postgresql-query-layer/ |website=Yugabyte |date=24 April 2020 |access-date=15 January 2022}}</ref> and replaces the storage engine with calls to the pluggable query layer. This re-use means that Yugabyte supports many features, including:
+* Triggers & Stored Procedures<ref name="ysql" />
+* PostgreSQL extensions that operate in the query layer<ref name="ysql" />
+* Native JSONB support<ref name="ysql" />
+
+'''YCQL'''<ref>{{cite web |title=Yugabyte Cloud Query Language (YCQL) |url=https://docs.yugabyte.com/latest/api/ycql/ |website=Yugabyte |access-date=15 January 2022}}</ref> is a Cassandra-like API based around v3.10 and re-written in C++. YCQL is accessed via standard Cassandra drivers<ref>{{cite web |title=Client drivers for YCQL |url=https://docs.yugabyte.com/latest/reference/drivers/ycql-client-drivers/ |website=Yugabyte}}</ref> using the native protocol port of 9042. In addition to the 'vanilla' Cassandra components, YCQL is augmented with the following features:
+* Transactional consistency - unlike Cassandra, Yugabyte YCQL is transactional.<ref>{{cite web |title=ACID Transactions |url=https://docs.yugabyte.com/latest/develop/learn/acid-transactions-ycql/ |website=Yugabyte}}</ref>
+* [[JSON]] data types supported natively<ref>{{cite web |title=YCQL JSONB Data Type |url=https://docs.yugabyte.com/latest/api/ycql/type_jsonb/ |website=Yugabyte |access-date=15 January 2022}}</ref>
+* Tables can have secondary indexes<ref>{{cite web |title=YCQL Secondary Indexes |url=https://docs.yugabyte.com/latest/develop/learn/data-modeling-ycql/#secondary-indexes |website=Yugabyte |access-date=15 January 2022}}</ref>
+
+Currently, data written to either API is not accessible via the other API, however YSQL can access YCQL using the PostgreSQL foreign data wrapper feature.<ref>{{cite web |title=YugabyteDB: Postgres foreign data wrapper |url=https://gruchalski.com/posts/2021-11-08-yugabytedb-postgres-foreign-data-wrapper/ |website=Gruchalski |date=8 November 2021 |access-date=15 January 2022}}</ref>
+
+The security model for accessing the system is inherited from the API, so access controls for YSQL look like PostgreSQL,<ref>{{cite web |title=YSQL Access Control |url=https://docs.yugabyte.com/latest/secure/authorization/rbac-model/ |website=Yugabyte |access-date=15 January 2022}}</ref> and YCQL looks like Cassandra access controls.<ref>{{cite web |title=YCWL access Controls |url=https://docs.yugabyte.com/latest/secure/authorization/rbac-model-ycql/ |website=Yugabyte |access-date=15 January 2022}}</ref>
+
+== Cluster-to-cluster replication ==
+
+In addition to its core functionality of distributing a single database, YugabyteDB has the ability to replicate between database instances.<ref>{{cite web |title=Yugabyte Expands Multi-Region Database Capabilities and Enterprise-Grade Security with YugabyteDB 2.5 |url=https://www.businesswire.com/news/home/20201112005160/en/Yugabyte-Expands-Multi-Region-Database-Capabilities-and-Enterprise-Grade-Security-with-YugabyteDB-2.5 |website=Business Wire |date=12 November 2020 |access-date=15 January 2022}}</ref><ref>{{cite web |title=xCLuster Replication |url=https://docs.yugabyte.com/latest/architecture/docdb-replication/async-replication/ |website=Yugabyte |access-date=15 January 2022}}</ref> The replication can be one-way or bi-directional and is asynchronous.
+One-way replication is used either to create a read-only copy for workload off-loading or in a read-write mode to create an active-passive standby. 
+Bi-directional replication is generally used in read-write configurations and is used for active-active configurations, geo-distributed applications, etc.
+
+== Migration tooling ==
+
+Yugabyte also provides YugabyteDB Voyager, tooling to facilitate the [[Data_migration|migration]] of [[Oracle_Database|Oracle]] and other similar databases to YugabyteDB.<ref>{{cite web |title=Yugabyte simplifies SQL database migration with YugabyteDB Voyager |url=https://siliconangle.com/2023/01/24/yugabyte-simplifies-sql-database-migration-yugabytedb-voyager/?hss_channel=lcp-10643910 |website=siliconANGLE |date=24 January 2023 |access-date=15 March 2023}}</ref><ref>{{cite web |title=Yugabyte chomps into cloud migration |url=https://www.techzine.eu/blogs/data-management/101380/yugabyte-chomps-into-cloud-migration/ |website=Techzine|date=2 February 2023 |access-date=15 March 2023}}</ref> This tool supports the migration of schemas, procedural code and data from the source platform to YugabyteDB.
+
+==See also==
+{{Portal|Free and open-source software}}
+* [[Cloud database]]
+* [[Distributed SQL]]
+* [[Comparison of relational database management systems]]
+* [[Comparison of object–relational database management systems]]
+* [[Cloud native computing]]
+* [[Database management system]]
+* [[List of databases using MVCC]]
+* [[List of relational database management systems]]
+
+==References==
+{{reflist|30em}}
+
+==External links==
+* {{Official website|https://www.yugabyte.com/}}
+* {{GitHub|yugabyte/yugabyte-db}}
+* [https://yugabytedb.tips/ YugabyteDB Tips]
+
+[[Category:Cloud databases]]
+[[Category:Database companies]]
+[[Category:Bigtable implementations]]
+[[Category:Database-related software for Linux]]
+[[Category:NewSQL]]
+[[Category:Distributed computing]]
+[[Category:Fault tolerance|Computer systems]]
+[[Category:Software companies of the United States]]
+[[Category:Companies based in Silicon Valley]]

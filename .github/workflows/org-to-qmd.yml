@@ -33,7 +33,7 @@ jobs:
               --to markdown+yaml_metadata_block \
               --standalone \
               -o "articles/${base}.qmd"
-            sed -i -E 's/^``` ?(ojs|python|r|julia)$/```{\1}/' \
+            sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|pikchr|d2)$/```{\1}/' \
               "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
               cp "articles_original_org/${base}.css" "articles/${base}.css"

@@ -1,0 +1,52 @@
+{{Short description|High Performance Object Storage released under the AGPL open-source license}}
+{{Advert|date=September 2019}}
+{{Infobox software
+ | title                  = MinIO Object Storage
+ | developer              = MinIO, Inc
+ | released               = {{wikidata|property|preferred|references|edit|Q28956397|P348|P548=Q56514665}} / {{start date and age|{{wikidata|qualifier|preferred|Q28956397|P348|P548=Q56514665|P577}}}}
+ | latest release version = {{wikidata|property|preferred|references|edit|Q28956397|P348|P548=Q2804309}}
+ | latest release date    = {{start date and age|{{wikidata|qualifier|preferred|Q28956397|P348|P548=Q2804309|P577}}}}
+ | programming language   = [[Go (programming language)|Go]]
+ | genre                  = [[Object storage]]
+ | license                = [[GNU Affero General Public License|GNU Affero GPL]]
+}}
+
+'''MinIO''' is an [[object storage]] system released under [[GNU Affero General Public License]] v3.0.<ref>{{Cite web |title=Kubernetes storage: It's object or nothing for MinIO {{!}} Computer Weekly |url=https://www.computerweekly.com/news/366553212/Kubernetes-storage-Its-object-or-nothing-for-MinIO |access-date=2023-11-03 |website=ComputerWeekly.com |language=en}}</ref> It is [[API]] compatible with the [[Amazon S3]] cloud storage service. It is capable of working with [[unstructured data]] such as photos, videos, log files, backups, and container images with the maximum supported object size being 50TB.<ref>{{Cite web |title=MinIO Documentation: Thresholds and Limits |url=https://min.io/docs/minio/linux/operations/concepts/thresholds.html |access-date=2024-05-23 |website=min.io |language=en}}</ref>
+
+== History & development ==
+MinIO was developed by MinIO Inc, a [[Silicon Valley]]{{En dash}}based technology startup founded in November 2014.<ref>{{Cite web |last=Miller |first=Ron |date=2023-05-15 |title=Hear how MinIO built a unicorn in object storage on top of Kubernetes and open source |url=https://techcrunch.com/2023/05/15/hear-how-minio-built-a-unicorn-in-object-storage-on-top-of-kubernetes-and-open-source/ |access-date=2023-10-29 |website=TechCrunch |language=en-US}}</ref>
+
+MinIO has published a number of [[Benchmark (computing)|benchmarks]] to disclose both its own performance and the performance of an [[object storage]] in general. These benchmarks include comparisons to an [[Amazon S3]] for [[Trino (SQL query engine)|Trino]], [[Presto (SQL query engine)|Presto]], and [[Apache Spark|Spark]], as well as throughput results for the S3Benchmark on [[Hard disk drive|HDD]] and [[NVM Express|NVMe]] drives.<ref name="BandF">{{cite web |last1=Mellor |first1=Chris |date=2019-07-24 |title=Traditional file and block storage vendors are toast – Minio |url=https://blocksandfiles.com/2019/07/24/minio-object-storage-benchmarks/ |accessdate=2021-10-17 |website=blocksandfiles.com}}</ref><ref>{{Cite web|url=https://blocksandfiles.com/2019/11/13/minio-benchmark-object-storage-speed-wars/|title = MinIO fires fresh salvo in object storage speed wars|date = 13 November 2019}}</ref>
+
+MinIO was originally released under [[Apache License|Apache License 2.0]], but in 2021 it was migrated to AGPLv3.<ref>{{Cite web |date=2021-05-12 |title=From Open Source to Free and Open Source, MinIO is now fully licensed under GNU AGPLv3 |url=https://blog.min.io/from-open-source-to-free-and-open-source-minio-is-now-fully-licensed-under-gnu-agplv3/ |access-date=2025-11-04 |website=MinIO Blog |language=en}}</ref>
+
+MinIO released a free "community edition" which is only distributed as a source code release and has a greatly simplified administration interface.<ref>{{Cite web |last=Borisov |first=Bobby |date=2025-10-21 |title=MinIO Again Under Fire for Source-Only Decision |url=https://linuxiac.com/minio-with-yet-another-controversial-move/ |access-date=2025-11-04 |language=en-US}}</ref><ref>{{Cite web |last=Mellor |first=Chris |date=2025-06-19 |title=MinIO users complain after admin UI removed from Community Edition |url=https://blocksandfiles.com/2025/06/19/minio-removes-management-features-from-basic-community-edition-object-storage-code/ |access-date=2025-11-04 |website=Blocks and Files |language=en-US}}</ref>
+
+In February 2026 Minio, Inc stopped developing MinIO after it had previously stopped distributing compiled versions and accepting new features for their product. Since then it is not maintained anymore.<ref>{{Cite web |last=minio |title=update README.md format and clarify state of the project · minio/minio@7aac2a2 |url=https://github.com/minio/minio/commit/7aac2a2c5b7c882e68c1ce017d8256be2feea27f |access-date=2026-07-29 |website=GitHub |language=en}}</ref>
+
+== Architecture ==
+MinIO's storage [[Solution_stack|stack]] has three major components: '''MinIO Server''', '''MinIO Client''' (a.k.a. <code>mc</code>, which is a command-line client for the object and file management with any [[Amazon S3]] compatible servers), and '''MinIO Client SDK''', which can be used by application developers to interact with any [[Amazon S3]] compatible server.
+
+=== MinIO Server ===
+MinIO [[cloud storage]] server is designed to be bundled along with an existing application stack, and is optimized for large [[Enterprise resource planning|enterprise deployments]]. MinIO server can be installed both on physical and [[virtual_machine|virtual]] machines or launched as [[Docker (software)|Docker]] containers and deployed on container orchestration platforms like [[Kubernetes]].<ref>{{Cite web|url=https://diamanti.com/hyperscale-ml-with-kubeflow-minio-tensorflow-and-diamanti/|title = Hyperscale ML with Kubeflow, MinIO, TensorFlow and Diamanti|date = 14 November 2020}}</ref>
+
+=== MinIO Client ===
+MinIO Client provides an alternative to the standard UNIX commands (e.g. <code>[[ls]]</code>, <code>[[cat (Unix)|cat]]</code>, <code>[[cp (Unix)|cp]]</code>, <code>mirror</code>, <code>[[diff]]</code>, etc.) and adds support for [[Amazon S3]] compatible cloud storage services. It works on [[Linux]], [[MacOS|Mac]], and [[Microsoft Windows|Windows]] platforms.<ref>{{Cite web|url=https://github.com/minio/minio#binary-download|title = MinIO Quickstart Guide|website = [[GitHub]]|date = 20 November 2021}}</ref>
+
+=== MinIO Client SDK ===
+MinIO provides client [[Software development kit|SDK]] for [[Go (programming language)|Go]], [[Java (programming language)|Java]], [[Python (programming language)|Python]], [[JavaScript]], [[Haskell (programming language)|Haskell]], and [[.NET Framework]] to access any [[Amazon S3]] compatible object storage server.<ref>{{Cite news|last=Nicolas|first=Philippe|date=2016-07-15|title=The History Boys: Object storage ... from the beginning|language=en|work=The Register|url=https://www.theregister.co.uk/2016/07/15/the_history_boys_cas_and_object_storage_map/}}</ref>{{failed verification|reason=The linked article mentions MinIO only in a bulleted list, never again; and certainly doesn't substantiate this claim.|date=October 2021}} 
+
+==References==
+{{Reflist}}
+
+== External links ==
+{{Portal|Free and open-source software}}
+* {{official website}}
+* {{github|minio/minio}}
+
+[[Category:Cloud applications]]
+[[Category:Cloud infrastructure]]
+[[Category:Cloud storage]]
+[[Category:Object storage]]
+[[Category:Free software programmed in Go]]
+[[Category:Software using the GNU Affero General Public License]]

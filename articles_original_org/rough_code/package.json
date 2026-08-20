@@ -1,0 +1,14 @@
+{
+  "name": "7d2c0c9c6d2d8e84",
+  "main": "7d2c0c9c6d2d8e84@494.js",
+  "version": "494.0.0",
+  "homepage": "https://observablehq.com/d/7d2c0c9c6d2d8e84",
+  "author": {
+    "name": "Gagan pattanayak",
+    "url": "https://observablehq.com/@gagan-pattanayak"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}

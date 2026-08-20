@@ -8,6 +8,11 @@
    re-apply.
    ────────────────────────────────────────────────────────────────── */
 
+/* TODO/DONE keyword spans — pandoc leaks org TODO keywords as
+   <span class="todo|done">TEXT</span>; hide them so status stays
+   an editing-time tool and never appears in the published article. */
+span.todo, span.TODO, span.done, span.DONE { display: none; }
+
 /* Story boxes — sidebar-style bounded callouts */
 .story {
   background:#f6f4ef;

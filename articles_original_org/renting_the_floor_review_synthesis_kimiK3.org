@@ -1,0 +1,312 @@
+#+TITLE: Renting the Floor — Review Synthesis & Ruthless Critique
+#+AUTHOR: Kimi K3 reviewer (fourth pass, after Kimi 2.6, Kimi 3, and Deepseek)
+#+DATE: 2026-08-20
+
+This document is the synthesis of a four-model review of
+*renting_the_floor_wip.org*. It is deliberately separate from the essay: the
+essay carries 194 inline reviewer comments; this is the editorial verdict and
+the prioritized fix list. Read it as the review, not as the essay.
+
+* 1. The Verdict
+
+** 1.1 The idea versus the execution
+
+The idea and the execution are at two different levels, and they must not be
+conflated.
+
+*The idea is a 9.* "India rents the floor" is a genuinely original,
+memorable thesis. The layered metaphor (Raw Material -> Plumbing -> Floor ->
+Building -> Interior) is the cleanest analytical frame for the India-vs-China
+software question I have seen. And the reframed version — /India did not avoid
+the wall; it answered it by assembly instead of greenfield sovereignty/ — is
+both more honest and more interesting than the "India never hit a wall" line it
+replaced. That reframe is the single best sentence in the essay.
+
+*The execution is a 5.* The argument is carried almost entirely on numbers, and
+too many of those numbers are wrong, stale, mislabeled, or unsourced. The essay
+levels the accusation of "assertion without verification" at Indian software
+policy; as it currently stands, a hostile reader can level the same accusation
+back at the essay, with receipts. That is the one thing standing between this
+and publication.
+
+** 1.2 The uncomfortable truth
+
+If a serious editor received this today, their first three questions would all
+be the same kind: "Where did 26.7 million developers come from?" "Why does your
+GitHub topics table not match the raw CSV?" "Why is a US-founded database listed
+as an Indian re-domiciliation?" The thesis would survive those questions. The
+credibility of the evidence base, as written, would not.
+
+The essay was drafted before the data was verified. This is the root cause of
+nearly every problem below, and it is why the fix list is long: not because the
+thinking is weak, but because the facts were treated as decoration rather than
+as the load-bearing structure they actually are.
+
+* 2. Areas of Improvement — prioritized
+
+** 2.1 P0 — factual errors (fix before anything else)
+
+1. "The largest open-source contributor base by headcount" (Sec 3.8) and "#1
+   OSS Contributors" (Paradox figure). *Wrong.* GitHub Innovation Graph Q1 2026:
+   US 32.4M > India 26.7M. India is #2 by headcount; its defensible #1 claims
+   are growth and annual additions. Reword to "one of the largest" or "fastest
+   growing."
+
+2. The GitHub topics table (Sec 5.1.004) is presented as "not hand-picked — raw
+   Innovation Graph output." *It is not.* The raw CSV shows "rust" never in
+   China's top-12, "golang" only in Q1; India's actual top topics are python and
+   javascript, both omitted. Worse, China's raw top topics are also mostly web
+   languages — so the table, even corrected, does not prove the
+   "China=systems-languages" story it is built to support. Rewrite from the raw
+   CSV or relabel as illustrative. This is the single most damaging item: a
+   knowledgeable reader will check it and stop trusting the rest.
+
+3. "MapMyIndia (now KOO)" (Sec 5.4.2.2, three places). *Wrong.* MapMyIndia = CE
+   Info Systems (founded 1995, consumer brand Mappls); Koo = a microblogging app
+   (launched 2020, dead July 2024). Unrelated. Remove "(now KOO)".
+
+4. "AdventNet founded in Chennai" (Sec 5.2.2, body, timeline figure, and
+   DESCRIPTION). *Wrong.* Founded/incorporated in New Jersey, USA, 1996; Chennai
+   is the later R&D hub. Fix all three occurrences.
+
+5. "OceanBase ... now governed by Apache" (Sec 6.4.4.2) and "donated to Apache
+   or CNCF" (Sec 6.5). *Wrong.* OceanBase is Mulan PSL / OpenAtom Foundation;
+   only RocketMQ is an Apache TLP. The error recurs in two sections — fix both.
+
+6. "Baidu (Hadoop)" in the pattern-mapping table (Sec 6.3). *Wrong.* Hadoop was
+   Doug Cutting at Yahoo!, not Baidu; the essay's own canonical table (Sec
+   6.2.1) says so. Replace with a real Chinese scale-problem build (e.g. Alibaba
+   MaxCompute) or drop the cell.
+
+7. The "~34 million TPM / ~150×" UPI gap (Sec 3.7.001 Q1). *Units error.*
+   2,055M tpmC is ~2,055 million per *minute* (~34M per *second*). The gap vs
+   UPI's ~224K TPM is ~9,000×, not 150×. The essay understates its own point by
+   ~60×.
+
+8. The wall thesis contradicts itself. Executive Summary (i) now correctly says
+   "India did hit walls (PhonePe/Mesos, Zerodha) but answered by assembly," yet
+   Sec 6.1 still says "India faced none" and "India never hit a wall," and Sec
+   6.8 repeats "we have not hit a wall." Reconcile all three to the reframed
+   thesis.
+
+9. "YugabyteDB ... re-domiciled to the US" (Sec 6.4.4.1 and the Exec Summary's
+   implied "India did produce builders"). *Wrong.* YugabyteDB and MinIO were
+   US-founded; Hasura is the one genuine re-domiciliation. Fix the list, and
+   either label YugabyteDB "a US software company used as a foil" or remove it
+   from the Indian-builders list.
+
+10. Drove described two ways: Sec 6.7 calls it a manager "of Kubernetes
+    clusters"; Sec 6.4.4.2 (correctly) calls it a Kubernetes/Mesos-class
+    orchestrator built to *replace* Mesos. Fix Sec 6.7 — Drove does not sit on
+    top of Kubernetes.
+
+11. OceanBase attribution is inconsistent: "Ant Group" (Sec 6.2.1 table, 6.2.4)
+    versus "Alibaba" (Sec 3.5). OceanBase began inside Alibaba in 2010; Ant
+    adopted it later. Pick one and make every occurrence consistent.
+
+12. TPC-C dates. *Do not change them.* Two of the three prior reviewers
+    "corrected" the Bull Escala / OceanBase / TDSQL dates; those corrections are
+    wrong — they confused TPC.org's "System Availability" column with "Date
+    Submitted." The essay's dates (Jun 2008, May 2020, Mar 2023) are correct as
+    submitted. If anything, add a note that dates are "Date Submitted."
+
+** 2.2 P1 — wrong, stale, or mislabeled data
+
+1. "26.7 million developers" is undefined. It sits across three incompatible
+   metrics: GitHub Innovation Graph 26.7M (Q1 2026), GitHub Octoverse ~21.9M
+   "builders," NASSCOM 5.8M employed. State the metric and cite the source.
+
+2. "5.2 million new developers a year" is metric-mixing. That is GitHub
+   new-account growth (Octoverse), not net employment — NASSCOM's entire
+   workforce is 5.8M. Label it or drop it.
+
+3. Export share "~86%" is wrong. NASSCOM FY25: ~$224bn exports of $282.6bn =
+   ~79%. Fix the body, the chart literal (value:86), and footnote 2.
+
+4. Revenue segment breakdown is mislabeled. "$55bn Software Products" is
+   actually ~BPM; "Engineering/R&D $15bn" is far too low (~$50bn); "IT Services
+   $210bn" inflated. Correct to NASSCOM's real breakouts or mark the whole chart
+   [Author judgement], not just the foundational slice.
+
+5. R&D/GDP figures are stale. Current (World Bank): China 2.58%, India 0.65%,
+   US 3.45%, Korea 4.94%. The table's US 2.8 and Korea 4.2 are ~5-7 years old.
+
+6. Zoho timeline dates: ManageEngine launched 2002 (not 2005); "Zoho brand"
+   launched 2005 (2009 was the rename to Zoho Corporation). Relabel both.
+
+7. UPI "~500 million transactions/day" is stale — UPI crossed 20 billion/month
+   (~645M/day) in Aug 2025. The "₹314 lakh crore/year" figure is correct for the
+   latest full year (FY26) but needs the period label and an NPCI citation.
+
+8. OceanBase license: the repo is now Apache-2.0 (GitHub API), not Mulan PL.
+   Say "initially MulanPubL-2.0, since re-licensed to Apache-2.0."
+
+9. Drove has no license file (GitHub API license = null). "Apache 2.0" and
+   "permissive license" are both unsupported. Either add the LICENSE file or
+   correct the text.
+
+10. Aadhaar "~1.3bn" understates — UIDAI reports ~1.39bn. Minor, but fix while
+    you are in there.
+
+** 2.3 P2 — claims that need sources or qualification
+
+1. ShaktiDB has no public repository or official page. A named, checkable
+   project (MeitY-funded, June 2025) with no URL is a liability. Mark "as
+   announced to the author" or remove from tables.
+
+2. The Zepto upstream-PR story is unverifiable — no Zepto engineering post or
+   PostgreSQL commit exists. Tag [Author judgement] as an illustrative fable, or
+   replace with a verified upstream-contribution example.
+
+3. The "unicorn that rented the floor" names no company. A story with "$500M
+   raised, 10M users, acquired 2019 at 10%" and no name reads as fabricated.
+   Label it "Illustrative / Composite" explicitly.
+
+4. "Zoho built its own OS" overstates. Sourced (ToI 21 Jul 2023; ET CIO), but it
+   is "building/announced," not "built," and it is a laptop OS, not a server or
+   kernel OS.
+
+5. "Zoho has 50 million users" is stale — Zoho claims 100M+ since ~2023.
+
+6. The 55% delivery / 5.5% value / 10.5% exports / 0.3% royalties figures are
+   load-bearing but mostly uncited. Cite each (NASSCOM, Everest, IMF BOP) or tag
+   [Author judgement].
+
+7. "66% of civil dockets are land disputes" is sourceable (NITI Aayog/DAKSH
+   2021) but currently unsourced. Add the footnote.
+
+** 2.4 P3 — logic, consistency, structure
+
+1. The Zoho contradiction: Sec 5.3 argues export-first companies have "no
+   domestic forcing function" to build floors — yet Zoho, the essay's own
+   flagship, is export-first *and* built its own floor. Explain Zoho as the
+   exception (founder discipline, no VC pressure, the 1996-2002 framework era
+   preceded the SaaS pivot), or soften "the domestic wall is necessary."
+
+2. Section 6.9 (language computing) is a long digression from Section 6's
+   forcing-function through-line. Tighten to one paragraph or move to the
+   annexure.
+
+3. Drove is miscategorized as a low-level "internal tool." It is a Floor-layer
+   orchestrator. Recategorize it upward consistently across 5.2.1, 6.3, and 6.7.
+
+4. Metadata drift: several :DESCRIPTION: drawers promise content the body omits
+   (e.g. 4.1.001 promises "5.1% growth" and "largest developer base"; 3.7.003
+   promises a transition to Section 4 that never lands). Align DESCRIPTIONs with
+   the body, or trim them.
+
+5. Naming-convention violations: several :CHILDREN: declarations say .Tab. while
+   the element heading says .FigCode. Mechanical, but the convention only works
+   if it is actually followed.
+
+** 2.5 P4 — verbosity and conventions
+
+1. The five patterns are stated twice — as prose (6.2.3.001) and as a table
+   (6.2.3.002). Keep one.
+
+2. The Drove facts are told three times (5.2.1, 6.4.4.2, 6.7). Consolidate — and
+   see the "expand Drove" recommendation below.
+
+3. The neutral-custody argument appears three times (7.1, 7.3.002, 7.4). Make
+   7.3.002 canonical and reduce the others to forward references.
+
+4. The rail/locomotive metaphor is used twice in adjacent elements (4.6.003,
+   4.6.004). Keep one.
+
+5. Section 4.5 restates 4.2 in the same words; Section 3.4 is a two-line stub.
+   Merge/delete.
+
+6. Five figures are raw HTML/CSS while every other figure uses OJS/Mermaid/
+   Pikchr. Convert them — they break the document's own convention and the
+   rendering pipeline.
+
+7. Section 6.9 presents the same language-ecosystem comparison twice (org table
+   + HTML figure). Keep one.
+
+8. The overall cut target: the essay is ~15% longer than it needs to be. The
+   framing and ceremony sentences can go; the examples and numbers must stay.
+
+** 2.6 Structural upgrades (things to add, not just fix)
+
+1. *Give PhonePe Drove a full, detailed story box.* It is the essay's single
+   best India-built floor-layer artifact and currently gets three short mentions.
+   A dedicated story should cover: why Mesos failed at PhonePe's scale, what
+   Drove actually is (NUMA-aware scheduling, leader election, executors,
+   gateway), the decision to open-source, and the license/adoption gap. This
+   converts the essay's strongest "India hit the wall" exhibit into a concrete
+   case study.
+
+2. *Reframe the Zoho material.* The essay does not need the company history; it
+   needs one point: Zoho began as a near-floor builder (lone wolf / garage
+   pattern — 15 people writing a Java SNMP API and WebNMS from scratch) and later
+   kept that floor proprietary. Cut the chronology to a sentence.
+
+3. *Draw the flywheel as a loop.* The "Commercial Pressure -> Internal Build ->
+   Open-Source Release -> Ecosystem Adoption" block is currently a vertical text
+   list. A circular Mermaid loop with a return arrow is the whole point; make it
+   self-evident.
+
+4. *Add a log-scale bar after the TPC-C table.* The ~70× gap between #1 and #5
+   is invisible in rounded table numbers. On a log axis the Chinese lead reads
+   instantly and gives the essay its first real figure.
+
+* 3. New Findings — Not Flagged by Prior Reviewers
+
+The following issues were discovered during this fourth pass and were not
+identified by Kimi 2.6, Kimi 3, or Deepseek:
+
+1. *Ant Stack table (Sec 3.6) mislabels Nacos and Seata as "Apache TLP."*
+   Nacos is Alibaba's own GitHub project (github.com/alibaba/nacos), Apache-2.0
+   licensed, never an Apache Software Foundation project. Seata is an Apache
+   Incubator *podling* (apache/incubator-seata), not a Top-Level Project. Only
+   RocketMQ is a genuine ASF TLP. The table needs a "Governance" column
+   distinguishing Apache TLP vs Incubator vs Alibaba-hosted.
+
+2. *Germany's Sovereign Tech Fund (Sec 6.6) is now the Sovereign Tech Agency.*
+   The German model cited in the country-comparison table underwent
+   restructuring in 2025 and is now a subsidiary of SPRIND (Federal Agency for
+   Breakthrough Innovation). The essay should note this as "Sovereign Tech Agency
+   (formerly Sovereign Tech Fund, restructured 2025)" to remain current.
+
+3. *TPC-C "Paladin" OS claim is verified.* The PolarDB Limitless submission
+   lists "Linux Server 7.2 (Paladin)" as the operating system. This is a real
+   Alibaba-internal Linux distribution, not a misstatement. The essay's stack
+   table stands.
+
+4. *OceanBase license timeline is more nuanced than flagged.* The repository
+   was initially MulanPubL-2.0 (June 2021) and was relicensed to Apache-2.0 on
+   27 March 2026. The essay must specify "initially MulanPubL-2.0, relicensed
+   Apache-2.0 March 2026" — saying only "Mulan PL" is now stale, but saying
+   "Apache" without the relicense date is premature for a document that may be
+   read before March 2026.
+
+* 4. Adjudication of Prior-Reviewer Disputes
+
+Several claims were disputed between earlier reviewers. This pass resolves them:
+
+| Dispute | Prior Claim | Counter-Claim | This Pass Verdict |
+|---------|-------------|---------------|-------------------|
+| Bull Escala date (Sec 3.1.003) | Kimi 2.6: Dec 2008 | Essay: Jun 2008 | Essay CORRECT. TPC.org lists Date Submitted 06/15/08. Kimi 2.6 confused Availability with Submitted. |
+| OceanBase license | Essay/Deepseek: Mulan PL | — | NOW BOTH: MulanPubL-2.0 (2021-2026), Apache-2.0 (March 2026+). State both with dates. |
+| ManageEngine launch (5.2.2.002) | Essay: 2005 | Deepseek: 2002 | Deepseek CORRECT. Wikipedia and company history confirm 2002. |
+| Zoho user count (5.2.2.002) | Essay: 50M (2020) | — | Stale. Zoho claims 100M+ users since ~2023. Update or add "as of 2020." |
+| UPI vs PolarDB gap (3.7.001) | Essay: ~150× | Deepseek: ~9,000× | Deepseek CORRECT. Units error: tpmC is per-minute; essay compared per-second to per-minute. |
+| Drove license (5.2.1, 6.7) | Essay: Apache 2.0 | Deepseek: null | Deepseek CORRECT. GitHub API returns license=null; no LICENSE file in repo root. |
+| MapMyIndia IPO date | K3: Dec 2024 | Deepseek: Dec 2021 | Deepseek CORRECT. Listed 21 Dec 2021. Dec 2024 was a Mappls consumer-biz separation controversy. |
+
+* 5. What to keep
+
+Do not touch the following — they are the reason the essay is worth the fix list
+above.
+
+1. The thesis and the "renting the floor" metaphor.
+2. The reframed wall argument (assembly vs. greenfield sovereignty).
+3. The DPI distinction (protocol floor vs. software-engineering floor).
+4. The exceptions autopsy — "open-sourced but not governed," "re-domiciled to
+   access capital," "moat vs. commons." This is the best analytical work in the
+   essay.
+5. The falsifiable recommendations (2030 target, land-records project, Indian
+   OSS Foundation).
+
+The essay does not need to be re-argued. It needs to be made true. Close the
+fact gap and it goes from "an interesting essay" to "an essay people cite."

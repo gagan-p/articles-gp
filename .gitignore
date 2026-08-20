@@ -25,3 +25,6 @@ Thumbs.db
 .idea/.claude/
 
 **/*.quarto_ipynb
+
+# Windows ADS artifacts (WSL)
+*Zone.Identifier
