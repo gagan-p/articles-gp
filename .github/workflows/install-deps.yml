@@ -91,6 +91,7 @@ jobs:
       - name: Install ditaa
         if: steps.cache-ditaa.outputs.cache-hit != 'true'
         run: |
+          sudo apt-get update
           sudo apt-get install -y ditaa
           mkdir -p /opt/tools/ditaa
           JAR=$(find /usr/share -name "ditaa*.jar" 2>/dev/null | head -1)
