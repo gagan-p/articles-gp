@@ -1,0 +1,23 @@
+name: Interactive Runner Debug (tmate)
+
+# Standalone debug workflow — never auto-triggers.
+# Trigger manually via GitHub UI or gh CLI to get an SSH session
+# into a live ubuntu-latest runner.
+#
+# Cross-repo usage (from any gagan-p repo):
+#   jobs:
+#     debug:
+#       uses: gagan-p/articles-gp/.github/workflows/tmate-debug.yml@main
+#       secrets: inherit
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start tmate session
+        uses: mxschmitt/action-tmate@v3
