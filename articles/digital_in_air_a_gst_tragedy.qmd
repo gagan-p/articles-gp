@@ -1,0 +1,194 @@
+---
+css: styles.css
+title: "Digital in Air: A GST Tragedy"
+---
+
+# The Inheritance
+
+Ravi took over the family trucking business in the summer of 2021,
+twelve trucks and forty employees, along with a GST registration that
+had accumulated nearly a crore in unutilized Input Tax Credit. His
+father had run the operation for thirty years, filed every return on
+time, and died on a ventilator without logging into the GST portal one
+last time. A minor oversight, Ravi would learn, with major consequences.
+
+Uncle Sundar, who had retired from a government accounts office, was the
+first to offer reassurance. \"Section 18(3),\" he said, tapping his
+phone screen with the confidence of a man who read tax journals at
+breakfast. \"Rule 41. The law is clear. You are the legal heir. The
+credit follows the business. Just file the transfer form and move on.\"
+
+Ravi nodded and opened his laptop. The GST portal loaded in its usual
+shade of government blue. He entered his father\'s credentials.
+
+> Your GSTIN is CANCELLED. You cannot perform this action.
+
+He refreshed. He cleared the cache. He called his nephew who \"knew
+computers.\" The portal remained unmoved. A dead man\'s login, it
+seemed, was not entitled to perform living man\'s transactions.
+
+# The Officer and the Missing Button
+
+GST Bhavan in Delhi is a building designed to make you feel small before
+you reach the counter. Ravi arrived with a red folder thick enough to
+stop a door: death certificate, legal heirship affidavit, CA-audited
+ledgers, three years of returns, and a printout of Circular No.
+96/15/2019 that Uncle Sundar had highlighted in yellow.
+
+Mr. Sharma, the jurisdictional officer, read through the file with
+genuine sympathy. \"Your case is strong,\" he said. \"Legally, you are
+absolutely entitled to this credit.\"
+
+\"So you can approve it, sir?\"
+
+Sharma turned his monitor around. It displayed the same government blue
+that Ravi had stared at for weeks. \"Do you see a button here?\"
+
+\"A button?\"
+
+\"For manual transfer. For overriding the system. For acknowledging that
+people occasionally die before filing Form ITC-02. There is no button.
+The software was built by people who assumed the deceased would politely
+log in, initiate the transfer, and only then proceed to the afterlife.
+Your father did not follow the correct sequence.\"
+
+\"He was unconscious, sir.\"
+
+\"A common excuse.\"
+
+# The Expensive Certainty
+
+Suresh, the most expensive chartered accountant in East Delhi, took the
+case with the enthusiasm of a man who had already priced the litigation.
+\"We will file a writ petition,\" he announced, sliding a fee note
+across his glass desk. \"The High Court will direct the department to
+manually transfer the credit.\"
+
+\"Is there no administrative way? A letter? A request?\"
+
+Suresh laughed. It was a short, expensive laugh. \"The portal is the
+administration. The portal has spoken. When software says no, the
+officer cannot say yes. This is Digital India. The only human left in
+the loop is the judge.\"
+
+Six months later, Ravi stood in the Delhi High Court corridor, holding
+paper books bound in blue covers. Inside, the bench heard the matter for
+exactly twelve minutes.
+
+\"Why is this man in court for a simple credit transfer?\" the judge
+asked the government counsel.
+
+\"The portal has no provision for post-cancellation transfer, Your
+Honour.\"
+
+\"Then ask GSTN to create one.\"
+
+\"We have, Your Honour.\"
+
+\"And?\"
+
+\"They said they will consider it in the next update.\"
+
+\"When is that?\"
+
+The counsel looked at his shoes. \"There is no date, Your Honour.\"
+
+The judge sighed and dictated an order directing the department to
+manually adjust the credit, noting that \"substantive rights cannot be
+held hostage to software limitations.\"
+
+# The Victory
+
+The credit was transferred. The business survived. Ravi paid the lawyer,
+paid the CA, and paid in sleepless nights for a right that the statute
+had already given him for free.
+
+He never did find out which update GSTN was waiting for. The portal,
+last he checked, still displayed the same message to anyone who tried to
+file ITC-02 from a cancelled registration. Silent. Unfeeling. Utterly
+dominant.
+
+# The Trap (Diagram)
+
+``` {.mermaid file="trap.png"}
+flowchart TD
+    A[Death of Proprietor] --> B[Registration Cancelled<br/>by Family/Jurisdictional Officer]
+    B --> C[Heir Obtains New GSTIN]
+    C --> D[Attempts Form ITC-02]
+    D --> E{Transferor GSTIN<br/>Active?}
+    E -->|No| F[Portal Rejects:<br/>GSTIN Cancelled]
+    E -->|Yes| G[Credit Transferred]
+    F --> H[Deadlock:<br/>No Manual Override Exists]
+    style F fill:#ffcccc
+    style H fill:#ff9999
+```
+
+# The Judicial Bypass (Diagram)
+
+``` {.mermaid file="bypass.png"}
+flowchart LR
+    A[Portal Deadlock] --> B[Gather Documents:<br/>Death Cert, Heirship, Returns, Audit]
+    B --> C[File Writ Petition<br/>under Article 226]
+    C --> D[High Court Order:<br/>Direct Manual Adjustment]
+    D --> E[Department Complies<br/>via Backend Entry]
+    E --> F[Credit Reflected in<br/>Heir's Ledger]
+    style C fill:#ccffcc
+    style D fill:#ccffcc
+```
+
+# Technical Analysis
+
+****Statutory Basis****
+
+-   Section 18(3) of the CGST Act, 2017: Transfer of unutilized ITC in
+    cases of death, succession, or business transfer.
+-   Rule 41(1) of the CGST Rules, 2017: Prescribes Form GST ITC-02 as
+    the mechanism.
+-   Circular No. 96/15/2019-GST (\[CBIC\](<https://cbic-gst.gov.in>)):
+    Confirms the procedure but assumes an active transferor GSTIN.
+
+****The Deadlock****
+
+The portal enforces a hard validation: ITC-02 submission requires the
+transferor GSTIN to be in \"Active\" status. In practice, the sequence
+is:
+
+1.  Proprietor dies.
+2.  Registration is cancelled (Form REG-16, reason: death).
+3.  Heir obtains new GSTIN.
+4.  Heir attempts ITC-02 → rejected because transferor GSTIN is
+    cancelled.
+
+There is no backend override, no offline SOP, and no exception flag for
+deceased transferors.
+
+****Judicial Remedy****
+
+Multiple High Courts (Delhi, Madras, Gujarat) have held that substantive
+statutory rights cannot be defeated by software constraints. Remedy:
+Writ petition under Article 226 of the Constitution, seeking a mandamus
+to the department to manually adjust the ITC ledger.
+
+****Systemic Gap****
+
+  Issue                                       Status
+  ------------------------------------------- -------------------
+  Portal patch for post-cancellation ITC-02   Not implemented
+  Manual SOP for jurisdictional officers      Not notified
+  Alternative form (e.g., ITC-02A)            Does not exist
+  GSTN timeline for fix                       No published date
+
+****References****
+
+1.  CGST Act, 2017 --- Section 18(3):
+    <https://www.cbic.gov.in/htdocs-cbec/gst/cgst-act>
+2.  CGST Rules, 2017 --- Rule 41:
+    <https://www.cbic.gov.in/htdocs-cbec/gst/cgst-rules>
+3.  Circular No. 96/15/2019-GST: <https://cbic-gst.gov.in>
+4.  Constitution of India --- Article 226 (Writ jurisdiction)
+
+****Summary****
+
+The law grants the right. The portal denies the mechanism. The only
+remaining interface is a High Court bench. Digital India, in this case,
+is less a platform and more a toll gate.
