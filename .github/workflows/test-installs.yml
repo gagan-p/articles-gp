@@ -1,0 +1,66 @@
+name: Test Tool Installs
+
+# Run manually to verify each tool installs cleanly on ubuntu-latest.
+# Each step is independent — failures are logged but do not block others.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install pikchr-cli
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y pikchr-cli
+          which pikchr-cli && pikchr-cli --version || true
+
+      - name: Install D2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          which d2 && d2 --version
+
+      - name: Install Graphviz
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y graphviz
+          which dot && dot -V
+
+      - name: Install ditaa
+        continue-on-error: true
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ditaa
+          which ditaa && ditaa --version || true
+
+      - name: Install gnuplot
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y gnuplot
+          which gnuplot && gnuplot --version
+
+      - name: Install R
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y r-base
+          which R && R --version | head -1
+
+      - name: Install Python packages
+        continue-on-error: true
+        run: |
+          pip install jupyter matplotlib pandas numpy
+          python -c "import jupyter, matplotlib, pandas, numpy; print('ok')"
+
+      - name: Install Quarto extensions
+        continue-on-error: true
+        run: |
+          mkdir -p /tmp/qtest
+          cd /tmp/qtest
+          printf 'project:\n  type: default\n' > _quarto.yml
+          quarto add --no-prompt quarto-ext/pikchr
+          quarto add --no-prompt mcanouil/quarto-d2
