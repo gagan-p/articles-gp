@@ -1,4 +1,4 @@
-name: Interactive Runner Debug (tmate)
+name: Interactive Runner Debug (upterm)
 
 # Standalone debug workflow — never auto-triggers.
 # Trigger manually via GitHub UI or gh CLI to get an SSH session
@@ -7,7 +7,7 @@ name: Interactive Runner Debug (tmate)
 # Cross-repo usage (from any gagan-p repo):
 #   jobs:
 #     debug:
-#       uses: gagan-p/articles-gp/.github/workflows/tmate-debug.yml@main
+#       uses: gagan-p/articles-gp/.github/workflows/upterm-debug.yml@main
 #       secrets: inherit
 
 on:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Start tmate session
-        uses: mxschmitt/action-tmate@v3
+      - name: Start upterm session
+        uses: lhotari/action-upterm@v1
         with:
-          limit-access-to-actor: false
+          limit-access-to-actor: true
