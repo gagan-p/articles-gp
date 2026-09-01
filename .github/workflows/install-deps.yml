@@ -4,7 +4,7 @@ name: Install and Cache Dependencies
 # System tools land in /opt/tools/bin (added to PATH by caller).
 # Quarto extensions land in /opt/tools/quarto-extensions/_extensions/
 # (caller copies to ./_extensions/ before rendering).
-# Bump the v-suffix on any cache key to force a fresh install of that tool.
+# To force reinstall of any tool: bump its cache key v-suffix below.
 
 on:
   workflow_call:
