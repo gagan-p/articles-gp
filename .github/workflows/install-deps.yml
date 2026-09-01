@@ -46,6 +46,8 @@ jobs:
 
       - name: Install D2
         if: steps.cache-d2.outputs.cache-hit != 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -fsSL https://d2lang.com/install.sh | sh -s -- --prefix /tmp/d2-install
           mkdir -p /opt/tools/bin

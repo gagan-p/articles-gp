@@ -21,6 +21,7 @@ permissions:
 jobs:
   install:
     uses: ./.github/workflows/install-deps.yml
+    secrets: inherit
 
   render-and-deploy:
     runs-on: ubuntu-latest
