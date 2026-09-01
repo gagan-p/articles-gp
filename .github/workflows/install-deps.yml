@@ -19,7 +19,7 @@ jobs:
       # ── pikchr ────────────────────────────────────────────────────────────
       # PIC-dialect text-to-SVG diagram language.
       # Paired with quarto-ext/pikchr so fenced pikchr blocks render inline SVG.
-      # Available in Ubuntu 24.04 repos; binary has no extra shared-lib deps.
+      # Package name is pikchr-cli in Ubuntu 24.04 universe; binary has no extra shared-lib deps.
       - name: Cache pikchr
         id: cache-pikchr
         uses: actions/cache@v4
@@ -30,7 +30,7 @@ jobs:
       - name: Install pikchr
         if: steps.cache-pikchr.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y pikchr
+          sudo apt-get install -y pikchr-cli
           mkdir -p /opt/tools/bin
           cp "$(which pikchr)" /opt/tools/bin/pikchr
 
