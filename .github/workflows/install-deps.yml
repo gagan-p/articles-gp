@@ -1,0 +1,189 @@
+name: Install and Cache Dependencies
+
+# Reusable workflow — called by any render workflow or run manually to warm caches.
+# System tools land in /opt/tools/bin (added to PATH by caller).
+# Quarto extensions land in /opt/tools/quarto-extensions/_extensions/
+# (caller copies to ./_extensions/ before rendering).
+# Bump the v-suffix on any cache key to force a fresh install of that tool.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ── pikchr ────────────────────────────────────────────────────────────
+      # PIC-dialect text-to-SVG diagram language.
+      # Paired with quarto-ext/pikchr so fenced pikchr blocks render inline SVG.
+      # Available in Ubuntu 24.04 repos; binary has no extra shared-lib deps.
+      - name: Cache pikchr
+        id: cache-pikchr
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/pikchr
+          key: pikchr-${{ runner.os }}-v1
+
+      - name: Install pikchr
+        if: steps.cache-pikchr.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y pikchr
+          mkdir -p /opt/tools/bin
+          cp "$(which pikchr)" /opt/tools/bin/pikchr
+
+      # ── D2 ────────────────────────────────────────────────────────────────
+      # Declarative diagram language — flowcharts, ERDs, sequence diagrams.
+      # Statically-linked Go binary; no shared-lib deps, safe to cache alone.
+      - name: Cache D2
+        id: cache-d2
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/d2
+          key: d2-${{ runner.os }}-v1
+
+      - name: Install D2
+        if: steps.cache-d2.outputs.cache-hit != 'true'
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s -- --prefix /tmp/d2-install
+          mkdir -p /opt/tools/bin
+          cp /tmp/d2-install/bin/d2 /opt/tools/bin/d2
+
+      # ── Graphviz ──────────────────────────────────────────────────────────
+      # Graph layout engine: dot (hierarchical), neato/fdp/sfdp (spring),
+      # twopi (radial), circo (circular).
+      # Shared libs (libgvc, libcgraph) are present on every ubuntu-latest runner.
+      - name: Cache Graphviz
+        id: cache-graphviz
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/tools/bin/dot
+            /opt/tools/bin/neato
+            /opt/tools/bin/fdp
+            /opt/tools/bin/sfdp
+            /opt/tools/bin/twopi
+            /opt/tools/bin/circo
+          key: graphviz-${{ runner.os }}-v1
+
+      - name: Install Graphviz
+        if: steps.cache-graphviz.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y graphviz
+          mkdir -p /opt/tools/bin
+          for bin in dot neato fdp sfdp twopi circo; do
+            cp "$(which $bin)" /opt/tools/bin/$bin
+          done
+
+      # ── ditaa ─────────────────────────────────────────────────────────────
+      # Converts ASCII art to PNG diagrams. Distributed as a Java JAR.
+      # Java is pre-installed on ubuntu-latest; only the JAR needs caching.
+      # A minimal launcher wrapper is written at runtime (not cached).
+      - name: Cache ditaa JAR
+        id: cache-ditaa
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/ditaa/ditaa.jar
+          key: ditaa-${{ runner.os }}-v1
+
+      - name: Install ditaa
+        if: steps.cache-ditaa.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y ditaa
+          mkdir -p /opt/tools/ditaa
+          JAR=$(find /usr/share -name "ditaa*.jar" 2>/dev/null | head -1)
+          cp "$JAR" /opt/tools/ditaa/ditaa.jar
+
+      - name: Write ditaa launcher
+        run: |
+          mkdir -p /opt/tools/bin
+          printf '#!/bin/sh\nexec java -jar /opt/tools/ditaa/ditaa.jar "$@"\n' \
+            > /opt/tools/bin/ditaa
+          chmod +x /opt/tools/bin/ditaa
+
+      # ── gnuplot ───────────────────────────────────────────────────────────
+      # Scriptable scientific and data plotting tool — outputs PNG, SVG, PDF.
+      # Shared libs (libgd, libpng) are present on every ubuntu-latest runner.
+      - name: Cache gnuplot
+        id: cache-gnuplot
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/gnuplot
+          key: gnuplot-${{ runner.os }}-v1
+
+      - name: Install gnuplot
+        if: steps.cache-gnuplot.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y gnuplot
+          mkdir -p /opt/tools/bin
+          cp "$(which gnuplot)" /opt/tools/bin/gnuplot
+
+      # ── R ─────────────────────────────────────────────────────────────────
+      # R runtime for knitr-engine code blocks in qmd files.
+      # Quarto's knitr support is native — no extension needed, only R itself.
+      # Caches the R binary; base packages are reinstalled on cache miss only.
+      - name: Cache R
+        id: cache-r
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/Rscript
+          key: r-${{ runner.os }}-v1
+
+      - name: Install R
+        if: steps.cache-r.outputs.cache-r != 'true'
+        run: |
+          sudo apt-get install -y r-base
+          mkdir -p /opt/tools/bin
+          cp "$(which Rscript)" /opt/tools/bin/Rscript
+          cp "$(which R)" /opt/tools/bin/R
+
+      # ── Python ────────────────────────────────────────────────────────────
+      # Python runtime for Jupyter-engine code blocks in qmd files.
+      # pip packages are cached via the pip cache directory.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Cache pip packages
+        id: cache-pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-jupyter-matplotlib-pandas-numpy-v1
+
+      - name: Install Python packages
+        if: steps.cache-pip.outputs.cache-hit != 'true'
+        run: pip install jupyter matplotlib pandas numpy
+
+      # ── Quarto extensions ─────────────────────────────────────────────────
+      # Extensions are installed to a neutral path so they can be cached and
+      # copied into any repo's _extensions/ before rendering.
+      # quarto-ext/pikchr: renders fenced pikchr blocks using the pikchr binary.
+      # mcanouil/quarto-d2:  renders fenced d2 blocks using the D2 binary.
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: '1.8.27'
+
+      - name: Cache Quarto extensions
+        id: cache-extensions
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/quarto-extensions
+          key: quarto-extensions-pikchr-d2-${{ runner.os }}-v1
+
+      - name: Install Quarto extensions
+        if: steps.cache-extensions.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /opt/tools/quarto-extensions
+          cd /opt/tools/quarto-extensions
+          quarto add --no-prompt quarto-ext/pikchr
+          quarto add --no-prompt mcanouil/quarto-d2
+
+      # ── Export PATH ───────────────────────────────────────────────────────
+      - name: Add /opt/tools/bin to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
