@@ -32,7 +32,7 @@ jobs:
         run: |
           sudo apt-get install -y pikchr-cli
           mkdir -p /opt/tools/bin
-          cp "$(which pikchr)" /opt/tools/bin/pikchr
+          cp "$(which pikchr-cli)" /opt/tools/bin/pikchr
 
       # ── D2 ────────────────────────────────────────────────────────────────
       # Declarative diagram language — flowcharts, ERDs, sequence diagrams.
