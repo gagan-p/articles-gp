@@ -181,6 +181,7 @@ jobs:
         run: |
           mkdir -p /opt/tools/quarto-extensions
           cd /opt/tools/quarto-extensions
+          printf 'project:\n  type: default\n' > _quarto.yml
           quarto add --no-prompt quarto-ext/pikchr
           quarto add --no-prompt mcanouil/quarto-d2
 
