@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: publish-final
+  render:
+    - "!articles_original_org/**"
 
 website:
   title: "Articles"
