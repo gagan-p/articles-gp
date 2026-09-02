@@ -1,0 +1,38 @@
+name: Install R
+
+# Installs R base runtime from Ubuntu 24.04 repos.
+# Quarto's knitr engine uses R natively — no extension needed, only the runtime.
+# Caches the R binary; shared libs are present on every ubuntu-latest runner.
+# Reusable — call from any workflow that needs R on PATH.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache R
+        id: cache-r
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/tools/bin/R
+            /opt/tools/bin/Rscript
+          key: r-${{ runner.os }}-v1
+
+      - name: Install R
+        if: steps.cache-r.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y r-base
+          mkdir -p /opt/tools/bin
+          cp "$(which R)" /opt/tools/bin/R
+          cp "$(which Rscript)" /opt/tools/bin/Rscript
+
+      - name: Verify R
+        run: /opt/tools/bin/Rscript --version
+
+      - name: Add to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
