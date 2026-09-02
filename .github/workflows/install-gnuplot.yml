@@ -1,0 +1,34 @@
+name: Install gnuplot
+
+# Installs gnuplot scriptable plotting tool from Ubuntu 24.04 repos.
+# Shared libs (libgd, libpng) are present on every ubuntu-latest runner.
+# Reusable — call from any workflow that needs gnuplot on PATH.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache gnuplot
+        id: cache-gnuplot
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/gnuplot
+          key: gnuplot-${{ runner.os }}-v1
+
+      - name: Install gnuplot
+        if: steps.cache-gnuplot.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y gnuplot
+          mkdir -p /opt/tools/bin
+          cp "$(which gnuplot)" /opt/tools/bin/gnuplot
+
+      - name: Verify gnuplot
+        run: /opt/tools/bin/gnuplot --version
+
+      - name: Add to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
