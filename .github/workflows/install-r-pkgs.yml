@@ -1,0 +1,35 @@
+name: Install R Packages
+
+# Installs R packages for knitr-engine rendering in Quarto.
+# pikchr imports knitr — one install covers both.
+# pikchr R package calls the pikchr binary at render time (must be on PATH).
+# r-base installed fresh each run (shared libs; binary-only cache unreliable).
+# Reusable — call from any workflow that needs R package rendering.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install R
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y r-base
+
+      - name: Cache R packages
+        id: cache-r-pkgs
+        uses: actions/cache@v4
+        with:
+          path: ~/R
+          key: r-pkgs-pikchr-${{ runner.os }}-v1
+
+      - name: Install R packages
+        if: steps.cache-r-pkgs.outputs.cache-hit != 'true'
+        run: Rscript -e "install.packages('pikchr', repos='https://cran.r-project.org')"
+
+      - name: Verify
+        run: Rscript -e "library(pikchr); cat('pikchr', as.character(packageVersion('pikchr')), '\n')"

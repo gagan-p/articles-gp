@@ -2,8 +2,8 @@ name: Install Quarto Extensions
 
 # Installs Quarto extensions to a neutral path so they can be cached
 # and copied into any repo's _extensions/ before rendering.
-# quarto-ext/pikchr: renders fenced pikchr blocks using the pikchr binary.
-# mcanouil/quarto-d2:  renders fenced d2 blocks using the D2 binary.
+# mcanouil/quarto-d2: renders fenced d2 blocks using the D2 binary.
+# pikchr is Quarto-native — no extension needed, only the binary on PATH.
 # Reusable — call from any workflow that needs these extensions.
 
 on:
@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /opt/tools/quarto-extensions
-          key: quarto-extensions-pikchr-d2-${{ runner.os }}-v1
+          key: quarto-extensions-d2-${{ runner.os }}-v1
 
       - name: Install Quarto extensions
         if: steps.cache-exts.outputs.cache-hit != 'true'
@@ -33,7 +33,6 @@ jobs:
           mkdir -p /opt/tools/quarto-extensions
           cd /opt/tools/quarto-extensions
           printf 'project:\n  type: default\n' > _quarto.yml
-          quarto add --no-prompt quarto-ext/pikchr
           quarto add --no-prompt mcanouil/quarto-d2
 
       - name: Verify extensions
