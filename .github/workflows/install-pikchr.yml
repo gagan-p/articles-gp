@@ -1,0 +1,33 @@
+name: Install pikchr
+
+# Installs pikchr-cli from Ubuntu 24.04 universe repo and caches the binary.
+# Reusable — call from any workflow that needs pikchr on PATH.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache pikchr
+        id: cache-pikchr
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/pikchr
+          key: pikchr-${{ runner.os }}-v1
+
+      - name: Install pikchr-cli
+        if: steps.cache-pikchr.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y pikchr-cli
+          mkdir -p /opt/tools/bin
+          cp "$(which pikchr-cli)" /opt/tools/bin/pikchr
+
+      - name: Verify pikchr
+        run: /opt/tools/bin/pikchr --version || true
+
+      - name: Add to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
