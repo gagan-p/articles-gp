@@ -1,0 +1,36 @@
+name: Install D2
+
+# Installs D2 declarative diagram tool and caches the static binary.
+# D2 install script calls GitHub API — GITHUB_TOKEN prevents 403 rate limits.
+# Reusable — call from any workflow that needs d2 on PATH.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache D2
+        id: cache-d2
+        uses: actions/cache@v4
+        with:
+          path: /opt/tools/bin/d2
+          key: d2-${{ runner.os }}-v1
+
+      - name: Install D2
+        if: steps.cache-d2.outputs.cache-hit != 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          mkdir -p /opt/tools/bin
+          cp "$(which d2)" /opt/tools/bin/d2
+
+      - name: Verify D2
+        run: /opt/tools/bin/d2 --version
+
+      - name: Add to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
