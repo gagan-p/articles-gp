@@ -18,7 +18,7 @@ jobs:
       - name: Install R
         run: |
           sudo apt-get update
-          sudo apt-get install -y r-base
+          sudo apt-get install -y r-base librsvg2-dev
 
       - name: Cache R packages
         id: cache-r-pkgs
