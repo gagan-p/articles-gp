@@ -1,0 +1,33 @@
+name: Install Python Packages
+
+# Installs Python packages needed for Jupyter-engine code blocks in qmd files.
+# Uses actions/setup-python pip cache — no manual binary copy needed.
+# Reusable — call from any workflow that needs these packages available.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip packages
+        id: cache-pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-jupyter-matplotlib-pandas-numpy-${{ runner.os }}-v1
+
+      - name: Install packages
+        if: steps.cache-pip.outputs.cache-hit != 'true'
+        run: pip install jupyter matplotlib pandas numpy
+
+      - name: Verify
+        run: python -c "import jupyter, matplotlib, pandas, numpy; print('ok')"
