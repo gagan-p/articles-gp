@@ -1,0 +1,43 @@
+name: Install Graphviz
+
+# Installs Graphviz graph layout engine from Ubuntu 24.04 repos.
+# Caches the core layout binaries: dot, neato, fdp, sfdp, twopi, circo.
+# Shared libs (libgvc, libcgraph) are present on every ubuntu-latest runner.
+# Reusable — call from any workflow that needs graphviz on PATH.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache Graphviz
+        id: cache-graphviz
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/tools/bin/dot
+            /opt/tools/bin/neato
+            /opt/tools/bin/fdp
+            /opt/tools/bin/sfdp
+            /opt/tools/bin/twopi
+            /opt/tools/bin/circo
+          key: graphviz-${{ runner.os }}-v1
+
+      - name: Install Graphviz
+        if: steps.cache-graphviz.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y graphviz
+          mkdir -p /opt/tools/bin
+          for bin in dot neato fdp sfdp twopi circo; do
+            cp "$(which $bin)" /opt/tools/bin/$bin
+          done
+
+      - name: Verify Graphviz
+        run: /opt/tools/bin/dot -V
+
+      - name: Add to PATH
+        run: echo "/opt/tools/bin" >> "$GITHUB_PATH"
