@@ -26,6 +26,7 @@ jobs:
       - name: Install R
         if: steps.cache-r.outputs.cache-hit != 'true'
         run: |
+          sudo apt-get update
           sudo apt-get install -y r-base
           mkdir -p /opt/tools/bin
           cp "$(which R)" /opt/tools/bin/R
