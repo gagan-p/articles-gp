@@ -29,7 +29,13 @@ jobs:
 
       - name: Install R packages
         if: steps.cache-r-pkgs.outputs.cache-hit != 'true'
-        run: Rscript -e "install.packages('pikchr', repos='https://cran.r-project.org')"
+        env:
+          R_LIBS_USER: /home/runner/R
+        run: |
+          mkdir -p /home/runner/R
+          Rscript -e "install.packages('pikchr', repos='https://cran.r-project.org')"
 
       - name: Verify
+        env:
+          R_LIBS_USER: /home/runner/R
         run: Rscript -e "library(pikchr); cat('pikchr', as.character(packageVersion('pikchr')), '\n')"
