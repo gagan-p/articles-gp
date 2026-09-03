@@ -1,8 +1,9 @@
 name: Install R Packages
 
 # Installs R packages for knitr-engine rendering in Quarto.
-# pikchr imports knitr — one install covers both.
-# pikchr R package calls the pikchr binary at render time (must be on PATH).
+# pikchr: CRAN; imports knitr — one install covers both.
+# d2r: GitHub (elipousson/d2r); calls D2 binary from knitr chunks (must be on PATH).
+# Both require librsvg2-dev for rsvg compilation.
 # r-base installed fresh each run (shared libs; binary-only cache unreliable).
 # Reusable — call from any workflow that needs R package rendering.
 
@@ -25,7 +26,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/R
-          key: r-pkgs-pikchr-${{ runner.os }}-v1
+          key: r-pkgs-pikchr-d2r-${{ runner.os }}-v1
 
       - name: Install R packages
         if: steps.cache-r-pkgs.outputs.cache-hit != 'true'
@@ -33,9 +34,12 @@ jobs:
           R_LIBS_USER: /home/runner/R
         run: |
           mkdir -p /home/runner/R
-          Rscript -e "install.packages('pikchr', repos='https://cran.r-project.org')"
+          Rscript -e "install.packages(c('remotes', 'pikchr'), repos='https://cran.r-project.org')"
+          Rscript -e "remotes::install_github('elipousson/d2r')"
 
       - name: Verify
         env:
           R_LIBS_USER: /home/runner/R
-        run: Rscript -e "library(pikchr); cat('pikchr', as.character(packageVersion('pikchr')), '\n')"
+        run: |
+          Rscript -e "library(pikchr); cat('pikchr', as.character(packageVersion('pikchr')), '\n')"
+          Rscript -e "library(d2r); cat('d2r', as.character(packageVersion('d2r')), '\n')"
