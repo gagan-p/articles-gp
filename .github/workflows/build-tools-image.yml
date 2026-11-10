@@ -1,0 +1,51 @@
+name: Build Tools Image
+
+# Builds the render toolchain image from Containerfile and pushes it to
+# ghcr.io. Runs only when Containerfile (or this workflow) changes, or
+# on manual dispatch. Prints the pushed digest for pinning later.
+
+on:
+  push:
+    branches:
+      - main
+      - feat/tools-image
+    paths:
+      - "Containerfile"
+      - ".github/workflows/build-tools-image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/articles-gp-tools
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Containerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+
+      - name: Print digest
+        run: echo "digest=${{ steps.build.outputs.digest }}" | tee -a "$GITHUB_STEP_SUMMARY"
