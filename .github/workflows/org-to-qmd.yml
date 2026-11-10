@@ -19,6 +19,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Install diagram tools (apt)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz groff ditaa
+
+      - name: Install mermaid-cli, d2, pikchr
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          curl -sSL https://github.com/terrastruct/d2/releases/latest/download/d2_linux_amd64.tar.gz | tar -xz -C /usr/local/bin
+          curl -sSL https://pikchr.org/pikchr.c -o /tmp/pikchr.c && gcc -o /usr/local/bin/pikchr /tmp/pikchr.c
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
@@ -33,7 +44,7 @@ jobs:
               --to markdown+yaml_metadata_block \
               --standalone \
               -o "articles/${base}.qmd"
-            sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|pikchr|d2)$/```{\1}/' \
+            sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|pikchr|d2|dot|pic|ditaa)$/```{\1}/' \
               "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
               cp "articles_original_org/${base}.css" "articles/${base}.css"
