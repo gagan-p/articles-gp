@@ -27,7 +27,9 @@ jobs:
       - name: Install mermaid-cli, d2, pikchr
         run: |
           npm install -g @mermaid-js/mermaid-cli
-          curl -sSL https://github.com/terrastruct/d2/releases/latest/download/d2_linux_amd64.tar.gz | tar -xz -C /usr/local/bin
+          # d2: get latest version from API, then download
+          D2_VERSION=$(curl -s https://api.github.com/repos/terrastruct/d2/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+          curl -sSL "https://github.com/terrastruct/d2/releases/download/${D2_VERSION}/d2_${D2_VERSION#v}_linux_amd64.tar.gz" | tar -xz -C /usr/local/bin
           curl -sSL https://pikchr.org/pikchr.c -o /tmp/pikchr.c && gcc -o /usr/local/bin/pikchr /tmp/pikchr.c
 
       - name: Set up Quarto
