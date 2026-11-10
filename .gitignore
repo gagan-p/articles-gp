@@ -22,7 +22,8 @@ Thumbs.db
 
 # IDE
 .vscode/
-.idea/.claude/
+.idea/
+.claude/
 
 **/*.quarto_ipynb
 
