@@ -62,6 +62,7 @@ development and support.
     ]
   })
 }
+```
 
 c\) **Products built for export, not for home.** India\'s product and IP
 efforts ([]{#O1_ZOHO}[Zoho](https://www.zoho.com/aboutus.html),
@@ -610,6 +611,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ## 3.5. OceanBase Is Open-Sourced --- What Else Is Ant Building? {#3.5}
 
@@ -931,6 +933,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ## 4.2. Success Is at the Application and Application Support Layer {#4.2}
 
@@ -984,6 +987,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ```{ojs}
 //| echo: false
@@ -1049,6 +1053,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ```{ojs}
 //| echo: false
@@ -1090,6 +1095,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ```{ojs}
 //| echo: false
@@ -1118,6 +1124,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 ## 4.3. The Mental Model: Raw Material → Plumbing → Floor → Building → Interior {#4.3}
 
@@ -1346,6 +1353,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
   Layer          China (Representative)                                                          India (Representative)
   -------------- ------------------------------------------------------------------------------- ------------------------------------------
@@ -1507,6 +1515,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 AdventNet\'s early success came from selling network management
 frameworks. But frameworks are tools for builders; the real money is in
@@ -1845,6 +1854,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
   Country    R&D/GDP (%)   ICT Patents (per 1M pop)   Publications (relative)   Returnee Researchers (annual)
   ---------- ------------- -------------------------- ------------------------- -------------------------------
@@ -2735,6 +2745,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 # 8. Footnotes {#8}
 

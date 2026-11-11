@@ -247,6 +247,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 Source: market capitalisations and headcounts.[^13]
 
@@ -540,6 +541,7 @@ return Plot.plot({
   ]
 })
 }
+```
 
 Source: published TPC results and the OceanBase VLDB paper.[^29][^30]
 
