@@ -10,159 +10,404 @@ title: Renting the Floor --- Governed TOC
 ```
 # [TODO]{.todo .TODO} 1. Executive Summary {#1}
 
-a\) **The paradox.** India has 26.7 million developers, US\$283bn in
-annual technology revenue, and adds roughly 5.2 million developers a
-year --- yet the count of globally adopted foundational software
-originated and governed from India is approximately zero. Capability and
-outcome have never been further apart.
+a\) **The paradox.**
+
+```{r}
+library(pikchr)
+pikchr(r"(
+Rev:box "Revenue Per Yr" "$283 bn" fit
+move
+Dev_Pool:box "Total Developers" "26.7 Mn" fit
+move
+New_Devs:box "New Developers" "5.2 Mn/yr" fit
+move
+Contri:box "OSS contribution" "Rank #1" fit
+Qstn:diamond at ((Dev_Pool.e.x + New_Devs.w.x)/2, ((Dev_Pool.e.y + New_Devs.w.y)/2)-2*movewid) "Outcome??" fit
+arrow left "Prediction" big left from 0.5 between Qstn.s and Qstn.w then down
+Pred: box "Globally adopted" "Foundational Software" "Originated in India" fit
+arrow right "Observation" big right from 0.5 between Qstn.s and Qstn.e then down
+Act: box "" "Almost None" big " " fit color red
+Paradox: circle at ((Act.x+Pred.x)/2, Act.y) "Paradox" "?" big big color orange
+arrow from Pred.e to Paradox.w
+arrow from Paradox.e to Act.w
+arrow from Rev.s to (Rev.s.x, Qstn.w.y) then to Qstn.w
+arrow from Dev_Pool.s to (Dev_Pool.s.x, Qstn.w.y) then to Qstn.w
+arrow from New_Devs.s to (New_Devs.s.x, Qstn.e.y) then to Qstn.e
+arrow from Contri.s to (Contri.s.x, Qstn.e.y) then to Qstn.e
+)")
+```
 
 b\) **A success that is strategically misfocused.** The Indian software
-story is a genuine success --- \$283bn revenue, 5.8 million employed.
-But it is a short-term, opportunistic commercial win built on the cost
-advantage of application development and support: India performs \~55%
-of the world\'s IT outsourcing delivery yet captures \~5.5% of its
-market value, and holds 10.5% of world computer-services exports against
-0.3% of IP royalties --- a 35× gap between what it delivers and what it
-owns.
+story is a genuine success --- \$283bn revenue; it is a short-term,
+opportunistic commercial win built on the cost advantage of application
+development and support.
+
+```{ojs}
+{
+  const india = [
+    {category:"Computer services (SI2)\napplication, IT, custom software", share:10.5, fmt:"10.5%"},
+    {category:"Charges for use of IP (SH)\npackaged software, licensing, royalties", share:0.3, fmt:"0.3%"}
+  ]
+  return Plot.plot({
+    marginLeft: 320, marginRight: 60, height: 160,
+    x: {label:"India's share of world exports (%) →", grid:true, domain:[0, 12]},
+    y: {label:null, domain: india.map(d => d.category)},
+    marks: [
+      Plot.barX(india, {x:"share", y:"category", fill:"#7f2704"}),
+      Plot.text(india, {x:"share", y:"category", text:"fmt", dx:6,
+        textAnchor:"start", fontSize:13, fontWeight:"bold", fill:"#3a3226"}),
+      Plot.ruleX([0])
+    ]
+  })
+}
+```
 
 c\) **Products built for export, not for home.** India\'s product and IP
-efforts (Zoho, Freshworks, Postman, BrowserStack) serve export markets
-from the first line of code --- domestic revenue is \~10--20%. East
-Asian champions (Alibaba, Tencent, Naver, Kakao) were built
-domestic-first (\~70--90% home revenue) and exported only later. India
-builds for problems it does not have.
+efforts ([]{#O1_ZOHO}[Zoho](https://www.zoho.com/aboutus.html),
+[]{#O1_FRSHWK}[Freshworks](https://finance.yahoo.com/quote/FRSH/),
+[]{#O1_POSTMN}[Postman](https://www.postman.com/company/about-postman/),
+[]{#O1_BRWSTK}[BrowserStack](https://www.browserstack.com/about)) serve
+export markets --- domestic revenue is \~10--20%. East Asian champions
+([]{#O1_ALIBAB}[Alibaba](https://finance.yahoo.com/quote/BABA/),
+[]{#O1_TENCNT}[Tencent](https://finance.yahoo.com/quote/TCEHY/),
+[]{#O1_NAVER}[Naver](https://finance.yahoo.com/quote/NHNCF/),
+[]{#O1_KAKAO}[Kakao](https://finance.yahoo.com/quote/035720.KS/)) were
+built domestic-first (\~70--90% home revenue) and exported only later.
+Are we building for someone else\'s problem?
 
 d\) **A different path elsewhere.** Other countries, notably China,
 treat the foundational layer as strategic and pursue import substitution
-by policy: the IOE-replacement drive (IBM, Oracle, EMC) and a captive
-domestic market produced PolarDB Limitless (2,055M tpmC, a 2025 TPC-C
-world record), TDSQL, OceanBase, HarmonyOS, and openEuler --- sovereign
-stacks built deliberately, not accidentally.
+by policy: the IOE-replacement drive
+([]{#O1_IBM}[IBM](https://finance.yahoo.com/quote/IBM/),
+[]{#O1_ORACLE}[Oracle](https://finance.yahoo.com/quote/ORCL/),
+[]{#O1_EMC}[EMC](https://en.wikipedia.org/wiki/EMC_Corporation)) and a
+captive domestic market produced []{#T1_POLRDB}[PolarDB
+Limitless](https://github.com/ApsaraDB/PolarDB-for-PostgreSQL) (2,055M
+tpmC, a 2025 TPC-C world record),
+[]{#T1_TDSQL}[TDSQL](https://cloud.tencent.com/product/tdsql),
+[]{#T1_OCBASE}[OceanBase](https://github.com/oceanbase/oceanbase),
+[]{#T1_HARMOS}[HarmonyOS](https://www.openharmony.cn/), and
+[]{#T1_OPNEUR}[openEuler](https://openeuler.org/) --- sovereign stacks
+built deliberately, not accidentally.
 
 e\) **The floor, and the renter.** This essay abstracts foundational
-software as \"the floor\" --- the load-bearing layer (databases,
-operating systems, consensus systems, orchestrators) on which everything
-else stands. Every player above it is, fundamentally, a renter; and
-India as an industry is a renter.
+software as \"the floor\". I also theorize i) Owning the floor is a
+strategic asset ii) India has not focused on this iii) There are
+exceptions and recent signs are encouraging
 
-```{mermaid}
-flowchart TD
-    A["Interior — support, maintenance, integration<br/><b>INDIA PRESENT</b>"]:::present
-    B["Building — applications, SaaS products<br/><b>INDIA PRESENT</b>"]:::present
-    C["The Floor — databases, OS distros, consensus, orchestrators<br/><b>INDIA RENTS</b>"]:::rent
-    D["Plumbing — protocols, message queues, frameworks<br/><b>INDIA RENTS</b>"]:::rent
-    E["Raw Material — kernels, languages, compilers, runtimes<br/><b>INDIA RENTS</b>"]:::rent
-    A --- B --- C --- D --- E
-    classDef present fill:#e8f5ee,stroke:#008a6d,color:#008a6d
-    classDef rent fill:#fdecef,stroke:#c22f4e,color:#c22f4e
+```{r}
+library(pikchr)
+pikchr(r"(
+gap=1.5
+margin=.15
+#TP=Text Placement
+HouseKeepers: box "Interior — support, maintenance, integration" big  fit
+InOwns: text "India owns this" big color blue with .c at gap/4 above last box.ne
+arrow from last text.sw left until even with last box.n then down to last box.n dotted color blue
+AppGr:[
+right
+ERP: box "ERP"
+CRM: box "CRM"
+CBS: box "Core" "Banking"
+TRD: box "Trading" " Apps"
+EntApps: box "Other" "Apps"
+Oth: box "..." "..."
+] with .c at gap below HouseKeepers.c
+AppLabel: box at AppGr width AppGr.wid+2*margin height AppGr.height+2*margin
+TP1: line invis from margin west of last box.sw up last.ht "Renters" aligned big
+TP2: line invis from margin above last box.n right last.wid/2 "Applications" aligned big
+InOps: text "India operates primarily here" big color blue with .c at gap/2 above AppGr.w
+arrow color blue from .5 between last text.sw and last text.s down until even with last box.n then to last box.nw dotted
+MWFRGr:[
+right
+FRW: box "Framework"
+LIBS: box "Libraries"
+SDKS: box "SDKs""APIs"
+CLNT: box "Agents""Clients"
+PRT: box "Protocols""Formats""Standards"
+MW: box "MiddleWare"
+OthMW: box "Others" "....""....."
+] with .c at gap below AppGr.c
+MWLabel: box at MWFRGr width MWFRGr.wid+2*margin height MWFRGr.height+2*margin
+TP3: line invis from 2*margin west of last box.sw up last.ht "Plumbers" aligned big
+TP4: line invis from margin west of last box.sw up last.ht "& Fixtures" aligned big
+TP5: line invis from margin above last box.n right last.wid/2  "Frameworks | Libraries | Tools" aligned big
+InInnove: text "India has Marginal Presence here" big color blue with .c at gap/2 above MWFRGr.w
+arrow color blue from .5 between last text.sw and last text.s down until even with last box.n then to last box.nw dotted
+FnGr:[
+right
+OS: box "OS"
+DB: box "Database"
+Agr: box "Consensus""Leader Election" width 150%
+MQ: box "Message Queue""Buffers" width 150%
+Crypt: box "Secrets""Identity""Encryption"
+Store: box "Index""Retrieval"
+Oth: box "....""....""....."
+] with .c at gap below MWFRGr.c
+FnLabel: box at FnGr width FnGr.wid+2*margin height FnGr.height+2*margin
+TP6: line invis from margin west of last box.sw up last.ht "Floor Owners" aligned big
+TP7: line invis from margin above last box.n right last.wid/2  "Foundational Software" aligned big
+arrow right from AppLabel.e down until even with .5 between MWLabel.e and MWLabel.ne then left to .5 between MWLabel.e and MWLabel.ne
+TP8: line invis from margin east of last.se up last.ht "depends on" aligned 
+arrow right from .5 between MWLabel.e and MWLabel.se down until even with .5 between FnLabel.e and FnLabel.ne then left to .5 between FnLabel.e and FnLabel.ne
+TP9:line invis from margin east of last.se up last.ht "depends on" aligned 
+InFloor: text "Exceptions exist, but negligible, recent developments are encouraging" big color blue with .c at gap/2 above FnGr.w
+arrow color blue from .5 between last text.sw and last text.s down until even with last box.n then to last box.nw dotted
+)")
 ```
 
 f\) **The exceptions --- and how they were built.** India did produce
-builders, but look at *how* they built. When Ant --- a *user* of
-databases, drowning in Singles\' Day load --- could no longer rent, it
-built OceanBase from scratch: new storage engine, new consensus, new
-everything. YugabyteDB, a *software company* rather than a user, took
-the same problem and answered it by assembly: it kept what worked (the
+builders, but the approach is in contrast with how China has approached
+a similar situation of being a renter China: When [Ant Financial](#3.5)
+--- a *user* of Oracle database, faced a fundamental challenge it built
+OceanBase from scratch: new storage engine, new consensus, new
+everything over a 10-year horizon India: Business users building from
+scratch is rare. Recent developments at []{#O1_NPCI}[National Payments
+Corporation of India (NPCI)](https://www.npci.org.in/about-us) and
+consistent efforts at
+[]{#O1_ZERODH}[Zerodha](https://zerodha.com/about/) and
+[]{#O1_PHONPE}[PhonePe](https://www.phonepe.com/en/about.html) are
+noteworthy. [*Author\'s Judgement*]{.spurious-link target="D1_AJ"}
+India: [YugabyteDB](#3.7), a *software company* rather than a user, took
+a similar problem and answered it by assembly: it kept what worked (the
 PostgreSQL query engine, reused almost intact) and built only what was
-missing (DocDB, the distributed storage layer, plus Raft consensus).
-Zoho built a genuine floor but kept it proprietary. PhonePe\'s Drove is
-a real container orchestrator --- a Kubernetes/Mesos-class replacement
-built when Mesos failed PhonePe at scale. Kitty is an exceptional
-one-person terminal; Zerodha\'s kaf-relay and DungBeetle are production
-plumbing. Real work --- but exceptions, not an ecosystem.
+missing (DocDB, the distributed storage layer, plus Raft consensus). The
+Indian anti-pattern to my theory are i) [Zoho/AdventNet](#5.2.2) in its
+earlier avatar when it worked on SNMP ii) {{{O1~ZERODH~}}}\'s
+[]{#T1_KAFRLY}[kaf-relay](https://github.com/zerodha/kaf-relay) and
+[]{#T1_DUNGBT}[DungBeetle](https://github.com/zerodha/dungbeetle) iii)
+[PhonePe Drove](#6.7) --- the Mesos replacement and I like the
+documentation iv)
+[]{#T1_KITTY}[Kitty](https://github.com/kovidgoyal/kitty) --- I do not
+use it, but my []{#T1_WEZTRM}[WezTerm](https://github.com/wez/wezterm)
+terminal uses its protocols v)
+[]{#T1_MINIO}[MinIO](https://github.com/minio/minio) and its earlier
+version vi) []{#T1_ERPNXT}[ERPNext](https://github.com/frappe/erpnext) -
+the ERP that I use, and the []{#T1_FRAPPE}[Frappe
+Framework](https://github.com/frappe/frappe) that read about All real
+and fascinating work --- but exceptions, not an ecosystem.
 
 g\) **Why the exceptions never compound.** The traction of India\'s
 floor-builders is lost because policy and mindset support none of the
-five patterns by which foundational software gets built --- lone
-obsessive, mass community, institutional commission, specialist tool,
-and scale-problem-that-refuses-workarounds ([Section 6.2.3](#6.2.3)).
-India has no neutral custodian, no long-horizon funding, and no domestic
-forcing function to carry a builder from internal tool to global
-commons.
+five patterns by which foundational software gets built --- i) obsessive
+lone wolf or a pack ii) mass community driven iii) institutional
+commission with a vision and resources iv) specialist tools v) and
+scale-problem-that-refuses-workarounds [Section 6.2.3](#6.2.3) explores
+these patterns.
 
-h\) **Missed opportunities.** Government: C-DAC\'s PARAM supercomputers
-were exported to Germany, the UK and Russia in the 1990s, yet the stack
-was never open-sourced --- when PARAM was decommissioned the code went
-with it, leaving roughly zero presence in the Linux kernel. Private:
-Zoho/AdventNet is building its own OS (announced 2023) and built its own
-database and middleware, but kept the floor proprietary --- a moat, not
-a commons; India got a successful company, not a foundational ecosystem.
-Both failures are of governance and ecosystem support, not of talent.
+h\) **Missed opportunities.** i) Government: The 1990s
+[]{#O1_CDAC}[Centre for Development of Advanced Computing
+(C-DAC)](https://www.cdac.in/index.aspx?id=about) developed, supplied,
+and exported PARAM supercomputers. This involved proprietary primitives:
+a) Network Interconnects b) remote memory management c) parallel
+distributed filesystem and checkpoint-restart A successful product and
+ancillary solutions existed inside C-DAC. These were foundational work
+equivalent to e.g., a) [Huawei](#6.4.2)\'s
+`drivers/net/ethernet/hisilicon/`{.verbatim} and
+`drivers/crypto/hisilicon/`{.verbatim}, or b)
+[]{#O1_SANDIA}[Sandia](https://www.sandia.gov/about/) and
+[]{#O1_OAKRDG}[Oak Ridge](https://www.ornl.gov/) seeded
+`fs/lustre/`{.verbatim} c) the RDMA subsystem
+[]{#O1_MELLNX}[Mellanox](https://en.wikipedia.org/wiki/Mellanox_Technologies)/[]{#O1_NVIDIA}[NVIDIA](https://finance.yahoo.com/quote/NVDA/)
+now dominates. Technology changes affected C-DAC\'s evolution. We do
+believe the technology could have been selectively open sourced. We
+could have had some reference hardware.
+
+```{r}
+library(pikchr)
+pikchr(r"(
+leg=.2
+side=.1
+#Huawei
+down
+Huwei: box "Huawei:What is" wid 2 fit 
+HwL: text "linux" with .ne at last.s
+Top1: line 6*leg
+line right side from 1/6 between Top1.start and Top1.end "    drivers/net/ethernet/hisilicon/" ljust
+line right side from 2/6 between Top1.start and Top1.end "    drivers/crypto/hisilicon/" ljust
+down
+move to side east of last.end 
+move to side below last.end
+Top2:line 3*leg
+line right side from 1/3 between Top2.start and Top2.end "    sec2/" ljust
+line right side from 2/3 between Top2.start and Top2.end "    zip/" ljust
+line right side from 1 between Top2.start and Top2.end "    hpre/" ljust
+line right side from 1 between Top1.start and Top1.end "    arch/arm64/" ljust
+#Nvidia
+MLX:box "InfiniBand:What is" with .w at 8*side east of Huwei.e wid 2 fit 
+Nvid: text "linux" with .nw at last.sw
+down
+Top1: line 1*leg
+line right side from 1 between Top1.start and Top1.end "    drivers/infiniband/hw/" ljust
+down
+move to side east of last.end 
+move to side below last.end
+Top2:line 2*leg
+line right side from 1/2 between Top2.start and Top2.end "    mlx4/" ljust
+line right side from 1 between Top2.start and Top2.end "    mlx5/" ljust
+#CEPH
+CEPH: box "Phd Thesis" "@UC Santa Cruz" aligned with .n at 8*leg below  Huwei.s fit
+CEPHLbl: text "linux" with .ne at .5 between last.sw and last.s
+down
+Top1: line 1*leg
+line right side from 1 between Top1.start and Top1.end "    fs/ceph/" ljust
+
+#SunRPC
+SunRPC: box "Sun Microsystems" aligned with .n at 6*leg below  MLX.s fit 
+Sun: text "linux" with .n at last.s
+down
+Top1: line 1*leg
+line right side from 1 between Top1.start and Top1.end "    net/sunrpc/" ljust
+#LUSTRE
+LUSTRE: box "LUSTRE(LLNL /Oak Ridge)" aligned with .ne at 3*leg below  SunRPC.s fit
+LustLbl: text "linux" with .n at last.s
+down
+Top1: line 1*leg
+line right side from 1 between Top1.start and Top1.end "    fs/lustre/" ljust
+#CDAC 
+CDAC: box "CDAC: what could have been" with .w at 10*side east of MLX fit 
+CDACnix: text "linux" with .nw at last.sw
+down
+Top1: line 9*leg
+line right side from 1/9 between Top1.start and Top1.end "    drivers/net/cdac-mesh/" ljust
+move to side east of last.end
+move to side/2 below last.end
+Top2a:line down 3*leg
+line right side from 1/3 between Top2a.start and Top2a.end "    hw/" ljust
+line right side from 2/3 between Top2a.start and Top2a.end "    topology/" ljust
+line right side from 1 between Top2a.start and Top2a.end "    mpi/" ljust
+line right side from 5/9 between Top1.start and Top1.end "    fs/cdac-param/" ljust
+move to side east of last.end
+move to side/2 below last.end
+Top2b:line down 3*leg
+line right side from 1/3 between Top2b.start and Top2b.end "    mds/" ljust
+line right side from 2/3 between Top2b.start and Top2b.end "    osd/" ljust
+line right side from 1 between Top2b.start and Top2b.end "    client/" ljust
+line right side from 1 between Top1.start and Top1.end "    arch/transputer/" ljust
+move to side east of last.end
+move to side/2 below last.end
+Top2c:line down 3*leg
+line right side from 1/3 between Top2c.start and Top2c.end "    kernel/" ljust
+line right side from 2/3 between Top2c.start and Top2c.end "    mm/" ljust
+line right side from 1 between Top2c.start and Top2c.end "    boot/" ljust
+line down 15*leg from .7 between MLX.ne and CDAC.nw thick color red
+)")
+```
+
+ii\) Private: Zoho/AdventNet\'s stated position to build an OS has its
+roots in its []{#T1_SNMP}[Simple Network Management Protocol
+(SNMP)](https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol)/[]{#T1_WEBNMS}[WebNMS](https://www.webnms.com/)
+legacy. I see little effort in Zoho to build a community around its
+software. The [Ulaa
+browser](https://ulaabrowser.zohodesk.in/portal/en/community/ulaa)
+initiative --- with both open-source and proprietary closed branches ---
+would help adoption and ecosystem building. Zoho\'s strategy of being
+closed source and less community driven has definitely worked
+commercially. This strategic choice, however, does limit ecosystem
+formation.
+
+Both failures [*Author\'s Judgement*]{.spurious-link target="D1_AJ"} are
+of governance and ecosystem support, not of talent. My criteria for
+failure is \"Adoption of foundational software developed by an
+Organization\" , this is a qualitative call.
 
 i\) **Strategy versus Jugaad.** It is not that India never hit the wall.
-PhonePe hit it when Apache Mesos could no longer run its clusters, and
-built Drove to replace it. Zerodha hit it in its reporting layer and
-built DungBeetle. Startups hit it whenever PostgreSQL reaches its
-limits. The characteristic Indian answer is to assemble, extend, or rent
+
+i\) PhonePe hit it when []{#T1_AMESOS}[Apache
+Mesos](https://attic.apache.org/projects/mesos.html) (moved to Apache
+Attic, 2024) could no longer run its clusters, and built [Drove](#6.7)
+to replace it
+([]{#T1_DROVE}[github.com/PhonePe/drove-orchestrator](https://github.com/PhonePe/drove-orchestrator)).
+
+ii\) Zerodha hit it in its reporting layer and built DungBeetle.
+
+However the characteristic Indian answer is to assemble, extend, or rent
 --- recombine what already works --- rather than to build the floor from
 scratch. China\'s answer to the same class of wall was OceanBase: a
 from-scratch, sovereign build. Jugaad wins the quarter; ownership wins
 the decade.
 
-j\) **The protocol triumph --- and its limit.** UPI (\~500 million
-transactions a day, \~₹314 lakh crore a year, roughly half the world\'s
-real-time payments), Aadhaar (\~1.3 billion enrolled), ONDC and ABHA are
-genuine achievements of system-level thinking. But they are a protocol
-floor propped up by policy and mandate, not a technology floor: India
-defined the APIs, standards and identity layers while renting the
-databases, runtimes and message brokers beneath them.
+```{r}
+library(pikchr)
+pikchr(r"(
+Ask: diamond "Need" "capability?" fit
+arrow from Ask.e right movewid then down movewid/2 "Y"
+Avail_y: diamond "Build" "or" "Rent" fit
+arrow from Avail_y.w left to (Ask.x,Avail_y.y) then down movewid/2 "N"
+Cheaper: diamond "Cheaper" "to" "Build" fit
+Build: circle "Build" at Cheaper.e+(movewid,0)
+move down movewid/2
+Strategic: diamond color red "Need" "Longterm" "Strategic" "Independence" fit
+arrow color red from Cheaper.s down to (Cheaper.x,Strategic.y) then right to Strategic.w "N"
+arrow from Cheaper.e to Build.w "Y"
+Rent: circle with.n at (Cheaper.x, Strategic.s.y) "Rent"
+arrow dotted from Cheaper.s to Rent.n
+arrow from Strategic.e right movewid/2 then up (Build.y-Strategic.y) then left to Build.e color red "Y"
+arrow down (Strategic.s.y-Rent.y) from Strategic.s then left to Rent.e "N"
+line from Ask.w left movewid/2 "N"
+arrow from last.w then down (Ask.y - Rent.y) then right to Rent.w
+)")
+```
+
+The choice to be a renter or not is not just an economic decision. There
+is a \"Strategic Independence\" decision in the loop. The logical flow
+is not disturbed even if you ignore the red-bordered items of the
+Decision Algorithm. I do believe this has happened in the case of India
+and, combined with the \"The Collective Problem\" I theorize below, we
+are in a unique situation.
+
+> **The Collective Problem**
+>
+> When everyone follows the rational algorithm, the collective outcome
+> is capability atrophy.
+
+j\) **The protocol triumph --- and its limit.** []{#T1_UPI}[Unified
+Payments Interface
+(UPI)](https://www.npci.org.in/what-we-do/upi/product-overview) (\~500
+million transactions a day, \~₹314 lakh crore a year, roughly half the
+world\'s real-time payments),
+[]{#T1_AADHAR}[Aadhaar](https://uidai.gov.in/en/about-uidai/unique-identification-authority-of-india.html)
+(\~1.3 billion enrolled), []{#T1_ONDC}[Open Network for Digital Commerce
+(ONDC)](https://ondc.org/about-ondc/) and []{#T1_ABHA}[Ayushman Bharat
+Health Account (ABHA)](https://abdm.gov.in/abha) are genuine
+achievements of system-level thinking.
+
+The genesis is the excellent work of []{#O1_ISPIRT}[Indian Software
+Product Industry Round Table (iSPIRT)](https://ispirt.in/): 3 API layers
+(Identity, Payments, Data) or 4 evolutionary layers (Presence-less,
+Paperless, Cashless, Consent). Design and systems thinking overcame the
+legacy problems of the administrative setup. I hope that problem-solving
+approach compounds. Even though this is not foundational software work,
+it is thinking from scratch, bottom-up, not starting with a Jugaad
+jacket and force fitting.
+
+But they are a protocol floor propped up by policy and mandate, not a
+technology floor: India defined the APIs, standards and identity layers
+while renting the databases, runtimes and message brokers beneath them.
 
 k\) **The target.** We propose a Made-in-India stack with a falsifiable
 target: by 2030, at least one globally adopted foundational project
 originated and neutrally governed from India. The approach is
-institutional, not rhetorical --- (i) an Indian Open Source Foundation
-to hold IP in neutral custody; (ii) an upstream-first mandate making
-government-funded software (CDAC, CDOT) open by default; (iii)
-MSME-cluster tooling built with local polytechnics on 3--5-year
+institutional, not rhetorical: (i) an Indian Open Source Foundation to
+hold IP in neutral custody; (ii) an upstream-first mandate making
+government-funded software ([C-DAC](#6.4.4.3), []{#O1_CDOT}[Centre for
+Development of Telematics
+(C-DOT)](https://www.cdot.in/cdotweb/web/aboutUs.jsp)) open by default;
+(iii) MSME-cluster tooling built with local polytechnics on 3--5-year
 horizons; (iv) an Indian-language data corpus; and (v) one 20-year,
 government-commissioned foundational project --- a distributed,
 tamper-resistant land-records system, open from day one.
-
-# [DONE]{.done .DONE} 2. Notes and Assumptions {#2}
-
--   Sources: public data (company blogs, TPC-C, GitHub, iSPIRT,
-    Tigerfeathers, PDF attached in Ind~ChnOss002~).
-
--   AI used for structuring and initial search; claims manually
-    verified.
-
--   Each element is self-contained.
-
--   Tables/figures referenced by ID appear inline or in annexures.
-
--   Companion file links are placeholders.
-
--   Focus: foundational software (OS, DB, middleware, compilers), not
-    application-layer tools.
-
--   Indian DPI (UPI, ONDC, ABHA) treated as a parallel \"protocol
-    floor\", not as software engineering.
-
--   TPC-C rankings used as a proxy for systems engineering capability.
-
--   \"Renting\" metaphor assumes ownership of the floor provides
-    strategic advantage.
-
--   Comparison metrics include: market cap per employee, salary, revenue
-    breakdown (services vs products vs foundational), and innovation hub
-    data (R&D/GDP, patents, publications, talent flow).
-
--   Author judgements in figures are explicitly tagged as \[Author
-    judgement\].
 
 # [DONE]{.done .DONE} 3. Discovery Story --- How I Decided to Explore This Area {#3}
 
 ## [DONE]{.done .DONE} 3.1. The CBDC Question {#3.1}
 
-Early in RBI\'s CBDC pilot, while working on a CBDC (Central Bank
-Digital Currency) application, I ran into many issues and asked a
-hypothetical question:
-
-> \"If I were to design the app at this point from scratch what database
-> will I chose?\"
-
-A search for a database took me to the TPC-C benchmark results. What I
-found surprised me.
+My work in pilot phase of Indian Central Bank Digital Currency (CBDC)
+made me explore DBs that can be used. Oracle was the standard and
+startups were adopting
+[]{#T1_POSTGR}[PostgreSQL](https://www.postgresql.org/about/). I decided
+to do a literature scan and questioned \"What is the best Database to
+use for our CBDC app?\" . The result was surprising.
 
   System                       tpmC     Database            Date
   ---------------------------- -------- ------------------- ----------
@@ -185,40 +430,60 @@ found surprised me.
   : TPC-C Top Results (tpmC rounded to millions) {#Tab.TPC_Table}
 
 The complete list and other benchmarks are at
-[TPC-benchmarks](https://www.tpc.org/tpcc/results/tpcc_results5.asp?print=false&orderby=tpm&sortby=desc)
+[TPC-benchmarks](https://www.tpc.org/tpcc/results/tpcc_results5.asp?print=false&orderby=tpm&sortby=desc).
+Oracle, (our DB) was 5th at 30M tpmC and I did not find PostgreSQL or
+any other OSS.
 
-The top 4 results --- PolarDB Limitless (2,055M), TDSQL (815M),
-OceanBase #1 (707M), OceanBase #2 (61M) --- are all Chinese. Oracle, the
-industry standard I was using, sits at position 5 with 30M tpmC. No
-open-source database appears anywhere in the list.
+:::: note
+::: title
+Note
+:::
 
-Two observations:
-
--   These are system tests, not pure DB benchmarks. The #2 entry alone
-    is \"Tencent Database Dedicated Cluster (1650 Nodes)\" --- 1,650
-    servers.
--   PolarDB and OceanBase were names I had never encountered. This
-    raised an obvious question: what are we building in India?
+-   These are system tests, not pure DB benchmarks. So DBs are not
+    tested on stadardized hardware, the workload is standard.
+::::
 
 ## [DONE]{.done .DONE} 3.2. Realization: Chinese DBs Are Ruling TPC {#3.2}
 
-1.  TPC-C measures the **system** --- Hardware + OS + DB together. These
-    are not standalone database tests; they measure a vertically
-    integrated stack.
-2.  Alibaba\'s #1 result is a fully sovereign stack --- every component
-    self-developed:
+1.  Alibaba / Ant dominates the TPC. Enquiry into the systems used
+    revealed, its a sovereign stack; every component self-developed:
     -   DB: PolarDB for MySQL 8.0
+
+        ::: {.NOTE .drawer}
+        PolarDB is a drop-in replacement for MySQL 8.0 apps.
+        :::
+
     -   OS: Paladin (custom Linux)
-    -   CPU: Yitian 710 (5nm, 128 ARM cores)
+
+    -   CPU: []{#T1_YITIAN}[Yitian
+        710](https://en.wikipedia.org/wiki/Yitian_710) (5nm, 128 ARM
+        cores)
+
     -   Server: Panjiu
+
     -   Network: ICN Switch
-3.  Tencent\'s DB, OS, and cluster management are all self-developed.
-4.  Open source is the **foundation**, not the product. OceanBase is
-    open- sourced (Mulan PL); Paladin, Aliyun Linux, tlinux all derive
-    from community Linux. But the cluster orchestration, hardware
-    integration, and software-hardware co-design are proprietary. The
-    Chinese companies are **extending and controlling** open source to
-    build a sovereign floor.
+2.  Tencent\'s DB, OS, and cluster management are all self-developed.
+
+The playbook is similar to Western Enterprise Linux OS\'s vendors\'
+playbook. a) begin with opensource b) add features + do fundamental
+development with opensource as base c) develop community d) give most
+back + keep some This is happening at time when traditional western
+opensource vendors are taking opensource offline. So I see in China a
+general approach a) opensource is the **foundation**, not the product.
+
+-   OceanBase is opensourced (Mulan PL);
+-   Paladin, []{#T1_ANOLIS}[Aliyun Linux](https://openanolis.cn/),
+    []{#T1_TLINUX}[tlinux](https://github.com/Tencent/TencentOS-kernel)
+    all derive from community Linux.
+
+b\) the product is the add-ons
+
+-   cluster orchestration,
+-   hardware integration,
+-   and software-hardware co-design
+
+and are proprietary.The Chinese companies are **extending and
+controlling** open source to build a sovereign floor.
 
   System                      tpmC     Self-Developed Components
   --------------------------- -------- -----------------------------------------
@@ -258,8 +523,8 @@ Representative HammerDB TPROC-C on single-node AMD EPYC with NVMe:
 
 The gap is not software capability but the cost of submission --- a
 formal TPC-C audit runs to millions of dollars. Open-source databases
-perform reasonably; they simply do not publish rankings. \[Author
-judgement\]
+perform reasonably; they simply do not publish rankings. [*Author\'s
+Judgement*]{.spurious-link target="D1_AJ"}
 
 ## [DONE]{.done .DONE} 3.4. Who Made PolarDB? What Other DBs Have They Made? {#3.4}
 
@@ -395,10 +660,17 @@ open-sourced foundational infrastructure at a scale that has no Indian
 equivalent.
 
 -   Tencent's TDSQL and TBase distributed engine,
--   Alibaba's RocketMQ (now an Apache top-level project),
--   Huawei's openGauss (PostgreSQL-compatible, open-sourced in 2020),
--   ByteDance's ByteKV, and
--   PingCAP's TiDB---each emerged from internal necessity and eventually
+-   Alibaba's
+    []{#T1_RCKTMQ}[RocketMQ](https://github.com/apache/rocketmq) (now an
+    Apache top-level project),
+-   []{#O1_HUAWEI}[Huawei](https://www.huawei.com/en/corporate-information)'s
+    []{#T1_OPGAUS}[openGauss](https://github.com/opengauss-mirror/openGauss-server)
+    (PostgreSQL-compatible, open-sourced in 2020),
+-   []{#O1_BYTDNC}[ByteDance](https://www.bytedance.com/en/about)'s
+    ByteKV, and
+-   []{#O1_PINGCP}[PingCAP](https://www.pingcap.com/about/)'s
+    []{#T1_TIDB}[TiDB](https://github.com/pingcap/tidb)---each emerged
+    from internal necessity and eventually
 
 became public infrastructure.
 
@@ -412,12 +684,12 @@ These are not academic projects; they were hardened under production
 loads that dwarf most Western deployments.
 
 ::: aside
-[Gitee](https://gitee.com) --- China\'s domestic code forge --- is a
-story for [Section 6.4](#6.4). I loved the [learn-git-branching game on
-Gitee](https://help.gitee.com/learn-Git-Branching/) for its intuitive
-approach to branching. I am in the middle of another article on my
-experience playing it and learning the concepts behind git, fossil ,
-version control in general. Its striking that we do not even have an
+[]{#T1_GITEE}[Gitee](https://gitee.com) --- China\'s domestic code forge
+--- is a story for [Section 6.4](#6.4). I loved the [learn-git-branching
+game on Gitee](https://help.gitee.com/learn-Git-Branching/) for its
+intuitive approach to branching. I am in the middle of another article
+on my experience playing it and learning the concepts behind git, fossil
+, version control in general. Its striking that we do not even have an
 Indian code forge.
 :::
 
@@ -494,7 +766,7 @@ Even so, the NPCI switch routes 500M+ transactions daily; the
 concurrency at that layer is not trivial. I expected architectural
 cleverness at the switch --- something with a stated roadmap toward zero
 foreign-tech dependency. Looking deeper, one reference surfaced:
-YugabyteDB at NPCI.
+[]{#O1_YUGBYT}[YugabyteDB](https://www.yugabyte.com/about/) at NPCI.
 
 The closest reference found: Mindgate Solutions, UPI\'s largest Payment
 Service Provider (PSP), runs on YugabyteDB --- reported at 9 billion
@@ -573,10 +845,15 @@ same core insight --- leave the solved layer, attack the gap.
 :::
 
 The closest India has come to a database claim in this space is ShaktiDB
---- a PostgreSQL 17.4 fork from IITM Pravartak and C-DAC (Centre for
-Development of Advanced Computing), under MeitY (Ministry of Electronics
-and Information Technology) funding, released June 2025 (as announced to
-the author; no public repository yet). It adds RBI, Cert-In, and SEBI
+--- a PostgreSQL 17.4 fork from []{#O1_IITMPR}[IITM
+Pravartak](https://pravartak.org.in/about-us/) and C-DAC (Centre for
+Development of Advanced Computing), under
+[]{#O1_MEITY}[MeitY](https://www.meity.gov.in/about-us) (Ministry of
+Electronics and Information Technology) funding, released June 2025 (as
+announced to the author; no public repository yet). It adds
+[]{#O1_RBI}[RBI](https://www.rbi.org.in/Scripts/AboutusDisplay.aspx),
+[]{#O1_CERTIN}[Cert-In](https://www.cert-in.org.in/index.jsp), and
+[]{#O1_SEBI}[SEBI](https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=0&smid=0)
 compliance wrappers on top of community PostgreSQL. It is not a new
 storage engine or a new consensus layer. It is a hardened,
 compliance-configured fork, deployed by a systems integrator into
@@ -998,7 +1275,7 @@ missing layer.
 
 ```{ojs}
 //| label: fig-india-china-depth
-//| fig-cap: "Depth of foundational software projects in India vs. China across the stack. Scores are [Author judgement] based on project count, global adoption, and governance depth."
+//| fig-cap: "Depth of foundational software projects in India vs. China across the stack. Scores are {{{AJ}}} based on project count, global adoption, and governance depth."
 
 const data = [
   {country: "China", layer: "Raw Material", score: 4},
@@ -1256,7 +1533,8 @@ line of code. Their customers are in the United States and Europe. The
 domestic market was not large enough or willing enough to pay for Indian
 software products.
 
-East Asian product companies --- Tencent, Alibaba, Baidu (China);
+East Asian product companies --- Tencent, Alibaba,
+[]{#O1_BAIDU}[Baidu](https://finance.yahoo.com/quote/BIDU/) (China);
 Rakuten, Line (Japan); Naver, Kakao (Korea) --- were built for their
 domestic markets first. They expanded globally only after securing a
 captive home base.
@@ -1650,8 +1928,8 @@ more recurring patterns.
   Hadoop         Distributed compute; Yahoo!, Google GFS/MapReduce scale         Institutional commission + Scale problem
 
   : 15 Canonical Foundational Open-Source Projects --- author\'s
-  analysis of genesis conditions \[Author judgement\]
-  {#Tab.15_Canonical_Projects}
+  analysis of genesis conditions [*Author\'s Judgement*]{.spurious-link
+  target="D1_AJ"} {#Tab.15_Canonical_Projects}
 
 ### [DONE]{.done .DONE} 6.2.2. Analyze a Few {#6.2.2}
 
@@ -1681,11 +1959,12 @@ with a clear vision and the freedom to execute it.
 ::: story
 **PostgreSQL: Institutional + Community**
 
-In 1986, Michael Stonebraker at UC Berkeley received DARPA funding to
-build a database system that would extend the relational model beyond
-simple data types. The project was called POSTGRES. It introduced
-concepts like object-relational extensions, rule systems, and procedural
-languages.
+In 1986, Michael Stonebraker at []{#O1_UCBRKL}[UC
+Berkeley](https://www.berkeley.edu/about/) received
+[]{#O1_DARPA}[DARPA](https://www.darpa.mil/about) funding to build a
+database system that would extend the relational model beyond simple
+data types. The project was called POSTGRES. It introduced concepts like
+object-relational extensions, rule systems, and procedural languages.
 
 The research produced a working system, but the university did not
 commercialise it. The code was released to the community. A group of
@@ -1725,11 +2004,15 @@ present and which are absent.
 ::: story
 **Kubernetes and OceanBase: Institutional Commission**
 
-Kubernetes began as Google's internal cluster management system, Borg.
-Google had a scale problem: millions of containers, petabytes of data,
-and thousands of developers. No existing solution worked. Google built
-Borg, then open-sourced Kubernetes. The project was donated to the CNCF,
-a neutral foundation, ensuring global adoption.
+[]{#T1_KUBERN}[Kubernetes](https://github.com/kubernetes/kubernetes)
+began as
+[]{#O1_GOOGLE}[Google](https://finance.yahoo.com/quote/GOOGL/)'s
+internal cluster management system, Borg. Google had a scale problem:
+millions of containers, petabytes of data, and thousands of developers.
+No existing solution worked. Google built Borg, then open-sourced
+Kubernetes. The project was donated to the
+[]{#O1_CNCF}[CNCF](https://www.cncf.io/about/who-we-are/), a neutral
+foundation, ensuring global adoption.
 
 OceanBase began inside Alibaba in 2010; Ant Financial adopted it later.
 The Singles' Day load broke Oracle's vertical scaling limits. Ant built
@@ -1814,12 +2097,13 @@ China is building a complete, native-language computing ecosystem:
 
 **Secondary pointer: AtomGit as Evolution**
 
-AtomGit --- operated by the OpenAtom Foundation (state-backed, neutral
-governance) --- is the next layer: Code + Model + Compute as an
-integrated service. openEuler and Ascend are migrating there
-(OpenHarmony moved to GitCode in 2025). The foundation structure means
-no single company can shut it down or pivot it commercially. India has
-no equivalent institution.
+[]{#T1_ATOMGT}[AtomGit](https://atomgit.com/) --- operated by the
+[]{#O1_OPNATM}[OpenAtom Foundation](https://openatom.org/en/about)
+(state-backed, neutral governance) --- is the next layer: Code + Model +
+Compute as an integrated service. openEuler and Ascend are migrating
+there (OpenHarmony moved to GitCode in 2025). The foundation structure
+means no single company can shut it down or pivot it commercially. India
+has no equivalent institution.
 
 ::: story
 **Gitee: China's Domestic Forge**
@@ -1870,38 +2154,34 @@ liabilities in the next when the landlord changes the terms.
 ::: story
 **C-DAC and Huawei --- Same Era, Different Outcomes**
 
-```{r}
-library(pikchr)
-pikchr(r"(
-boxwid = 2.3
-boxht = 1.5
-
-// Column headers
-CDAC_H: box ht 0.5 fill lightcyan "C-DAC (India)"
-move right 0.2
-HW_H: box ht 0.5 fill lightcyan "Huawei (China)"
-
-// Row 1: 1990s
-CDAC_90: box at (CDAC_H.x, CDAC_H.s.y - 0.2 - 0.75) \
-  "PARAM supercomputer" "Exported: DE, UK, RU"
-HW_90: box at (HW_H.x, HW_H.s.y - 0.2 - 0.75) \
-  "PBX reseller" "No original R&D"
-
-// Time arrows
-arrow from CDAC_90.s to (CDAC_90.x, CDAC_90.s.y - 0.2)
-arrow from HW_90.s to (HW_90.x, HW_90.s.y - 0.2)
-
-// Row 2: 2024
-CDAC_24: box at (CDAC_H.x, CDAC_90.s.y - 0.2 - 0.75) \
-  "PARAM decommissioned" "Stack gone" "~0 kernel presence"
-HW_24: box at (HW_H.x, HW_90.s.y - 0.2 - 0.75) \
-  "Top-10 kernel contributor" "v5.10/2020: rank 1" "In every Linux machine"
-
-// Row labels
-"1990s" italic at (CDAC_H.w.x - 0.55, CDAC_90.y)
-"2024" italic at (CDAC_H.w.x - 0.55, CDAC_24.y)
-)")
-```
+<div style="max-width:600px;margin:1em auto;">
+<svg xmlns='http://www.w3.org/2000/svg' style='font-size:initial;' class="pikchr" viewBox="0 0 805.766 565.92">
+<path d="M112.406,74.16L443.606,74.16L443.606,2.16L112.406,2.16Z"  style="fill:rgb(224,255,255);stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="278.006" y="38.16" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">C-DAC (India)</text>
+<path d="M472.406,74.16L803.606,74.16L803.606,2.16L472.406,2.16Z"  style="fill:rgb(224,255,255);stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="638.006" y="38.16" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Huawei (China)</text>
+<path d="M112.406,318.96L443.606,318.96L443.606,102.96L112.406,102.96Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="278.006" y="200.88" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">PARAM supercomputer</text>
+<text x="278.006" y="221.04" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Exported: DE, UK, RU</text>
+<path d="M472.406,318.96L803.606,318.96L803.606,102.96L472.406,102.96Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="638.006" y="200.88" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">PBX reseller</text>
+<text x="638.006" y="221.04" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">No original R&amp;D</text>
+<polygon points="278.006,347.76 273.686,336.24 282.326,336.24" style="fill:rgb(0,0,0)"/>
+<path d="M278.006,318.96L278.006,342"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<polygon points="638.006,347.76 633.686,336.24 642.326,336.24" style="fill:rgb(0,0,0)"/>
+<path d="M638.006,318.96L638.006,342"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M112.406,563.76L443.606,563.76L443.606,347.76L112.406,347.76Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="278.006" y="435.6" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">PARAM decommissioned</text>
+<text x="278.006" y="455.76" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Stack gone</text>
+<text x="278.006" y="475.92" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">~0 kernel presence</text>
+<path d="M472.406,563.76L803.606,563.76L803.606,347.76L472.406,347.76Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="638.006" y="435.6" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Top-10 kernel contributor</text>
+<text x="638.006" y="455.76" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">v5.10/2020: rank 1</text>
+<text x="638.006" y="475.92" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">In every Linux machine</text>
+<text x="33.2064" y="210.96" text-anchor="middle" font-style="italic" fill="rgb(0,0,0)" dominant-baseline="central">1990s</text>
+<text x="33.2064" y="455.76" text-anchor="middle" font-style="italic" fill="rgb(0,0,0)" dominant-baseline="central">2024</text>
+</svg>
+</div>
 
 C-DAC had a working HPC stack when Huawei was reselling telephone
 switches. The stack was never open-sourced. When PARAM was
@@ -1962,8 +2242,9 @@ obsessive is exceptional, but it does not build an ecosystem.
     Several Indian-founded companies have built foundational-adjacent
     software and then re-domiciled to the US:
 
-    -   **Hasura**: GraphQL engine, founded in India, re-domiciled to
-        the US --- the one genuine re-domiciliation case.
+    -   **[]{#O1_HASURA}[Hasura](https://hasura.io/about/)**: GraphQL
+        engine, founded in India, re-domiciled to the US --- the one
+        genuine re-domiciliation case.
     -   **YugabyteDB**: Distributed SQL database, US-founded
         (Sunnyvale, 2016) by Indian-origin ex-Facebook engineers --- not
         a re-domiciliation.
@@ -2032,7 +2313,8 @@ China's success in foundational software stems from four factors:
     still be profitable.
 
 4.  **Neutral governance**. Key Chinese projects were donated to neutral
-    foundations --- RocketMQ to the Apache Software Foundation, and
+    foundations --- RocketMQ to the []{#O1_APACHE}[Apache Software
+    Foundation](https://www.apache.org/foundation/), and
     Kubernetes-style projects to CNCF --- providing global credibility
     and (OceanBase is MulanPubL-2.0 under the OpenAtom Foundation, not
     Apache) community adoption.
@@ -2122,9 +2404,9 @@ wall that forces a greenfield build. The wall must be found or created.
 ::: story
 **Zepto and the Upstream PR**
 
-The following is an illustrative account \[Author judgement\] --- no
-public Zepto engineering post or PostgreSQL commit confirms this
-specific PR.
+The following is an illustrative account [*Author\'s
+Judgement*]{.spurious-link target="D1_AJ"} --- no public Zepto
+engineering post or PostgreSQL commit confirms this specific PR.
 
 Zepto, a fast-growing quick-commerce startup in India, faced a database
 bottleneck. Their PostgreSQL setup was struggling with the volume of
@@ -2161,15 +2443,21 @@ different.
 
 **Malayalam Computing Story (Kerala):**
 
-Kerala\'s Malayalam computing work, driven by ICFOSS and SMC
-(Swathanthra Malayalam Computing), has focused on foundational language
-enablement:
+Kerala\'s Malayalam computing work, driven by
+[]{#O1_ICFOSS}[ICFOSS](https://icfoss.in/about/) and
+[]{#O1_SMC}[SMC](https://smc.org.in/en/about) (Swathanthra Malayalam
+Computing), has focused on foundational language enablement:
 
 -   Font development: Rachana, Meera, Manjari, Chilanka
--   Rendering engines: Harfbuzz and ICU integration
+-   Rendering engines:
+    []{#T1_HARFBZ}[Harfbuzz](https://github.com/harfbuzz/harfbuzz) and
+    []{#T1_ICU}[ICU](https://github.com/unicode-org/icu) integration
 -   Input methods: SMC input schemes
 -   Unicode compliance: Ensuring Malayalam text works across platforms
--   Porting FOSS applications (LibreOffice, Firefox) to Malayalam
+-   Porting FOSS applications
+    ([]{#T1_LIBROF}[LibreOffice](https://github.com/LibreOffice/core),
+    []{#T1_FIREFO}[Firefox](https://github.com/mozilla/gecko-dev)) to
+    Malayalam
 
 This work is foundational but narrow. It enables Malayalam to be typed,
 displayed, and printed. It does not build the full computing stack---
@@ -2191,12 +2479,13 @@ Implementation relies on foreign infrastructure (GitHub, HuggingFace).
 **Indian Language Data Challenge:**
 
 Global AI foundation models contain minimal Indian language data ---
-estimated below 1% across major releases. \[Author judgement\] Indian
-scripts have additional structural problems: GSUB/GPOS rendering
-inconsistency across OS environments, and tokeniser inefficiency (Indian
-languages require more tokens per word than English in most standard
-tokenisers). Sarvam AI is the primary Indian effort on both the model
-and tokeniser front.
+estimated below 1% across major releases. [*Author\'s
+Judgement*]{.spurious-link target="D1_AJ"} Indian scripts have
+additional structural problems: GSUB/GPOS rendering inconsistency across
+OS environments, and tokeniser inefficiency (Indian languages require
+more tokens per word than English in most standard tokenisers).
+[]{#O1_SARVAM}[Sarvam AI](https://www.sarvam.ai/about) is the primary
+Indian effort on both the model and tokeniser front.
 
 **A Vision (Secondary Pointer): DigiLocker as Data Repository**
 
@@ -2286,10 +2575,11 @@ starts: one polytechnic, one cluster, one problem.
 
 Some problems require a 20-year timeline and cannot be left to the
 market. DARPA funded TCP/IP. The US government funded the Human Genome
-Project. Germany's Sovereign Tech Fund pays open-source maintainers to
-keep critical infrastructure alive. These are not market failures ---
-they are problems the market will never solve because the returns are
-diffuse and the horizon is too long.
+Project. Germany's []{#O1_SOVTCH}[Sovereign Tech
+Fund](https://www.sovereigntechfund.de/en/about) pays open-source
+maintainers to keep critical infrastructure alive. These are not market
+failures --- they are problems the market will never solve because the
+returns are diffuse and the horizon is too long.
 
 India has one candidate problem that meets this bar: a distributed,
 tamper-resistant land records system. Land title disputes consume 66% of
@@ -2314,10 +2604,13 @@ Zoho is the clearest Indian proof that owning the plumbing compounds.
 
 AdventNet built WebNMS --- a proprietary network management framework
 --- in the late 1990s. That single foundational investment seeded
-ManageEngine, which today competes globally with ServiceNow and
-SolarWinds. When cloud vendors raised prices, Zoho was insulated because
-it ran its own infrastructure. When competitors depended on Salesforce
-for CRM, Zoho had built its own.
+ManageEngine, which today competes globally with
+[]{#O1_SVCNOW}[ServiceNow](https://finance.yahoo.com/quote/NOW/) and
+[]{#O1_SOLWND}[SolarWinds](https://finance.yahoo.com/quote/SWI/). When
+cloud vendors raised prices, Zoho was insulated because it ran its own
+infrastructure. When competitors depended on
+[]{#O1_SLSFRC}[Salesforce](https://finance.yahoo.com/quote/CRM/) for
+CRM, Zoho had built its own.
 
 Owning the plumbing is not about open source versus proprietary. It is
 about strategic depth. Each layer Zoho built internally became a moat
