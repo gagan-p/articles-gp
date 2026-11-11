@@ -47,10 +47,13 @@ jobs:
               -o "articles/${base}.qmd"
             sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|d2|dot|pic|ditaa)$/```{\1}/' \
               "articles/${base}.qmd"
+            # org TODO/DONE keywords: drop pandoc span markup, keep heading text
+            sed -i -E 's/\[(DONE|TODO)\]\{\.[a-z]+ \.[A-Z]+\} ?//' "articles/${base}.qmd"
             # pikchr: no Quarto extension; wrap as R chunk calling pikchr()
             awk '
               /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "#| echo: false"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
               inblk && /^```$/ { print ")---\")"; print "```"; inblk=0; next }
+              /^```\{ojs\}$/ { print; print "//| echo: false"; next }
               { print }
             ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
