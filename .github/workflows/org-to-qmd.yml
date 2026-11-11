@@ -53,7 +53,10 @@ jobs:
             awk '
               /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "#| echo: false"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
               inblk && /^```$/ { print ")---\")"; print "```"; inblk=0; next }
-              /^```\{ojs\}$/ { print; print "//| echo: false"; next }
+              /^```\{ojs\}$/ { print; print "//| echo: false"; inojs=1; next }
+              inojs && /^```$/ { inojs=0; print; next }
+              inojs && /^const / { sub(/^const /, ""); print; next }
+              inojs && /^[]}]$/ { print $0 ";"; next }
               { print }
             ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
