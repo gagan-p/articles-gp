@@ -216,8 +216,9 @@ target="china"}.
 //| echo: false
 //| label: fig-perhead
 //| fig-cap: "Market value per employee, US$ million, log scale, snapshot 2026-06-30. The separation between the three tiers is the point."
+{
 
-firms = [
+const firms = [
  {firm:"NVIDIA", perhead:110, kind:"Owns foundational software"},
  {firm:"Alphabet", perhead:25, kind:"Owns foundational software"},
  {firm:"Microsoft", perhead:14, kind:"Owns foundational software"},
@@ -232,7 +233,7 @@ firms = [
  {firm:"Cognizant", perhead:0.07, kind:"Sells services"}
 ].sort((a,b)=>b.perhead-a.perhead)
 
-Plot.plot({
+return Plot.plot({
   marginLeft: 110, marginRight: 40, height: 380,
   x: {type:"log", label:"US$ million market value per employee →", grid:true},
   y: {label:null, domain: firms.map(d=>d.firm)},
@@ -245,7 +246,7 @@ Plot.plot({
       dx:6, textAnchor:"start", fontSize:10})
   ]
 })
-```
+}
 
 Source: market capitalisations and headcounts.[^13]
 
@@ -519,15 +520,16 @@ floor.
 //| echo: false
 //| label: fig-tpcc
 //| fig-cap: "TPC-C world record, tpmC, log scale. Oracle's last standard-instance record, then two Chinese databases."
+{
 
-rec = [
+const rec = [
  {year:2010, tpmC:30.25e6, who:"Oracle (last standard-instance record)"},
  {year:2019, tpmC:60.88e6, who:"OceanBase"},
  {year:2020, tpmC:707e6, who:"OceanBase"},
  {year:2025, tpmC:2055e6, who:"Alibaba PolarDB"}
 ];
 
-Plot.plot({
+return Plot.plot({
   marginLeft: 60, marginRight: 130, height: 300,
   x: {label:null, tickFormat:"d"},
   y: {type:"log", label:"tpmC (log) →", grid:true},
@@ -537,7 +539,7 @@ Plot.plot({
     Plot.text(rec, {x:"year", y:"tpmC", text:d=>d.who, dx:8, textAnchor:"start", fontSize:10})
   ]
 })
-```
+}
 
 Source: published TPC results and the OceanBase VLDB paper.[^29][^30]
 

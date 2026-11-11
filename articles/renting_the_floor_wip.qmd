@@ -61,8 +61,7 @@ development and support.
       Plot.ruleX([0])
     ]
   })
-};
-```
+}
 
 c\) **Products built for export, not for home.** India\'s product and IP
 efforts ([]{#O1_ZOHO}[Zoho](https://www.zoho.com/aboutus.html),
@@ -557,7 +556,8 @@ world record in January 2025.
 //| echo: false
 //| label: fig-ant-db-lineage
 //| fig-cap: "Alibaba / Ant Group — Database evolution 2007–2025"
-ant_db = [
+{
+const ant_db = [
   {year: 2007, label: "Oracle (rented)", event: "Oracle dependency", hi: 1},
   {year: 2010, label: "OceanBase v1", event: "Self-built RDBMS", hi: -1},
   {year: 2014, label: "OceanBase v1.x", event: "Singles’ Day: Oracle-free", hi: 1},
@@ -567,7 +567,7 @@ ant_db = [
   {year: 2025, label: "PolarDB Limitless", event: "TPC-C record: 2,055M tpmC", hi: 1}
 ];
 
-Plot.plot({
+return Plot.plot({
   width: 680,
   height: 260,
   marginLeft: 20,
@@ -609,7 +609,7 @@ Plot.plot({
     })
   ]
 })
-```
+}
 
 ## 3.5. OceanBase Is Open-Sourced --- What Else Is Ant Building? {#3.5}
 
@@ -905,15 +905,16 @@ is why none of them produced a foundational output.
 //| echo: false
 //| label: fig-india-scale
 //| fig-cap: "India’s software industry at a glance: revenue, export share, employment, and global outsourcing dominance. These are input metrics; the essay asks why they do not translate into foundational output."
+{
 
-headline = [
+const headline = [
   {metric:"Revenue (US$ bn)", value:283, fmt:"$283bn"},
   {metric:"Export share", value:79, fmt:"~79%"},
   {metric:"Direct employment (mn)", value:5.80, fmt:"5.80mn"},
   {metric:"Global IT outsourcing share", value:55, fmt:"~55%"}
 ];
 
-Plot.plot({
+return Plot.plot({
   marginLeft: 220,
   marginRight: 80,
   height: 200,
@@ -929,7 +930,7 @@ Plot.plot({
     Plot.ruleX([0])
   ]
 })
-```
+}
 
 ## 4.2. Success Is at the Application and Application Support Layer {#4.2}
 
@@ -954,13 +955,14 @@ The floor is rented, and the wallpaper is sold.
 //| echo: false
 //| label: fig-india-revenue
 //| fig-cap: "India IT Revenue by Segment FY25 — NASSCOM; foundational share author estimate"
-rev = [
+{
+const rev = [
   {segment:"IT Services",           share:74, rev:"$210bn"},
   {segment:"Software Products",     share:20, rev:"$55bn"},
   {segment:"Engineering / R&D",     share:5,  rev:"$15bn"},
   {segment:"Foundational Software", share:1,  rev:"$3bn"}
 ];
-Plot.plot({
+return Plot.plot({
   width:680, height:200,
   marginLeft:180, marginRight:80, marginTop:30, marginBottom:40,
   x:{label:"Share of total IT revenue (%)", grid:true, domain:[0,80]},
@@ -981,13 +983,14 @@ Plot.plot({
     })
   ]
 })
-```
+}
 
 ```{ojs}
 //| echo: false
 //| label: fig-delivery-market
 //| fig-cap: "India: 55% of global IT outsourcing delivery, 5.5% of global IT market value — NASSCOM FY25"
-dvgap = [
+{
+const dvgap = [
   {
     layer:"IT outsourcing delivery",
     india:55, other:45,
@@ -1001,13 +1004,13 @@ dvgap = [
     note:"WHO CAPTURES THE VALUE"
   }
 ];
-dvflat = dvgap.flatMap(d => [
+const dvflat = dvgap.flatMap(d => [
   {layer:d.layer, party:"India",         value:d.india,
    label:d.indiaLabel, note:d.note},
   {layer:d.layer, party:"Rest of world", value:d.other,
    label:d.otherLabel, note:d.note}
 ])
-Plot.plot({
+return Plot.plot({
   width:600, height:160,
   marginLeft:200, marginRight:160, marginTop:30,
   x:{domain:[0,100], grid:true, label:"Share (%) →"},
@@ -1045,17 +1048,18 @@ Plot.plot({
     Plot.ruleX([0])
   ]
 })
-```
+}
 
 ```{ojs}
 //| echo: false
 //| label: fig-ip-gap
 //| fig-cap: "India's share of world exports: computer services 10.5% vs IP royalties 0.3% — IMF Balance of Payments SI2/SH"
-ipgap = [
+{
+const ipgap = [
   {layer:"Delivery", value:10.5, pct:100,  fmt:"10.5%  Computer services"},
   {layer:"Ownership", value:0.3,  pct:2.86, fmt:" 0.3%  IP & licensing"}
 ];
-Plot.plot({
+return Plot.plot({
   width:560, height:140,
   marginLeft:100, marginRight:200,
   x:{
@@ -1085,19 +1089,20 @@ Plot.plot({
     Plot.ruleX([0])
   ]
 })
-```
+}
 
 ```{ojs}
 //| echo: false
 //| label: fig-export-geo
 //| fig-cap: "India IT export revenue by destination — NASSCOM FY25"
-geo = [
+{
+const geo = [
   {region:"United States", share:50.3},
   {region:"Europe",        share:31.4},
   {region:"United Kingdom",share:15.5},
   {region:"Rest of world", share:2.8}
 ];
-Plot.plot({
+return Plot.plot({
   marginLeft:140, marginRight:80, height:160,
   x:{label:"export share (%) →", grid:true, domain:[0,60]},
   y:{label:null, domain:geo.map(d=>d.region)},
@@ -1112,7 +1117,7 @@ Plot.plot({
     Plot.ruleX([0])
   ]
 })
-```
+}
 
 ## 4.3. The Mental Model: Raw Material → Plumbing → Floor → Building → Interior {#4.3}
 
@@ -1288,8 +1293,9 @@ missing layer.
 //| echo: false
 //| label: fig-india-china-depth
 //| fig-cap: "Depth of foundational software projects in India vs. China across the stack. Scores are {{{AJ}}} based on project count, global adoption, and governance depth."
+{
 
-data = [
+const data = [
   {country: "China", layer: "Raw Material", score: 4},
   {country: "China", layer: "Plumbing", score: 3},
   {country: "China", layer: "Floor", score: 5},
@@ -1300,7 +1306,7 @@ data = [
   {country: "India", layer: "Building", score: 5}
 ];
 
-Plot.plot({
+return Plot.plot({
   width: 680,
   height: 220,
   marginLeft: 120,
@@ -1339,7 +1345,7 @@ Plot.plot({
     })
   ]
 })
-```
+}
 
   Layer          China (Representative)                                                          India (Representative)
   -------------- ------------------------------------------------------------------------------- ------------------------------------------
@@ -1466,7 +1472,8 @@ story is covered further in [Section 5.2.2](#5.2.2).
 //| echo: false
 //| label: fig-adventnet-timeline
 //| fig-cap: "AdventNet / Zoho — 1996 to 2026"
-zoho_tl = [
+{
+const zoho_tl = [
   {year:1996, label:"AdventNet founded", event:"New Jersey; 15 people", hi:1},
   {year:1997, label:"Java SNMP API 1.0", event:"Open-sourced", hi:-1},
   {year:2000, label:"WebNMS", event:"Open-source framework", hi:1},
@@ -1476,7 +1483,7 @@ zoho_tl = [
   {year:2023, label:"100M+ users", event:"Privately held", hi:-1},
   {year:2026, label:"Owns full stack", event:"Private, profitable", hi:1}
 ];
-Plot.plot({
+return Plot.plot({
   width:680, height:260,
   marginLeft:20, marginRight:20, marginTop:80, marginBottom:80,
   x:{label:"Year", tickFormat:"d",
@@ -1499,7 +1506,7 @@ Plot.plot({
       lineAnchor:d=>d.hi>0?"bottom":"top"})
   ]
 })
-```
+}
 
 AdventNet\'s early success came from selling network management
 frameworks. But frameworks are tools for builders; the real money is in
@@ -1797,8 +1804,9 @@ investment in deep technology.
 //| echo: false
 //| label: fig-innovation-hub
 //| fig-cap: "Innovation metrics: R&D intensity, patent output, and publication citations. India lags China across all dimensions."
+{
 
-innov = [
+const innov = [
   {country: "China", metric: "R&D/GDP (%)", value: 2.58},
   {country: "China", metric: "ICT Patents (per 1M pop)", value: 280},
   {country: "China", metric: "Publications (relative)", value: 3.2},
@@ -1810,7 +1818,7 @@ innov = [
   {country: "US", metric: "Publications (relative)", value: 3.5}
 ];
 
-Plot.plot({
+return Plot.plot({
   width: 680,
   height: 300,
   marginLeft: 120,
@@ -1836,7 +1844,7 @@ Plot.plot({
     }))
   ]
 })
-```
+}
 
   Country    R&D/GDP (%)   ICT Patents (per 1M pop)   Publications (relative)   Returnee Researchers (annual)
   ---------- ------------- -------------------------- ------------------------- -------------------------------
@@ -2687,7 +2695,8 @@ strategic assets. It does not, yet.
 //| echo: false
 //| label: fig-action-items
 //| fig-cap: "Falsifiable Action Items — India's Foundational Software Strategy"
-actions = [
+{
+const actions = [
   {label:"Indian OSS Foundation",  start:2026, end:2028, horizon:"Short"},
   {label:"CDAC/CDOT open-source",  start:2026, end:2027, horizon:"Short"},
   {label:"Upstream mandate",        start:2026, end:2028, horizon:"Short"},
@@ -2695,8 +2704,8 @@ actions = [
   {label:"Language corpus",         start:2026, end:2031, horizon:"Medium"},
   {label:"20-yr foundational",      start:2026, end:2046, horizon:"Long"}
 ];
-cmap = ({Short:"#2251ff", Medium:"#b07a10", Long:"#008a6d"})
-Plot.plot({
+const cmap = ({Short:"#2251ff", Medium:"#b07a10", Long:"#008a6d"})
+return Plot.plot({
   width:680, height:240,
   marginLeft:165, marginRight:20, marginTop:30, marginBottom:40,
   x:{label:"Year", tickFormat:"d", grid:true,
@@ -2725,7 +2734,7 @@ Plot.plot({
     })
   ]
 })
-```
+}
 
 # 8. Footnotes {#8}
 
