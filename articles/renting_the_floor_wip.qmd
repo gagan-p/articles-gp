@@ -13,6 +13,7 @@ title: Renting the Floor --- Governed TOC
 a\) **The paradox.**
 
 ```{r}
+#| echo: false
 library(pikchr)
 pikchr(r"---(
 Rev:box "Revenue Per Yr" "$283 bn" fit
@@ -96,6 +97,7 @@ strategic asset ii) India has not focused on this iii) There are
 exceptions and recent signs are encouraging
 
 ```{r}
+#| echo: false
 library(pikchr)
 pikchr(r"---(
 gap=1.5
@@ -214,6 +216,7 @@ believe the technology could have been selectively open sourced. We
 could have had some reference hardware.
 
 ```{r}
+#| echo: false
 library(pikchr)
 pikchr(r"---(
 leg=.2
@@ -328,6 +331,7 @@ from-scratch, sovereign build. Jugaad wins the quarter; ownership wins
 the decade.
 
 ```{r}
+#| echo: false
 library(pikchr)
 pikchr(r"---(
 Ask: diamond "Need" "capability?" fit
