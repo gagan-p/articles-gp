@@ -63,6 +63,10 @@ jobs:
             echo "Converted: $f -> articles/${base}.qmd (css: ${css_file})"
           done
 
+      - name: Debug pikchr output
+        run: |
+          grep -n -A2 pikchr articles/*.qmd || echo "no pikchr lines"
+
       - name: Commit converted qmd files
         run: |
           git config user.name "github-actions[bot]"
