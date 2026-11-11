@@ -24,13 +24,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y graphviz groff ditaa
 
-      - name: Install mermaid-cli, d2, pikchr
+      - name: Install mermaid-cli, d2
         run: |
           npm install -g @mermaid-js/mermaid-cli
           # d2: get latest version from API, then download
           D2_URL=$(curl -sL https://api.github.com/repos/d2lang/d2/releases/latest | grep '"browser_download_url"' | grep 'linux-amd64.tar.gz' | head -1 | cut -d'"' -f4)
           curl -sSL "$D2_URL" | tar -xz -C /usr/local/bin
-          curl -sSL https://pikchr.org/pikchr.c -o /tmp/pikchr.c && gcc -o /usr/local/bin/pikchr /tmp/pikchr.c
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
