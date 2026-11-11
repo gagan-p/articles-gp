@@ -74,7 +74,7 @@ jobs:
               /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "#| echo: false"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
               inblk && /^```$/ { print ")---\")"; print "```"; inblk=0; next }
               /^```\{ojs\}$/ { print; print "//| echo: false"; inojs=1; nb=0; next }
-              inojs && /^```$/ { inojs=0; wrap_ojs(); next }
+              inojs && /^```$/ { inojs=0; wrap_ojs(); print; next }
               inojs { body[++nb]=$0; next }
               { print }
             ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
