@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates curl git perl ghostscript \
       groff asymptote pikchr-cli graphviz ditaa gnuplot-nox plantuml \
-      default-jre-headless r-base r-base-dev librsvg2-dev \
+      default-jre-headless r-base r-base-dev librsvg2-dev libuv1-dev \
       python3 python3-venv \
  && ln -s /usr/bin/pikchr-cli /usr/local/bin/pikchr \
  && rm -rf /var/lib/apt/lists/*
