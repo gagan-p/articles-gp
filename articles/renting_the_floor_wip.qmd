@@ -1870,7 +1870,9 @@ liabilities in the next when the landlord changes the terms.
 ::: story
 **C-DAC and Huawei --- Same Era, Different Outcomes**
 
-```{pikchr}
+```{r}
+library(pikchr)
+pikchr(r"(
 boxwid = 2.3
 boxht = 1.5
 
@@ -1898,6 +1900,7 @@ HW_24: box at (HW_H.x, HW_90.s.y - 0.2 - 0.75) \
 // Row labels
 "1990s" italic at (CDAC_H.w.x - 0.55, CDAC_90.y)
 "2024" italic at (CDAC_H.w.x - 0.55, CDAC_24.y)
+)")
 ```
 
 C-DAC had a working HPC stack when Huawei was reselling telephone
