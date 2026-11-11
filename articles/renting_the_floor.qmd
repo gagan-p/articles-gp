@@ -525,7 +525,7 @@ rec = [
  {year:2019, tpmC:60.88e6, who:"OceanBase"},
  {year:2020, tpmC:707e6, who:"OceanBase"},
  {year:2025, tpmC:2055e6, who:"Alibaba PolarDB"}
-]
+];
 
 Plot.plot({
   marginLeft: 60, marginRight: 130, height: 300,

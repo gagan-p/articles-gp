@@ -61,7 +61,7 @@ development and support.
       Plot.ruleX([0])
     ]
   })
-}
+};
 ```
 
 c\) **Products built for export, not for home.** India\'s product and IP
@@ -565,7 +565,7 @@ ant_db = [
   {year: 2018, label: "PolarDB v1", event: "Cloud-native launch", hi: 1},
   {year: 2021, label: "OceanBase OSS", event: "Open-sourced (MulanPubL-2.0)", hi: -1},
   {year: 2025, label: "PolarDB Limitless", event: "TPC-C record: 2,055M tpmC", hi: 1}
-]
+];
 
 Plot.plot({
   width: 680,
@@ -906,12 +906,12 @@ is why none of them produced a foundational output.
 //| label: fig-india-scale
 //| fig-cap: "India’s software industry at a glance: revenue, export share, employment, and global outsourcing dominance. These are input metrics; the essay asks why they do not translate into foundational output."
 
-const headline = [
+headline = [
   {metric:"Revenue (US$ bn)", value:283, fmt:"$283bn"},
   {metric:"Export share", value:79, fmt:"~79%"},
   {metric:"Direct employment (mn)", value:5.80, fmt:"5.80mn"},
   {metric:"Global IT outsourcing share", value:55, fmt:"~55%"}
-]
+];
 
 Plot.plot({
   marginLeft: 220,
@@ -959,7 +959,7 @@ rev = [
   {segment:"Software Products",     share:20, rev:"$55bn"},
   {segment:"Engineering / R&D",     share:5,  rev:"$15bn"},
   {segment:"Foundational Software", share:1,  rev:"$3bn"}
-]
+];
 Plot.plot({
   width:680, height:200,
   marginLeft:180, marginRight:80, marginTop:30, marginBottom:40,
@@ -1000,7 +1000,7 @@ dvgap = [
     indiaLabel:"India 5.5%", otherLabel:"Rest of world 94.5%",
     note:"WHO CAPTURES THE VALUE"
   }
-]
+];
 dvflat = dvgap.flatMap(d => [
   {layer:d.layer, party:"India",         value:d.india,
    label:d.indiaLabel, note:d.note},
@@ -1054,7 +1054,7 @@ Plot.plot({
 ipgap = [
   {layer:"Delivery", value:10.5, pct:100,  fmt:"10.5%  Computer services"},
   {layer:"Ownership", value:0.3,  pct:2.86, fmt:" 0.3%  IP & licensing"}
-]
+];
 Plot.plot({
   width:560, height:140,
   marginLeft:100, marginRight:200,
@@ -1096,7 +1096,7 @@ geo = [
   {region:"Europe",        share:31.4},
   {region:"United Kingdom",share:15.5},
   {region:"Rest of world", share:2.8}
-]
+];
 Plot.plot({
   marginLeft:140, marginRight:80, height:160,
   x:{label:"export share (%) →", grid:true, domain:[0,60]},
@@ -1289,7 +1289,7 @@ missing layer.
 //| label: fig-india-china-depth
 //| fig-cap: "Depth of foundational software projects in India vs. China across the stack. Scores are {{{AJ}}} based on project count, global adoption, and governance depth."
 
-const data = [
+data = [
   {country: "China", layer: "Raw Material", score: 4},
   {country: "China", layer: "Plumbing", score: 3},
   {country: "China", layer: "Floor", score: 5},
@@ -1298,7 +1298,7 @@ const data = [
   {country: "India", layer: "Plumbing", score: 2},
   {country: "India", layer: "Floor", score: 1},
   {country: "India", layer: "Building", score: 5}
-]
+];
 
 Plot.plot({
   width: 680,
@@ -1475,7 +1475,7 @@ zoho_tl = [
   {year:2009, label:"Zoho Corporation", event:"Renamed from AdventNet", hi:1},
   {year:2023, label:"100M+ users", event:"Privately held", hi:-1},
   {year:2026, label:"Owns full stack", event:"Private, profitable", hi:1}
-]
+];
 Plot.plot({
   width:680, height:260,
   marginLeft:20, marginRight:20, marginTop:80, marginBottom:80,
@@ -1798,7 +1798,7 @@ investment in deep technology.
 //| label: fig-innovation-hub
 //| fig-cap: "Innovation metrics: R&D intensity, patent output, and publication citations. India lags China across all dimensions."
 
-const innov = [
+innov = [
   {country: "China", metric: "R&D/GDP (%)", value: 2.58},
   {country: "China", metric: "ICT Patents (per 1M pop)", value: 280},
   {country: "China", metric: "Publications (relative)", value: 3.2},
@@ -1808,7 +1808,7 @@ const innov = [
   {country: "US", metric: "R&D/GDP (%)", value: 3.45},
   {country: "US", metric: "ICT Patents (per 1M pop)", value: 320},
   {country: "US", metric: "Publications (relative)", value: 3.5}
-]
+];
 
 Plot.plot({
   width: 680,
@@ -2694,7 +2694,7 @@ actions = [
   {label:"MSME cluster tool",       start:2026, end:2031, horizon:"Medium"},
   {label:"Language corpus",         start:2026, end:2031, horizon:"Medium"},
   {label:"20-yr foundational",      start:2026, end:2046, horizon:"Long"}
-]
+];
 cmap = ({Short:"#2251ff", Medium:"#b07a10", Long:"#008a6d"})
 Plot.plot({
   width:680, height:240,
