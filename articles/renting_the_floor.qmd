@@ -213,6 +213,7 @@ target="china"}.
 ## Per Employee, India\'s Firms Own Almost Nothing {#perhead}
 
 ```{ojs}
+//| echo: false
 //| label: fig-perhead
 //| fig-cap: "Market value per employee, US$ million, log scale, snapshot 2026-06-30. The separation between the three tiers is the point."
 
@@ -515,6 +516,7 @@ floor.
 # China\'s Leap, Plainly {#leap}
 
 ```{ojs}
+//| echo: false
 //| label: fig-tpcc
 //| fig-cap: "TPC-C world record, tpmC, log scale. Oracle's last standard-instance record, then two Chinese databases."
 

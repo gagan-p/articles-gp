@@ -8,7 +8,7 @@ title: Renting the Floor --- Governed TOC
 ```{=org}
 #+STARTUP: overview
 ```
-# [TODO]{.todo .TODO} 1. Executive Summary {#1}
+# 1. Executive Summary {#1}
 
 a\) **The paradox.**
 
@@ -44,6 +44,7 @@ opportunistic commercial win built on the cost advantage of application
 development and support.
 
 ```{ojs}
+//| echo: false
 {
   const india = [
     {category:"Computer services (SI2)\napplication, IT, custom software", share:10.5, fmt:"10.5%"},
@@ -402,9 +403,9 @@ horizons; (iv) an Indian-language data corpus; and (v) one 20-year,
 government-commissioned foundational project --- a distributed,
 tamper-resistant land-records system, open from day one.
 
-# [DONE]{.done .DONE} 3. Discovery Story --- How I Decided to Explore This Area {#3}
+# 3. Discovery Story --- How I Decided to Explore This Area {#3}
 
-## [DONE]{.done .DONE} 3.1. The CBDC Question {#3.1}
+## 3.1. The CBDC Question {#3.1}
 
 My work in pilot phase of Indian Central Bank Digital Currency (CBDC)
 made me explore DBs that can be used. Oracle was the standard and
@@ -447,7 +448,7 @@ Note
     tested on stadardized hardware, the workload is standard.
 ::::
 
-## [DONE]{.done .DONE} 3.2. Realization: Chinese DBs Are Ruling TPC {#3.2}
+## 3.2. Realization: Chinese DBs Are Ruling TPC {#3.2}
 
 1.  Alibaba / Ant dominates the TPC. Enquiry into the systems used
     revealed, its a sovereign stack; every component self-developed:
@@ -501,7 +502,7 @@ controlling** open source to build a sovereign floor.
 **Source: TPC-C official results** [TPC-C
 Results](https://www.tpc.org/tpcc/results/tpcc_results5.asp?print=false&orderby=tpm&sortby=desc)
 
-## [DONE]{.done .DONE} 3.3. Wonder: Open-Source DBs Are Not There {#3.3}
+## 3.3. Wonder: Open-Source DBs Are Not There {#3.3}
 
 Open-source databases are absent because TPC-C submission is expensive:
 
@@ -530,7 +531,7 @@ formal TPC-C audit runs to millions of dollars. Open-source databases
 perform reasonably; they simply do not publish rankings. [*Author\'s
 Judgement*]{.spurious-link target="D1_AJ"}
 
-## [DONE]{.done .DONE} 3.4. Who Made PolarDB? What Other DBs Have They Made? {#3.4}
+## 3.4. Who Made PolarDB? What Other DBs Have They Made? {#3.4}
 
 Alibaba was a standard Oracle shop in 2007. Singles' Day (11.11) ---
 China's annual online shopping festival --- created a forcing function:
@@ -553,6 +554,7 @@ world record in January 2025.
 > --- a risk Ant can at least see coming, because they own the floor.
 
 ```{ojs}
+//| echo: false
 //| label: fig-ant-db-lineage
 //| fig-cap: "Alibaba / Ant Group — Database evolution 2007–2025"
 ant_db = [
@@ -609,7 +611,7 @@ Plot.plot({
 })
 ```
 
-## [DONE]{.done .DONE} 3.5. OceanBase Is Open-Sourced --- What Else Is Ant Building? {#3.5}
+## 3.5. OceanBase Is Open-Sourced --- What Else Is Ant Building? {#3.5}
 
 Ant's stack is deliberately multi-language: each layer uses the language
 whose properties match its requirements. None of these components were
@@ -656,7 +658,7 @@ Not open-sourced (the proprietary moat):
 -   Production GC tuning configs at Singles' Day scale
 -   Internal risk and fraud model weights
 
-## [DONE]{.done .DONE} 3.6. General Appreciation of Foundational Software Work in China {#3.6}
+## 3.6. General Appreciation of Foundational Software Work in China {#3.6}
 
 The databases and middleware from Ant are one visible slice of a much
 broader pattern. Across China, technology companies have built and
@@ -864,7 +866,7 @@ compliance-configured fork, deployed by a systems integrator into
 captive government demand. ShaktiDB is examined in [Section
 6.4.3](#6.4.3).
 
-## [DONE]{.done .DONE} 3.7. The Paradox {#3.7}
+## 3.7. The Paradox {#3.7}
 
 26.7 million developers. \$283bn in revenue. The second-largest
 developer base by headcount, behind the US. 5.2 million new developers a
@@ -890,9 +892,9 @@ flowchart TD
     classDef zero fill:#ffe8e8,stroke:#c22f4e,color:#c22f4e
 ```
 
-# [DONE]{.done .DONE} 4. What Type of Work Do We Do in India? {#4}
+# 4. What Type of Work Do We Do in India? {#4}
 
-## [DONE]{.done .DONE} 4.1. India's Software Story Is a Success {#4.1}
+## 4.1. India's Software Story Is a Success {#4.1}
 
 By every headline measure the Indian software industry is a success:
 US\$283bn revenue, 5.80mn employed, 55% of the world\'s outsourced IT
@@ -900,6 +902,7 @@ delivery. The chart records these inputs. The question this essay asks
 is why none of them produced a foundational output.
 
 ```{ojs}
+//| echo: false
 //| label: fig-india-scale
 //| fig-cap: "India’s software industry at a glance: revenue, export share, employment, and global outsourcing dominance. These are input metrics; the essay asks why they do not translate into foundational output."
 
@@ -928,7 +931,7 @@ Plot.plot({
 })
 ```
 
-## [DONE]{.done .DONE} 4.2. Success Is at the Application and Application Support Layer {#4.2}
+## 4.2. Success Is at the Application and Application Support Layer {#4.2}
 
 The layers India occupies --- application and application-support ---
 sit on top of others' runtimes, protocols, and databases. The dependency
@@ -948,6 +951,7 @@ compiler, or consensus engine that the rest of the world depends upon.
 The floor is rented, and the wallpaper is sold.
 
 ```{ojs}
+//| echo: false
 //| label: fig-india-revenue
 //| fig-cap: "India IT Revenue by Segment FY25 — NASSCOM; foundational share author estimate"
 rev = [
@@ -980,6 +984,7 @@ Plot.plot({
 ```
 
 ```{ojs}
+//| echo: false
 //| label: fig-delivery-market
 //| fig-cap: "India: 55% of global IT outsourcing delivery, 5.5% of global IT market value — NASSCOM FY25"
 dvgap = [
@@ -1043,6 +1048,7 @@ Plot.plot({
 ```
 
 ```{ojs}
+//| echo: false
 //| label: fig-ip-gap
 //| fig-cap: "India's share of world exports: computer services 10.5% vs IP royalties 0.3% — IMF Balance of Payments SI2/SH"
 ipgap = [
@@ -1082,6 +1088,7 @@ Plot.plot({
 ```
 
 ```{ojs}
+//| echo: false
 //| label: fig-export-geo
 //| fig-cap: "India IT export revenue by destination — NASSCOM FY25"
 geo = [
@@ -1107,7 +1114,7 @@ Plot.plot({
 })
 ```
 
-## [DONE]{.done .DONE} 4.3. The Mental Model: Raw Material → Plumbing → Floor → Building → Interior {#4.3}
+## 4.3. The Mental Model: Raw Material → Plumbing → Floor → Building → Interior {#4.3}
 
 To make the argument precise, it helps to have a shared picture of what
 software actually is. This essay uses a five-layer metaphor drawn from
@@ -1159,7 +1166,7 @@ flowchart TD
     classDef minimal fill:#fdf6f2,stroke:#b07a10,color:#b07a10
 ```
 
-## [DONE]{.done .DONE} 4.4. Hypothesis Refined: Based on Resource-Based View (RBV) {#4.4}
+## 4.4. Hypothesis Refined: Based on Resource-Based View (RBV) {#4.4}
 
 Jay Barney's Resource-Based View: competitive advantage accrues to
 assets that are Valuable, Rare, Inimitable and Non-substitutable (VRIN)
@@ -1186,7 +1193,7 @@ flowchart TD
     classDef floor fill:#fdecef,stroke:#c22f4e,color:#c22f4e
 ```
 
-## [DONE]{.done .DONE} 4.5. DPI: The Protocol & Mandate Floor (India's Parallel Path) {#4.5}
+## 4.5. DPI: The Protocol & Mandate Floor (India's Parallel Path) {#4.5}
 
 An honest objection first: India has built world-class digital
 infrastructure --- UPI (\~₹314 lakh crore a year (FY26, NPCI), \~48.5%
@@ -1249,9 +1256,9 @@ kind --- software engineering. Both are necessary for strategic
 autonomy. Owning the protocol without owning the engine is like owning
 the railway gauge but importing the locomotive.
 
-# [DONE]{.done .DONE} 5. The Comparison: Data and Evidence {#5}
+# 5. The Comparison: Data and Evidence {#5}
 
-## [DONE]{.done .DONE} 5.1. Compare at Each Layer --- What Tools Have Come from India? {#5.1}
+## 5.1. Compare at Each Layer --- What Tools Have Come from India? {#5.1}
 
 Using the mental model from [Section 4.3](#4.3), we can now compare
 India and China layer by layer. The comparison is not an indictment of
@@ -1278,6 +1285,7 @@ The gap is not a matter of a few missing projects. It is a matter of a
 missing layer.
 
 ```{ojs}
+//| echo: false
 //| label: fig-india-china-depth
 //| fig-cap: "Depth of foundational software projects in India vs. China across the stack. Scores are {{{AJ}}} based on project count, global adoption, and governance depth."
 
@@ -1371,9 +1379,9 @@ record (TPC-C, [Section 3](#3)) and the project inventories ([Section
 5.1](#5.1)), not on GitHub topic popularity. The table above is context,
 not evidence for an application-vs-systems gap.
 
-## [DONE]{.done .DONE} 5.2. Establish: There Is Not Much Foundational Software from India {#5.2}
+## 5.2. Establish: There Is Not Much Foundational Software from India {#5.2}
 
-### [DONE]{.done .DONE} 5.2.1. Dig Deeper --- Is It Really the Case? {#5.2.1}
+### 5.2.1. Dig Deeper --- Is It Really the Case? {#5.2.1}
 
 The comparison table has \"None\" in several India cells. India\'s
 foundational work is less visible --- not in TPC rankings, not in global
@@ -1426,7 +1434,7 @@ incorporated in the US to access funding and enterprise customers.
 \"Captive govt deploy\" means used by government entities but without
 broader market adoption.
 
-### [DONE]{.done .DONE} 5.2.2. The Exceptions --- Zoho/AdventNet Story {#5.2.2}
+### 5.2.2. The Exceptions --- Zoho/AdventNet Story {#5.2.2}
 
 Zoho, known today as a SaaS and enterprise software company, began as
 AdventNet in 1996. Founded in New Jersey, USA, by Sridhar Vembu and a
@@ -1455,6 +1463,7 @@ remained internal. The company grew, but the ecosystem did not. Zoho\'s
 story is covered further in [Section 5.2.2](#5.2.2).
 
 ```{ojs}
+//| echo: false
 //| label: fig-adventnet-timeline
 //| fig-cap: "AdventNet / Zoho — 1996 to 2026"
 zoho_tl = [
@@ -1522,7 +1531,7 @@ This pattern --- build open-source, pivot proprietary, keep the floor to
 oneself --- is not unique to Zoho. It is one of the shapes of Indian
 foundational work examined in [Section 6.4.3](#6.4.3).
 
-## [DONE]{.done .DONE} 5.3. What Indian Companies Are Actually Building? What Are Other Asian Economies Building? {#5.3}
+## 5.3. What Indian Companies Are Actually Building? What Are Other Asian Economies Building? {#5.3}
 
 India has produced several globally recognised software product
 companies: Zoho, Freshworks, Postman, and BrowserStack. They are
@@ -1578,9 +1587,9 @@ revenue from home markets, creating a forcing function for local
 infrastructure investment. Indian companies are export-first, with no
 captive domestic market to justify foundational investment.
 
-## [DONE]{.done .DONE} 5.4. Consumer Applications --- Messaging and Others {#5.4}
+## 5.4. Consumer Applications --- Messaging and Others {#5.4}
 
-### [DONE]{.done .DONE} 5.4.1. What Is Excluded, and Why {#5.4.1}
+### 5.4.1. What Is Excluded, and Why {#5.4.1}
 
 Firms that sell services rather than software are excluded --- their
 internal tools are cost-reduction assets, not products. OceanBase and
@@ -1602,9 +1611,9 @@ TDSQL originated inside excluded firms; that story is in [Section
   : Excluded Firms --- Service Providers, Not Software Product Companies
   {#Tab.Excluded_Firms}
 
-### [DONE]{.done .DONE} 5.4.2. The Theory: How Consumer Apps Become Successful {#5.4.2}
+### 5.4.2. The Theory: How Consumer Apps Become Successful {#5.4.2}
 
-1.  [DONE]{.done .DONE} 5.4.2.1. Consumer App Success Routes
+1.  5.4.2.1. Consumer App Success Routes
 
     Consumer applications can succeed via two broad routes. These routes
     have different structural consequences for foundational software.
@@ -1691,7 +1700,7 @@ TDSQL originated inside excluded firms; that story is in [Section
     they never owned it.
     :::
 
-2.  [DONE]{.done .DONE} 5.4.2.2. Map Applications
+2.  5.4.2.2. Map Applications
 
     Mapping applications provide a useful case study for the \"renting
     the floor\" thesis. Maps are infrastructure: they combine satellite
@@ -1749,7 +1758,7 @@ TDSQL originated inside excluded firms; that story is in [Section
     infrastructure, and application owned by a single entity. India has
     fragmented ownership with no single entity owning the full stack.
 
-## [DONE]{.done .DONE} 5.5. Innovation Hub Data (from the attached PDF) {#5.5}
+## 5.5. Innovation Hub Data (from the attached PDF) {#5.5}
 
 The layer comparison and product analyses in the preceding sections are
 qualitative. They show patterns but do not quantify the systemic
@@ -1785,6 +1794,7 @@ condition: a governance system that does not prioritise long-term
 investment in deep technology.
 
 ```{ojs}
+//| echo: false
 //| label: fig-innovation-hub
 //| fig-cap: "Innovation metrics: R&D intensity, patent output, and publication citations. India lags China across all dimensions."
 
@@ -1846,9 +1856,9 @@ lags China by 3--15× across all dimensions. The gap is largest in
 patents and returnee researchers --- the most commercial and
 talent-intensive metrics.
 
-# [DONE]{.done .DONE} 6. Why? {#6}
+# 6. Why? {#6}
 
-## [DONE]{.done .DONE} 6.1. The Forcing Condition --- The Wall {#6.1}
+## 6.1. The Forcing Condition --- The Wall {#6.1}
 
 Foundational software is not built for fun or for strategic planning
 documents. It is built when existing solutions fail in a way that cannot
@@ -1905,9 +1915,9 @@ graph TD
     style J fill:#6bcb77,stroke:#333
 ```
 
-## [DONE]{.done .DONE} 6.2. The Patterns: How Foundational Software Gets Built {#6.2}
+## 6.2. The Patterns: How Foundational Software Gets Built {#6.2}
 
-### [DONE]{.done .DONE} 6.2.1. List Important Open-Source Projects {#6.2.1}
+### 6.2.1. List Important Open-Source Projects {#6.2.1}
 
 To understand how foundational software gets built, we need a canonical
 list of projects that have succeeded. Each project demonstrates one or
@@ -1935,7 +1945,7 @@ more recurring patterns.
   analysis of genesis conditions [*Author\'s Judgement*]{.spurious-link
   target="D1_AJ"} {#Tab.15_Canonical_Projects}
 
-### [DONE]{.done .DONE} 6.2.2. Analyze a Few {#6.2.2}
+### 6.2.2. Analyze a Few {#6.2.2}
 
 ::: story
 **SQLite: The Lone Obsessive**
@@ -1985,7 +1995,7 @@ research project that outlived its funding by becoming a community
 asset.
 :::
 
-### [DONE]{.done .DONE} 6.2.3. Theorize: Five Recurring Patterns {#6.2.3}
+### 6.2.3. Theorize: Five Recurring Patterns {#6.2.3}
 
 From the canonical list, five recurring patterns emerge:
 
@@ -2003,7 +2013,7 @@ present and which are absent.
 
   : Five Floor~BuildingDevelopmentPatterns~ {#Tab.Five_Patterns_Table}
 
-### [DONE]{.done .DONE} 6.2.4. Story Box: Kubernetes & OceanBase --- The Institutional Commission {#6.2.4}
+### 6.2.4. Story Box: Kubernetes & OceanBase --- The Institutional Commission {#6.2.4}
 
 ::: story
 **Kubernetes and OceanBase: Institutional Commission**
@@ -2033,7 +2043,7 @@ built communities around them. The institutional commission pattern
 exists in India, but it stops at the internal-use stage.
 :::
 
-## [DONE]{.done .DONE} 6.3. Revisit India and China List --- Add the Five Patterns {#6.3}
+## 6.3. Revisit India and China List --- Add the Five Patterns {#6.3}
 
   Floor~BuildingDevelopmentPattern~   China (Projects)                                              India (Projects)               Why India Stalled
   ----------------------------------- ------------------------------------------------------------- ------------------------------ ----------------------------------------------------------
@@ -2046,7 +2056,7 @@ exists in India, but it stops at the internal-use stage.
   : Floor~BuildingDevelopmentPatterns~ --- India vs China
   {#Tab.India_China_Pattern_Mapping}
 
-## [DONE]{.done .DONE} 6.4. The Story of Gitee {#6.4}
+## 6.4. The Story of Gitee {#6.4}
 
 Gitee (码云) was launched in 2013 by OSChina.net --- China\'s existing
 open-source community and news portal. Not a lone-obsessive project: it
@@ -2131,7 +2141,7 @@ India has no Gitee. Indian developers host their projects on foreign
 platforms. The domestic software supply chain is rented.
 :::
 
-### [DONE]{.done .DONE} 6.4.1. Why Don't We Have an Indian Code Hosting Platform? {#6.4.1}
+### 6.4.1. Why Don't We Have an Indian Code Hosting Platform? {#6.4.1}
 
 India has no domestic Git forge. Why?
 
@@ -2148,7 +2158,7 @@ which poses risks for sovereignty and data security.
 The absence of a domestic forge is a governance failure, not a technical
 one.
 
-### [DONE]{.done .DONE} 6.4.2. Is This Because of the Hyped Jugaad Culture? {#6.4.2}
+### 6.4.2. Is This Because of the Hyped Jugaad Culture? {#6.4.2}
 
 India did not fail to build foundational software because of Jugaad. It
 did not build because it did not need to --- the floor was available to
@@ -2193,7 +2203,7 @@ decommissioned, the code went with it. Huawei's patches are permanent.
 Governance, not talent.
 :::
 
-### [DONE]{.done .DONE} 6.4.3. Explore Indian Exceptions --- The List from 5.2.1 {#6.4.3}
+### 6.4.3. Explore Indian Exceptions --- The List from 5.2.1 {#6.4.3}
 
 The list of Indian foundational-adjacent projects from [Section
 5.2.1](#5.2.1) is short but real. Each project is an exception to the
@@ -2239,9 +2249,9 @@ Kitty, not a hundred. The lone obsessive pattern works when the
 obsessive is exceptional, but it does not build an ecosystem.
 :::
 
-### [DONE]{.done .DONE} 6.4.4. Identify Problems with Adoption and Other Issues {#6.4.4}
+### 6.4.4. Identify Problems with Adoption and Other Issues {#6.4.4}
 
-1.  [DONE]{.done .DONE} 6.4.4.1. Re-domiciliation
+1.  6.4.4.1. Re-domiciliation
 
     Several Indian-founded companies have built foundational-adjacent
     software and then re-domiciled to the US:
@@ -2261,7 +2271,7 @@ obsessive is exceptional, but it does not build an ecosystem.
     the strategic asset left with it. See [Section 7.3](#7.3) for the
     governance fix.
 
-2.  [DONE]{.done .DONE} 6.4.4.2. Trapped: WebNMS, Drove, kaf-relay,
+2.  6.4.4.2. Trapped: WebNMS, Drove, kaf-relay,
     DungBeetle
 
     WebNMS is a proprietary network management framework built by
@@ -2284,7 +2294,7 @@ obsessive is exceptional, but it does not build an ecosystem.
     Code is released; governance, documentation, and outreach are not.
     Releasing code is not the same as building a community.
 
-3.  [DONE]{.done .DONE} 6.4.4.3. CDAC and CDOT Failure
+3.  6.4.4.3. CDAC and CDOT Failure
 
     Government institutions like CDAC and CDOT have built software---but
     much of it is either not open-source, or if it is, it has no
@@ -2301,7 +2311,7 @@ obsessive is exceptional, but it does not build an ecosystem.
     The institution-led pattern is stuck in the 1990s: build for
     government procurement, wait for adoption that never comes.
 
-## [DONE]{.done .DONE} 6.5. Why China Is Successful {#6.5}
+## 6.5. Why China Is Successful {#6.5}
 
 China's success in foundational software stems from four factors:
 
@@ -2325,7 +2335,7 @@ China's success in foundational software stems from four factors:
 
 India has none of these factors at sufficient scale.
 
-## [DONE]{.done .DONE} 6.6. Models in Other Countries {#6.6}
+## 6.6. Models in Other Countries {#6.6}
 
 Other countries have taken different paths to foundational software
 ownership. India could learn from all three below.
@@ -2342,7 +2352,7 @@ ownership. India could learn from all three below.
 
 **Note:** India\'s model is not a model---it is the absence of a model.
 
-## [DONE]{.done .DONE} 6.7. Story Box: PhonePe Drove {#6.7}
+## 6.7. Story Box: PhonePe Drove {#6.7}
 
 ::: story
 **PhonePe Drove: Foundational Work, External Silence**
@@ -2389,7 +2399,7 @@ India\'s companies are good at building code. They are not yet good at
 building communities.
 :::
 
-## [DONE]{.done .DONE} 6.8. Today: CDAC and IITM Database and OS Attempts {#6.8}
+## 6.8. Today: CDAC and IITM Database and OS Attempts {#6.8}
 
 Current efforts by CDAC and IITM to build databases and operating
 systems are largely wrappers on existing open-source. ShaktiDB is a
@@ -2438,7 +2448,7 @@ scratch. The initial cost was higher, but the long-term benefit was
 strategic ownership.
 :::
 
-## [DONE]{.done .DONE} 6.9. Indian Language Computing: Parallels and Possibilities {#6.9}
+## 6.9. Indian Language Computing: Parallels and Possibilities {#6.9}
 
 The Gitee story reveals a deeper strategic pattern: China is building a
 complete, native-language computing ecosystem. India has attempted
@@ -2526,9 +2536,9 @@ This is a pointer, not a proposal.
   : Language Ecosystems --- China vs India
   {#FigCode.Language_Ecosystem_Comparison}
 
-# [DONE]{.done .DONE} 7. Conclusion {#7}
+# 7. Conclusion {#7}
 
-## [DONE]{.done .DONE} 7.1. Our Innovation Ecosystem Is Not Working {#7.1}
+## 7.1. Our Innovation Ecosystem Is Not Working {#7.1}
 
 India\'s innovation system has three actors: government research
 institutes (CDAC, CDOT, CSIR), elite academic institutes (IITs, IISc),
@@ -2554,9 +2564,9 @@ tissue: a neutral institution that can hold IP, govern a community,
 absorb talent from all three actors, and maintain strategic patience
 across political cycles (developed in [Section 7.3](#7.3)).
 
-## [DONE]{.done .DONE} 7.2. Suggest: SME-Driven and Local Academic-Driven Goals {#7.2}
+## 7.2. Suggest: SME-Driven and Local Academic-Driven Goals {#7.2}
 
-### [DONE]{.done .DONE} 7.2.1. Case for SME Medium-Term {#7.2.1}
+### 7.2.1. Case for SME Medium-Term {#7.2.1}
 
 The forcing function does not have to be national. It can be local.
 
@@ -2575,7 +2585,7 @@ open-sourced, every similar cluster benefits.
 Not a database. Not an OS. But it is how the lone obsessive pattern
 starts: one polytechnic, one cluster, one problem.
 
-### [DONE]{.done .DONE} 7.2.2. Case for Government-Supported Very Long-Term {#7.2.2}
+### 7.2.2. Case for Government-Supported Very Long-Term {#7.2.2}
 
 Some problems require a 20-year timeline and cannot be left to the
 market. DARPA funded TCP/IP. The US government funded the Human Genome
@@ -2602,7 +2612,7 @@ The alternative is to continue renting foreign database vendors to store
 India's most politically sensitive data --- which is the current
 situation.
 
-## [DONE]{.done .DONE} 7.3. Go Back to Zoho's Case {#7.3}
+## 7.3. Go Back to Zoho's Case {#7.3}
 
 Zoho is the clearest Indian proof that owning the plumbing compounds.
 
@@ -2648,7 +2658,7 @@ this kind --- not a government body, not a company, but a genuine
 neutral foundation with legal standing, enterprise credibility, and a
 long-term mandate.
 
-## [DONE]{.done .DONE} 7.4. Establish: We Failed Not Because of Talent, But Because of Governance {#7.4}
+## 7.4. Establish: We Failed Not Because of Talent, But Because of Governance {#7.4}
 
 Neha Narkhede co-created Apache Kafka at LinkedIn. Vikram Adve
 co-created LLVM at UIUC. Indian engineers at Google, Meta, and Microsoft
@@ -2671,9 +2681,10 @@ The argument \"India has talent\" is true and irrelevant. The question
 is whether India has the institutions to translate that talent into
 strategic assets. It does not, yet.
 
-## [DONE]{.done .DONE} 7.5. Future Suggested Action Items {#7.5}
+## 7.5. Future Suggested Action Items {#7.5}
 
 ```{ojs}
+//| echo: false
 //| label: fig-action-items
 //| fig-cap: "Falsifiable Action Items — India's Foundational Software Strategy"
 actions = [
@@ -2716,7 +2727,7 @@ Plot.plot({
 })
 ```
 
-# [DONE]{.done .DONE} 8. Footnotes {#8}
+# 8. Footnotes {#8}
 
 ## TPC-C Rankings
 
@@ -2893,7 +2904,7 @@ using DAKSH data --- \~66% of civil cases involve land/property.
     [gitee.com](https://gitee.com). learn-git-branching mirror:
     [help.gitee.com/learn-Git-Branching](https://help.gitee.com/learn-Git-Branching/).
 
-# [TODO]{.todo .TODO} 9. Annexures (If Any) {#9}
+# 9. Annexures (If Any) {#9}
 
 > TODO: Add supplementary material.
 
