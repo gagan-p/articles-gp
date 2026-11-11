@@ -14,7 +14,7 @@ a\) **The paradox.**
 
 ```{r}
 library(pikchr)
-pikchr(r"(
+pikchr(r"---(
 Rev:box "Revenue Per Yr" "$283 bn" fit
 move
 Dev_Pool:box "Total Developers" "26.7 Mn" fit
@@ -34,7 +34,7 @@ arrow from Rev.s to (Rev.s.x, Qstn.w.y) then to Qstn.w
 arrow from Dev_Pool.s to (Dev_Pool.s.x, Qstn.w.y) then to Qstn.w
 arrow from New_Devs.s to (New_Devs.s.x, Qstn.e.y) then to Qstn.e
 arrow from Contri.s to (Contri.s.x, Qstn.e.y) then to Qstn.e
-)")
+)---")
 ```
 
 b\) **A success that is strategically misfocused.** The Indian software
@@ -97,7 +97,7 @@ exceptions and recent signs are encouraging
 
 ```{r}
 library(pikchr)
-pikchr(r"(
+pikchr(r"---(
 gap=1.5
 margin=.15
 #TP=Text Placement
@@ -153,7 +153,7 @@ arrow right from .5 between MWLabel.e and MWLabel.se down until even with .5 bet
 TP9:line invis from margin east of last.se up last.ht "depends on" aligned 
 InFloor: text "Exceptions exist, but negligible, recent developments are encouraging" big color blue with .c at gap/2 above FnGr.w
 arrow color blue from .5 between last text.sw and last text.s down until even with last box.n then to last box.nw dotted
-)")
+)---")
 ```
 
 f\) **The exceptions --- and how they were built.** India did produce
@@ -215,7 +215,7 @@ could have had some reference hardware.
 
 ```{r}
 library(pikchr)
-pikchr(r"(
+pikchr(r"---(
 leg=.2
 side=.1
 #Huawei
@@ -291,7 +291,7 @@ line right side from 1/3 between Top2c.start and Top2c.end "    kernel/" ljust
 line right side from 2/3 between Top2c.start and Top2c.end "    mm/" ljust
 line right side from 1 between Top2c.start and Top2c.end "    boot/" ljust
 line down 15*leg from .7 between MLX.ne and CDAC.nw thick color red
-)")
+)---")
 ```
 
 ii\) Private: Zoho/AdventNet\'s stated position to build an OS has its
@@ -329,7 +329,7 @@ the decade.
 
 ```{r}
 library(pikchr)
-pikchr(r"(
+pikchr(r"---(
 Ask: diamond "Need" "capability?" fit
 arrow from Ask.e right movewid then down movewid/2 "Y"
 Avail_y: diamond "Build" "or" "Rent" fit
@@ -346,7 +346,7 @@ arrow from Strategic.e right movewid/2 then up (Build.y-Strategic.y) then left t
 arrow down (Strategic.s.y-Rent.y) from Strategic.s then left to Rent.e "N"
 line from Ask.w left movewid/2 "N"
 arrow from last.w then down (Ask.y - Rent.y) then right to Rent.w
-)")
+)---")
 ```
 
 The choice to be a renter or not is not just an economic decision. There
