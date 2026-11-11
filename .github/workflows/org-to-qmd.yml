@@ -51,12 +51,31 @@ jobs:
             sed -i -E 's/\[(DONE|TODO)\]\{\.[a-z]+ \.[A-Z]+\} ?//' "articles/${base}.qmd"
             # pikchr: no Quarto extension; wrap as R chunk calling pikchr()
             awk '
+              function wrap_ojs(  i, l, first) {
+                for (i = 1; i <= nb; i++) if (body[i] ~ /^\/\/\|/) print body[i]
+                first = ""
+                for (i = 1; i <= nb && first == ""; i++)
+                  if (body[i] !~ /^\/\/\|/ && body[i] !~ /^[ \t]*$/) first = body[i]
+                if (first == "{") {
+                  for (i = 1; i <= nb; i++) if (body[i] !~ /^\/\/\|/) print body[i]
+                  return
+                }
+                print "{"
+                for (i = 1; i <= nb; i++) {
+                  l = body[i]
+                  if (l ~ /^\/\/\|/) continue
+                  if (l ~ /^[A-Za-z_][A-Za-z0-9_]* = /) l = "const " l
+                  else if (l ~ /^Plot\./) l = "return " l
+                  else if (l ~ /^\]$/) l = "];"
+                  print l
+                }
+                print "}"
+              }
               /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "#| echo: false"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
               inblk && /^```$/ { print ")---\")"; print "```"; inblk=0; next }
-              /^```\{ojs\}$/ { print; print "//| echo: false"; inojs=1; next }
-              inojs && /^```$/ { inojs=0; print; next }
-              inojs && /^const / { sub(/^const /, ""); print; next }
-              inojs && /^[]}]$/ { print $0 ";"; next }
+              /^```\{ojs\}$/ { print; print "//| echo: false"; inojs=1; nb=0; next }
+              inojs && /^```$/ { inojs=0; wrap_ojs(); next }
+              inojs { body[++nb]=$0; next }
               { print }
             ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
