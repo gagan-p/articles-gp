@@ -46,8 +46,14 @@ jobs:
               --to markdown+yaml_metadata_block \
               --standalone \
               -o "articles/${base}.qmd"
-            sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|pikchr|d2|dot|pic|ditaa)$/```{\1}/' \
+            sed -i -E 's/^``` ?(ojs|python|r|julia|mermaid|d2|dot|pic|ditaa)$/```{\1}/' \
               "articles/${base}.qmd"
+            # pikchr: no Quarto extension; wrap as R chunk calling pikchr()
+            awk '
+              /^```pikchr$/ { print "```{r}"; print "library(pikchr)"; print "pikchr(r\"("; inblk=1; next }
+              inblk && /^```$/ { print ")\")"; print "```"; inblk=0; next }
+              { print }
+            ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
             if [ -f "articles_original_org/${base}.css" ]; then
               cp "articles_original_org/${base}.css" "articles/${base}.css"
               css_file="${base}.css"
