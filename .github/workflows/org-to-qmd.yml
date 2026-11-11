@@ -49,7 +49,7 @@ jobs:
               "articles/${base}.qmd"
             # pikchr: no Quarto extension; wrap as R chunk calling pikchr()
             awk '
-              /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
+              /^``` \{.*\.pikchr\}$/ || /^```\{pikchr\}$/ { print "```{r}"; print "#| echo: false"; print "library(pikchr)"; print "pikchr(r\"---("; inblk=1; next }
               inblk && /^```$/ { print ")---\")"; print "```"; inblk=0; next }
               { print }
             ' "articles/${base}.qmd" > "articles/${base}.tmp" && mv "articles/${base}.tmp" "articles/${base}.qmd"
